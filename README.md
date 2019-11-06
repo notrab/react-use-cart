@@ -1,6 +1,6 @@
 # react-use-cart
 
-🛒 A lightweight cart React hook library.
+🛒 A lightweight cart React hook library. [Demo](https://codesandbox.io/s/react-use-cart-3c7vm)
 
 ## Quick Start
 
@@ -245,7 +245,7 @@ import { useCart } from 'react-use-cart'
 const { isEmpty } = useCart()
 ```
 
-### `item(itemId)`
+### `getItem(itemId)`
 
 Get a specific cart item by `id`.
 
