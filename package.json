@@ -1,6 +1,6 @@
 {
   "name": "react-use-cart",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "React hook library for managing cart state.",
   "author": "Jamie Barton <jamie@notrab.dev> (https://twitter.com/notrab)",
   "license": "MIT",
@@ -43,8 +43,5 @@
   },
   "peerDependencies": {
     "react": ">= 16.8.0"
-  },
-  "dependencies": {
-    "react-use-localstorage": "3.3.2"
   }
 }
