@@ -32,7 +32,7 @@ function Page() {
     <div>
       {products.map(p => (
         <div key={p.id}>
-          <button onClick={() => addItem(p, 1)}>Add to cart</button>
+          <button onClick={() => addItem(p)}>Add to cart</button>
         </div>
       ))}
     </div>
@@ -40,7 +40,13 @@ function Page() {
 }
 
 function Cart() {
-  const { isEmpty, totalUniqueItems, items, removeItem } = useCart()
+  const {
+    isEmpty,
+    totalUniqueItems,
+    items,
+    updateItemQuantity,
+    removeItem,
+  } = useCart()
 
   if (isEmpty) return <p>Your cart is empty</p>
 
@@ -52,6 +58,16 @@ function Cart() {
         {items.map(item => (
           <li key={item.id}>
             {item.quantity} x {item.name} &mdash;
+            <button
+              onClick={() => updateItemQuantity(item.id, item.quantity - 1)}
+            >
+              -
+            </button>
+            <button
+              onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
+            >
+              +
+            </button>
             <button onClick={() => removeItem(item.id)}>&times;</button>
           </li>
         ))}
@@ -76,9 +92,11 @@ function App() {
 yarn add react-use-cart
 ```
 
+## `CartProvider`
+
 You will need to wrap your application with the `CartProvider` component so that the `useCart` hook can access the cart state.
 
-## `CartProvider`
+Carts are persisted across visits using `localStorage`.
 
 #### Usage
 
