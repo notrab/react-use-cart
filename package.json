@@ -1,6 +1,6 @@
 {
   "name": "react-use-cart",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "React hook library for managing cart state.",
   "author": "Jamie Barton <jamie@notrab.dev> (https://twitter.com/notrab)",
   "license": "MIT",
