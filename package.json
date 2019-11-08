@@ -1,0 +1,44 @@
+{
+  "name": "react-use-cart",
+  "version": "0.0.0-semantic-release",
+  "description": "React hook library for managing cart state.",
+  "author": "Jamie Barton <jamie@notrab.dev> (https://twitter.com/notrab)",
+  "license": "MIT",
+  "main": "dist/react-use-cart.cjs.js",
+  "module": "dist/react-use-cart.es.js",
+  "repository": "notrab/react-use-cart",
+  "homepage": "https://github.com/notrab/react-use-cart",
+  "bugs": "https://github.com/notrab/react-use-cart/issues",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "react",
+    "commerce",
+    "cart",
+    "hooks"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "prepare": "yarn build",
+    "start": "rollup -c -w"
+  },
+  "devDependencies": {
+    "@babel/core": "7.6.4",
+    "@babel/plugin-transform-runtime": "7.6.2",
+    "@babel/preset-env": "7.6.3",
+    "@babel/preset-react": "7.6.3",
+    "@babel/runtime": "7.6.3",
+    "prettier": "1.18.2",
+    "react": "16.11.0",
+    "react-dom": "16.11.0",
+    "rollup": "1.26.3",
+    "rollup-plugin-babel": "4.3.3",
+    "rollup-plugin-commonjs": "10.1.0",
+    "rollup-plugin-node-resolve": "5.2.0",
+    "rollup-plugin-peer-deps-external": "2.2.0"
+  },
+  "peerDependencies": {
+    "react": ">= 16.8.0"
+  }
+}

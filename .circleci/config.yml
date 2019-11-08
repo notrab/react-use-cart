@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - react-use-cart-{{ checksum "package.json" }}
+            - react-use-cart-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: react-use-cart-{{ checksum "package.json" }}
+  release:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - react-use-cart-{{ checksum "package.json" }}
+      - run: npx semantic-release
+
+workflows:
+  version: 2
+  build_and_release:
+    jobs:
+      - build
+      - release:
+          filters:
+            branches:
+              only: master
+          requires:
+            - build
