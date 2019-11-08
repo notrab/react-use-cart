@@ -20,7 +20,6 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "prepare": "yarn build",
     "start": "rollup -c -w"
   },
   "devDependencies": {
