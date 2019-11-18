@@ -304,3 +304,15 @@ import { useCart } from 'react-use-cart'
 
 const { totalUniqueItems } = useCart()
 ```
+
+### `cartTotal`
+
+This method returns the total value of all items in the cart.
+
+#### Usage
+
+```js
+import { useCart } from 'react-use-cart'
+
+const { cartTotal } = useCart()
+```
