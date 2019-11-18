@@ -23,6 +23,7 @@ jobs:
       - restore_cache:
           keys:
             - react-use-cart-{{ checksum "package.json" }}
+      - run: yarn build
       - run: npx semantic-release
 
 workflows:
