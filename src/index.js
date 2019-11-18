@@ -85,6 +85,15 @@ export function CartProvider({ children, id, defaultItems = [] }) {
 
   const totalUniqueItems = useMemo(() => state.items.length, [state.items])
 
+  const cartTotal = useMemo(
+    () =>
+      state.items.reduce(
+        (total, item) => total + item.quantity * item.price,
+        0
+      ),
+    [state.items]
+  )
+
   const isEmpty = useMemo(() => totalUniqueItems === 0, [totalUniqueItems])
 
   const addItem = (item, quantity = 1) => {
@@ -147,6 +156,7 @@ export function CartProvider({ children, id, defaultItems = [] }) {
         isEmpty,
         totalItems,
         totalUniqueItems,
+        cartTotal,
         items: state.items,
         getItem,
         inCart,
