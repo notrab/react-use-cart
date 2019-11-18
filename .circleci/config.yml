@@ -10,6 +10,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
+            - dist
           key: react-use-cart-{{ checksum "package.json" }}
   release:
     docker:
@@ -19,7 +20,6 @@ jobs:
       - restore_cache:
           keys:
             - react-use-cart-{{ checksum "package.json" }}
-      - run: yarn build
       - run: npx semantic-release
 
 workflows:
