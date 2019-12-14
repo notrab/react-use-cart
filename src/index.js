@@ -13,6 +13,7 @@ const initialState = {
   items: [],
   totalItems: 0,
   totalUniqueItems: 0,
+  isEmpty: true,
 }
 
 export const useCart = () => useContext(CartContext)
