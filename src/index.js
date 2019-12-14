@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useReducer,
-  useEffect,
-  useMemo,
-} from 'react'
+import React, { createContext, useContext, useReducer, useEffect } from 'react'
 
 import useLocalStorage from './useLocalStorage'
 
@@ -25,30 +19,30 @@ export const useCart = () => useContext(CartContext)
 
 function reducer(state, action) {
   switch (action.type) {
-    case ADD_ITEM:
-      return {
-        ...state,
-        items: [...state.items, action.payload],
-      }
+    case ADD_ITEM: {
+      const items = [...state.items, action.payload]
 
-    case UPDATE_ITEM:
-      return {
-        ...state,
-        items: state.items.map(item => {
-          if (item.id !== action.id) return item
+      return generateCartState(state, items)
+    }
 
-          return {
-            ...item,
-            ...action.payload,
-          }
-        }),
-      }
+    case UPDATE_ITEM: {
+      const items = state.items.map(item => {
+        if (item.id !== action.id) return item
 
-    case REMOVE_ITEM:
-      return {
-        ...state,
-        items: state.items.filter(i => i.id !== action.id),
-      }
+        return {
+          ...item,
+          ...action.payload,
+        }
+      })
+
+      return generateCartState(state, items)
+    }
+
+    case REMOVE_ITEM: {
+      const items = state.items.filter(i => i.id !== action.id)
+
+      return generateCartState(state, items)
+    }
 
     case EMPTY_CART:
       return initialState
@@ -58,7 +52,36 @@ function reducer(state, action) {
   }
 }
 
-export function CartProvider({ children, id, defaultItems = [] }) {
+const generateCartState = (state, items) => {
+  const totalUniqueItems = calculateUniqueItems(items)
+  const isEmpty = totalUniqueItems === 0
+
+  return {
+    ...state,
+    items,
+    totalItems: calculateTotalItems(items),
+    totalUniqueItems,
+    cartTotal: calculateCartTotal(items),
+    isEmpty,
+  }
+}
+
+const calculateCartTotal = items =>
+  items.reduce((total, item) => total + item.quantity * item.price, 0)
+
+const calculateTotalItems = items =>
+  items.reduce((sum, item) => sum + item.quantity, 0)
+
+const calculateUniqueItems = items => items.length
+
+export function CartProvider({
+  children,
+  id,
+  defaultItems = [],
+  onItemAdd,
+  onItemUpdate,
+  onItemRemove,
+}) {
   if (!id) {
     throw new Error('You must set an `id` when mounting the CartProvider')
   }
@@ -78,24 +101,6 @@ export function CartProvider({ children, id, defaultItems = [] }) {
     saveCart(JSON.stringify(state))
   }, [state, saveCart])
 
-  const totalItems = useMemo(
-    () => state.items.reduce((sum, item) => sum + item.quantity, 0),
-    [state.items]
-  )
-
-  const totalUniqueItems = useMemo(() => state.items.length, [state.items])
-
-  const cartTotal = useMemo(
-    () =>
-      state.items.reduce(
-        (total, item) => total + item.quantity * item.price,
-        0
-      ),
-    [state.items]
-  )
-
-  const isEmpty = useMemo(() => totalUniqueItems === 0, [totalUniqueItems])
-
   const addItem = (item, quantity = 1) => {
     if (quantity <= 0) return
     if (!item.id) throw new Error('You must provide an `id` for items')
@@ -108,14 +113,15 @@ export function CartProvider({ children, id, defaultItems = [] }) {
     if (!currentItem)
       return dispatch({ type: ADD_ITEM, payload: { ...item, quantity } })
 
+    const payload = { ...item, quantity: currentItem.quantity + quantity }
+
     dispatch({
       type: UPDATE_ITEM,
       id: item.id,
-      payload: {
-        ...item,
-        quantity: currentItem.quantity + quantity,
-      },
+      payload,
     })
+
+    onItemAdd && onItemAdd(payload)
   }
 
   const updateItem = (id, payload) =>
@@ -128,17 +134,22 @@ export function CartProvider({ children, id, defaultItems = [] }) {
 
     if (!currentItem) throw new Error('No such item to update')
 
+    const payload = { ...currentItem, quantity }
+
     dispatch({
       type: UPDATE_ITEM,
       id,
-      payload: {
-        ...currentItem,
-        quantity,
-      },
+      payload,
     })
+
+    onItemUpdate && onItemUpdate(payload)
   }
 
-  const removeItem = id => dispatch({ type: REMOVE_ITEM, id })
+  const removeItem = id => {
+    dispatch({ type: REMOVE_ITEM, id })
+
+    onItemRemove && onItemRemove(id)
+  }
 
   const emptyCart = () =>
     dispatch({
@@ -152,12 +163,7 @@ export function CartProvider({ children, id, defaultItems = [] }) {
   return (
     <CartContext.Provider
       value={{
-        id,
-        isEmpty,
-        totalItems,
-        totalUniqueItems,
-        cartTotal,
-        items: state.items,
+        ...state,
         getItem,
         inCart,
         addItem,
