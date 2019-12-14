@@ -113,7 +113,10 @@ ReactDOM.render(
 
 #### Props
 
-- `id` (**Required**): The id for your cart
+- `id` (**Required**): The `id` for your cart
+- `onItemAdd`: Triggered on items added to your cart
+- `onItemUpdate`: Triggered on items updated in your cart
+- `onItemRemove`: Triggered on items removed from your cart
 
 ## `useCart`
 
