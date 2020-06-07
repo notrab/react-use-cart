@@ -27,7 +27,7 @@ function reducer(state, action) {
     }
 
     case UPDATE_ITEM: {
-      const items = state.items.map(item => {
+      const items = state.items.map((item) => {
         if (item.id !== action.id) return item
 
         return {
@@ -40,7 +40,7 @@ function reducer(state, action) {
     }
 
     case REMOVE_ITEM: {
-      const items = state.items.filter(i => i.id !== action.id)
+      const items = state.items.filter((i) => i.id !== action.id)
 
       return generateCartState(state, items)
     }
@@ -67,13 +67,13 @@ const generateCartState = (state, items) => {
   }
 }
 
-const calculateCartTotal = items =>
+const calculateCartTotal = (items) =>
   items.reduce((total, item) => total + item.quantity * item.price, 0)
 
-const calculateTotalItems = items =>
+const calculateTotalItems = (items) =>
   items.reduce((sum, item) => sum + item.quantity, 0)
 
-const calculateUniqueItems = items => items.length
+const calculateUniqueItems = (items) => items.length
 
 export function CartProvider({
   children,
@@ -106,15 +106,16 @@ export function CartProvider({
     if (quantity <= 0) return
     if (!item.id) throw new Error('You must provide an `id` for items')
 
-    const currentItem = state.items.find(i => i.id === item.id)
+    const currentItem = state.items.find((i) => i.id === item.id)
 
     if (!currentItem & !item.price)
       throw new Error('You must pass a `price` for new items')
 
-    if (!currentItem)
-      const payload = { ...item,  quantity }
+    if (!currentItem) {
+      const payload = { ...item, quantity }
       onItemAdd && onItemAdd(payload)
       return dispatch({ type: ADD_ITEM, payload })
+    }
 
     const payload = { ...item, quantity: currentItem.quantity + quantity }
 
@@ -133,7 +134,7 @@ export function CartProvider({
   const updateItemQuantity = (id, quantity) => {
     if (quantity <= 0) return dispatch({ type: REMOVE_ITEM, id })
 
-    const currentItem = state.items.find(item => item.id === id)
+    const currentItem = state.items.find((item) => item.id === id)
 
     if (!currentItem) throw new Error('No such item to update')
 
@@ -148,7 +149,7 @@ export function CartProvider({
     onItemUpdate && onItemUpdate(payload)
   }
 
-  const removeItem = id => {
+  const removeItem = (id) => {
     dispatch({ type: REMOVE_ITEM, id })
 
     onItemRemove && onItemRemove(id)
@@ -159,9 +160,9 @@ export function CartProvider({
       type: EMPTY_CART,
     })
 
-  const getItem = id => state.items.find(i => i.id === id)
+  const getItem = (id) => state.items.find((i) => i.id === id)
 
-  const inCart = id => state.items.some(i => i.id === id)
+  const inCart = (id) => state.items.some((i) => i.id === id)
 
   return (
     <CartContext.Provider
