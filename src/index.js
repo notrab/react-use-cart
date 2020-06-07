@@ -112,7 +112,9 @@ export function CartProvider({
       throw new Error('You must pass a `price` for new items')
 
     if (!currentItem)
-      return dispatch({ type: ADD_ITEM, payload: { ...item, quantity } })
+      const payload = { ...item,  quantity }
+      onItemAdd && onItemAdd(payload)
+      return dispatch({ type: ADD_ITEM, payload })
 
     const payload = { ...item, quantity: currentItem.quantity + quantity }
 
