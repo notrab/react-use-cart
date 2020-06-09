@@ -63,13 +63,19 @@ const generateCartState = (state, items) => {
 
   return {
     ...state,
-    items,
+    items: calculateItemTotals(items),
     totalItems: calculateTotalItems(items),
     totalUniqueItems,
     cartTotal: calculateCartTotal(items),
     isEmpty,
   };
 };
+
+const calculateItemTotals = (items) =>
+  items.map((item) => ({
+    itemTotal: item.price * item.quantity,
+    ...item,
+  }));
 
 const calculateCartTotal = (items) =>
   items.reduce((total, item) => total + item.quantity * item.price, 0);
