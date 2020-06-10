@@ -5,38 +5,38 @@
 ## Quick Start
 
 ```js
-import { CartProvider, useCart } from 'react-use-cart'
+import { CartProvider, useCart } from "react-use-cart";
 
 function Page() {
-  const { addItem } = useCart()
+  const { addItem } = useCart();
 
   const products = [
     {
       id: 1,
-      name: 'Malm',
+      name: "Malm",
       price: 9900,
     },
     {
       id: 2,
-      name: 'Nordli',
+      name: "Nordli",
       price: 16500,
     },
     {
       id: 3,
-      name: 'Kullen',
+      name: "Kullen",
       price: 4500,
     },
-  ]
+  ];
 
   return (
     <div>
-      {products.map(p => (
+      {products.map((p) => (
         <div key={p.id}>
           <button onClick={() => addItem(p)}>Add to cart</button>
         </div>
       ))}
     </div>
-  )
+  );
 }
 
 function Cart() {
@@ -46,16 +46,16 @@ function Cart() {
     items,
     updateItemQuantity,
     removeItem,
-  } = useCart()
+  } = useCart();
 
-  if (isEmpty) return <p>Your cart is empty</p>
+  if (isEmpty) return <p>Your cart is empty</p>;
 
   return (
     <>
       <h1>Cart ({totalUniqueItems})</h1>
 
       <ul>
-        {items.map(item => (
+        {items.map((item) => (
           <li key={item.id}>
             {item.quantity} x {item.name} &mdash;
             <button
@@ -73,7 +73,7 @@ function Cart() {
         ))}
       </ul>
     </>
-  )
+  );
 }
 
 function App() {
@@ -82,7 +82,7 @@ function App() {
       <Page />
       <Cart />
     </CartProvider>
-  )
+  );
 }
 ```
 
@@ -101,19 +101,20 @@ Carts are persisted across visits using `localStorage`.
 #### Usage
 
 ```js
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { CartProvider } from 'react-use-cart'
+import React from "react";
+import ReactDOM from "react-dom";
+import { CartProvider } from "react-use-cart";
 
 ReactDOM.render(
   <CartProvider>{/* render app/cart here */}</CartProvider>,
-  document.getElementById('root')
-)
+  document.getElementById("root")
+);
 ```
 
 #### Props
 
 - `id` (**Required**): The `id` for your cart
+- `onSetItems`: Triggered only when `setItems` invoked
 - `onItemAdd`: Triggered on items added to your cart
 - `onItemUpdate`: Triggered on items updated in your cart
 - `onItemRemove`: Triggered on items removed from your cart
@@ -121,6 +122,47 @@ ReactDOM.render(
 ## `useCart`
 
 The `useCart` hook exposes all the getter/setters for your cart state.
+
+### `setItems(items)`
+
+The `setItems` method should be used to set all items in the cart. This will overwrite any existing cart items.
+
+#### Args
+
+- `items[]` (**Required**): An array of cart item object. You must provide an `id` and `price` value for new items that you add to cart.
+
+#### Usage
+
+```js
+import { useCart } from 'react-use-cart'
+
+const { setItems } = useCart()
+
+const products = [
+  {
+    id: 'ckb64v21u000001ksgw2s42ku',
+    name: 'Fresh Foam 1080v9',
+    brand: 'New Balance',
+    color: 'Neon Emerald with Dark Neptune'
+    size: 'US 10',
+    width: 'B - Standard',
+    sku: 'W1080LN9',
+    price: 15000
+  },
+  {
+    id: 'cjld2cjxh0000qzrmn831i7rn',
+    name: 'Fresh Foam 1080v9',
+    brand: 'New Balance',
+    color: 'Neon Emerald with Dark Neptune'
+    size: 'US 9',
+    width: 'B - Standard',
+    sku: 'W1080LN9',
+    price: 15000
+  }
+]
+
+setItems(products, 2)
+```
 
 ### `addItem(item, quantity)`
 
@@ -164,13 +206,13 @@ The `updateItem` method should be used to update items in the cart.
 #### Usage
 
 ```js
-import { useCart } from 'react-use-cart'
+import { useCart } from "react-use-cart";
 
-const { updateItem } = useCart()
+const { updateItem } = useCart();
 
-updateItem('cjld2cjxh0000qzrmn831i7rn', {
-  size: 'UK 10',
-})
+updateItem("cjld2cjxh0000qzrmn831i7rn", {
+  size: "UK 10",
+});
 ```
 
 ### `updateItemQuantity(itemId, quantity)`
@@ -185,11 +227,11 @@ The `updateItemQuantity` method should be used to update an items `quantity` val
 #### Usage
 
 ```js
-import { useCart } from 'react-use-cart'
+import { useCart } from "react-use-cart";
 
-const { updateItemQuantity } = useCart()
+const { updateItemQuantity } = useCart();
 
-updateItemQuantity('cjld2cjxh0000qzrmn831i7rn', 1)
+updateItemQuantity("cjld2cjxh0000qzrmn831i7rn", 1);
 ```
 
 ### `removeItem(itemId)`
@@ -203,11 +245,11 @@ The `removeItem` method should be used to remove an item from the cart.
 #### Usage
 
 ```js
-import { useCart } from 'react-use-cart'
+import { useCart } from "react-use-cart";
 
-const { removeItem } = useCart()
+const { removeItem } = useCart();
 
-removeItem('cjld2cjxh0000qzrmn831i7rn')
+removeItem("cjld2cjxh0000qzrmn831i7rn");
 ```
 
 ### `emptyCart()`
@@ -217,11 +259,11 @@ The `emptyCart()` method should be used to remove all cart items, and resetting 
 #### Usage
 
 ```js
-import { useCart } from 'react-use-cart'
+import { useCart } from "react-use-cart";
 
-const { emptyCart } = useCart()
+const { emptyCart } = useCart();
 
-emptyCart()
+emptyCart();
 ```
 
 ### `items`
@@ -231,9 +273,9 @@ This will return the current cart items.
 #### Usage
 
 ```js
-import { useCart } from 'react-use-cart'
+import { useCart } from "react-use-cart";
 
-const { items } = useCart()
+const { items } = useCart();
 ```
 
 ### `isEmpty`
@@ -243,9 +285,9 @@ A quick and easy way to check if the cart is empty.
 #### Usage
 
 ```js
-import { useCart } from 'react-use-cart'
+import { useCart } from "react-use-cart";
 
-const { isEmpty } = useCart()
+const { isEmpty } = useCart();
 ```
 
 ### `getItem(itemId)`
@@ -259,11 +301,11 @@ Get a specific cart item by `id`.
 #### Usage
 
 ```js
-import { useCart } from 'react-use-cart'
+import { useCart } from "react-use-cart";
 
-const { item } = useCart()
+const { item } = useCart();
 
-const myItem = item('cjld2cjxh0000qzrmn831i7rn')
+const myItem = item("cjld2cjxh0000qzrmn831i7rn");
 ```
 
 ### `inCart(itemId)`
@@ -277,11 +319,11 @@ Quickly check if an item is in the cart.
 #### Usage
 
 ```js
-import { useCart } from 'react-use-cart'
+import { useCart } from "react-use-cart";
 
-const { inCart } = useCart()
+const { inCart } = useCart();
 
-inCart('cjld2cjxh0000qzrmn831i7rn') ? 'In cart' : 'Not in cart'
+inCart("cjld2cjxh0000qzrmn831i7rn") ? "In cart" : "Not in cart";
 ```
 
 ### `totalItems`
@@ -291,9 +333,9 @@ This method returns the totaly quantity of items in the cart.
 #### Usage
 
 ```js
-import { useCart } from 'react-use-cart'
+import { useCart } from "react-use-cart";
 
-const { totalItems } = useCart()
+const { totalItems } = useCart();
 ```
 
 ### `totalUniqueItems`
@@ -303,9 +345,9 @@ This method returns the total unique items in the cart.
 #### Usage
 
 ```js
-import { useCart } from 'react-use-cart'
+import { useCart } from "react-use-cart";
 
-const { totalUniqueItems } = useCart()
+const { totalUniqueItems } = useCart();
 ```
 
 ### `cartTotal`
@@ -315,7 +357,7 @@ This method returns the total value of all items in the cart.
 #### Usage
 
 ```js
-import { useCart } from 'react-use-cart'
+import { useCart } from "react-use-cart";
 
-const { cartTotal } = useCart()
+const { cartTotal } = useCart();
 ```
