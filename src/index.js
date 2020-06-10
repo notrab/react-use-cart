@@ -145,14 +145,17 @@ export function CartProvider({
       payload,
     });
 
-    onItemAdd && onItemAdd(payload);
+    onItemUpdate && onItemUpdate(payload);
   };
 
   const updateItem = (id, payload) =>
     dispatch({ type: UPDATE_ITEM, id, payload });
 
   const updateItemQuantity = (id, quantity) => {
-    if (quantity <= 0) return dispatch({ type: REMOVE_ITEM, id });
+    if (quantity <= 0) {
+      onItemRemove && onItemRemove(id)
+      return dispatch({ type: REMOVE_ITEM, id })
+    }
 
     const currentItem = state.items.find((item) => item.id === id);
 
