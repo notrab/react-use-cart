@@ -134,34 +134,34 @@ The `setItems` method should be used to set all items in the cart. This will ove
 #### Usage
 
 ```js
-import { useCart } from 'react-use-cart'
+import { useCart } from "react-use-cart";
 
-const { setItems } = useCart()
+const { setItems } = useCart();
 
 const products = [
   {
-    id: 'ckb64v21u000001ksgw2s42ku',
-    name: 'Fresh Foam 1080v9',
-    brand: 'New Balance',
-    color: 'Neon Emerald with Dark Neptune'
-    size: 'US 10',
-    width: 'B - Standard',
-    sku: 'W1080LN9',
-    price: 15000
+    id: "ckb64v21u000001ksgw2s42ku",
+    name: "Fresh Foam 1080v9",
+    brand: "New Balance",
+    color: "Neon Emerald with Dark Neptune",
+    size: "US 10",
+    width: "B - Standard",
+    sku: "W1080LN9",
+    price: 15000,
   },
   {
-    id: 'cjld2cjxh0000qzrmn831i7rn',
-    name: 'Fresh Foam 1080v9',
-    brand: 'New Balance',
-    color: 'Neon Emerald with Dark Neptune'
-    size: 'US 9',
-    width: 'B - Standard',
-    sku: 'W1080LN9',
-    price: 15000
-  }
-]
+    id: "cjld2cjxh0000qzrmn831i7rn",
+    name: "Fresh Foam 1080v9",
+    brand: "New Balance",
+    color: "Neon Emerald with Dark Neptune",
+    size: "US 9",
+    width: "B - Standard",
+    sku: "W1080LN9",
+    price: 15000,
+  },
+];
 
-setItems(products, 2)
+setItems(products, 2);
 ```
 
 ### `addItem(item, quantity)`
@@ -176,22 +176,22 @@ The `addItem` method should be used to add items to the cart.
 #### Usage
 
 ```js
-import { useCart } from 'react-use-cart'
+import { useCart } from "react-use-cart";
 
-const { addItem } = useCart()
+const { addItem } = useCart();
 
 const product = {
-  id: 'cjld2cjxh0000qzrmn831i7rn',
-  name: 'Fresh Foam 1080v9',
-  brand: 'New Balance',
-  color: 'Neon Emerald with Dark Neptune'
-  size: 'US 9',
-  width: 'B - Standard',
-  sku: 'W1080LN9',
-  price: 15000
-}
+  id: "cjld2cjxh0000qzrmn831i7rn",
+  name: "Fresh Foam 1080v9",
+  brand: "New Balance",
+  color: "Neon Emerald with Dark Neptune",
+  size: "US 9",
+  width: "B - Standard",
+  sku: "W1080LN9",
+  price: 15000,
+};
 
-addItem(product, 2)
+addItem(product, 2);
 ```
 
 ### `updateItem(itemId, data)`
