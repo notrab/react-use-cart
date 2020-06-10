@@ -303,9 +303,9 @@ Get a specific cart item by `id`.
 ```js
 import { useCart } from "react-use-cart";
 
-const { item } = useCart();
+const { getItem } = useCart();
 
-const myItem = item("cjld2cjxh0000qzrmn831i7rn");
+const myItem = getItem("cjld2cjxh0000qzrmn831i7rn");
 ```
 
 ### `inCart(itemId)`
