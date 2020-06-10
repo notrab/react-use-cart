@@ -115,8 +115,8 @@ ReactDOM.render(
 
 - `id` (**Required**): The `id` for your cart
 - `onSetItems`: Triggered only when `setItems` invoked
-- `onItemAdd`: Triggered on items added to your cart
-- `onItemUpdate`: Triggered on items updated in your cart
+- `onItemAdd`: Triggered on items added to your cart, unless the item already exists, then `onItemUpdate` will be invoked
+- `onItemUpdate`: Triggered on items updated in your cart, unless you are setting the quantity to `0`, then `onItemRemove` will be invoked
 - `onItemRemove`: Triggered on items removed from your cart
 
 ## `useCart`
