@@ -115,8 +115,8 @@ ReactDOM.render(
 
 - `id` (**Required**): The `id` for your cart
 - `onSetItems`: Triggered only when `setItems` invoked
-- `onItemAdd`: Triggered on items added to your cart
-- `onItemUpdate`: Triggered on items updated in your cart
+- `onItemAdd`: Triggered on items added to your cart, unless the item already exists, then `onItemUpdate` will be invoked
+- `onItemUpdate`: Triggered on items updated in your cart, unless you are setting the quantity to `0`, then `onItemRemove` will be invoked
 - `onItemRemove`: Triggered on items removed from your cart
 
 ## `useCart`
@@ -134,34 +134,34 @@ The `setItems` method should be used to set all items in the cart. This will ove
 #### Usage
 
 ```js
-import { useCart } from 'react-use-cart'
+import { useCart } from "react-use-cart";
 
-const { setItems } = useCart()
+const { setItems } = useCart();
 
 const products = [
   {
-    id: 'ckb64v21u000001ksgw2s42ku',
-    name: 'Fresh Foam 1080v9',
-    brand: 'New Balance',
-    color: 'Neon Emerald with Dark Neptune'
-    size: 'US 10',
-    width: 'B - Standard',
-    sku: 'W1080LN9',
-    price: 15000
+    id: "ckb64v21u000001ksgw2s42ku",
+    name: "Fresh Foam 1080v9",
+    brand: "New Balance",
+    color: "Neon Emerald with Dark Neptune",
+    size: "US 10",
+    width: "B - Standard",
+    sku: "W1080LN9",
+    price: 15000,
   },
   {
-    id: 'cjld2cjxh0000qzrmn831i7rn',
-    name: 'Fresh Foam 1080v9',
-    brand: 'New Balance',
-    color: 'Neon Emerald with Dark Neptune'
-    size: 'US 9',
-    width: 'B - Standard',
-    sku: 'W1080LN9',
-    price: 15000
-  }
-]
+    id: "cjld2cjxh0000qzrmn831i7rn",
+    name: "Fresh Foam 1080v9",
+    brand: "New Balance",
+    color: "Neon Emerald with Dark Neptune",
+    size: "US 9",
+    width: "B - Standard",
+    sku: "W1080LN9",
+    price: 15000,
+  },
+];
 
-setItems(products, 2)
+setItems(products, 2);
 ```
 
 ### `addItem(item, quantity)`
@@ -176,22 +176,22 @@ The `addItem` method should be used to add items to the cart.
 #### Usage
 
 ```js
-import { useCart } from 'react-use-cart'
+import { useCart } from "react-use-cart";
 
-const { addItem } = useCart()
+const { addItem } = useCart();
 
 const product = {
-  id: 'cjld2cjxh0000qzrmn831i7rn',
-  name: 'Fresh Foam 1080v9',
-  brand: 'New Balance',
-  color: 'Neon Emerald with Dark Neptune'
-  size: 'US 9',
-  width: 'B - Standard',
-  sku: 'W1080LN9',
-  price: 15000
-}
+  id: "cjld2cjxh0000qzrmn831i7rn",
+  name: "Fresh Foam 1080v9",
+  brand: "New Balance",
+  color: "Neon Emerald with Dark Neptune",
+  size: "US 9",
+  width: "B - Standard",
+  sku: "W1080LN9",
+  price: 15000,
+};
 
-addItem(product, 2)
+addItem(product, 2);
 ```
 
 ### `updateItem(itemId, data)`
@@ -303,9 +303,9 @@ Get a specific cart item by `id`.
 ```js
 import { useCart } from "react-use-cart";
 
-const { item } = useCart();
+const { getItem } = useCart();
 
-const myItem = item("cjld2cjxh0000qzrmn831i7rn");
+const myItem = getItem("cjld2cjxh0000qzrmn831i7rn");
 ```
 
 ### `inCart(itemId)`
