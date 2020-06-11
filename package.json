@@ -20,7 +20,8 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "start": "rollup -c -w"
+    "start": "rollup -c -w",
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/core": "7.10.2",
@@ -28,7 +29,12 @@
     "@babel/preset-env": "7.10.2",
     "@babel/preset-react": "7.10.1",
     "@babel/runtime": "7.10.2",
+    "@testing-library/react-hooks": "3.3.0",
+    "jest": "26.0.1",
     "prettier": "2.0.5",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-test-renderer": "16.13.1",
     "rollup": "2.12.0",
     "rollup-plugin-babel": "4.4.0",
     "rollup-plugin-commonjs": "10.1.0",
