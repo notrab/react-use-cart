@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useReducer, useEffect } from "react";
-import PropTypes from "prop-types"
 
 import useLocalStorage from "./useLocalStorage";
 
@@ -86,30 +85,15 @@ const calculateTotalItems = (items) =>
 
 const calculateUniqueItems = (items) => items.length;
 
-
-const propTypes = {
-    children: PropTypes.node.isRequired,
-    id: PropTypes.string.isRequired,
-    defaultItems : PropTypes.array.isRequired,
-    onSetItems : PropTypes.func,
-    onItemAdd: PropTypes.func,
-    onItemUpdate: PropTypes.func,
-    onItemRemove: PropTypes.func,
-}
-
 export function CartProvider({
   children,
-  id,
+  id = Math.random().toString(36).substring(7),
   defaultItems = [],
   onSetItems,
   onItemAdd,
   onItemUpdate,
   onItemRemove,
 }) {
-  // if (!id) {
-  //   throw new Error("You must set an `id` when mounting the CartProvider");
-  // }
-
   const [savedCart, saveCart] = useLocalStorage(
     "react-use-cart",
     JSON.stringify({
@@ -216,11 +200,4 @@ export function CartProvider({
       {children}
     </CartContext.Provider>
   );
-}
-
-CartProvider.propTypes = propTypes
-
-CartProvider.defaultProps = {
-  id : Math.random().toString(36).substring(7),
-  defaultItems : [],
 }

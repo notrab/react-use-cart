@@ -1,6 +1,5 @@
 dist
 node_modules
-demo
 
 .DS_Store
 .env
