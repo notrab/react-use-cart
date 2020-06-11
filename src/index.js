@@ -10,7 +10,7 @@ const EMPTY_CART = "EMPTY_CART";
 
 const CartContext = createContext();
 
-const initialState = {
+export const initialState = {
   items: [],
   totalItems: 0,
   totalUniqueItems: 0,
@@ -153,8 +153,8 @@ export function CartProvider({
 
   const updateItemQuantity = (id, quantity) => {
     if (quantity <= 0) {
-      onItemRemove && onItemRemove(id)
-      return dispatch({ type: REMOVE_ITEM, id })
+      onItemRemove && onItemRemove(id);
+      return dispatch({ type: REMOVE_ITEM, id });
     }
 
     const currentItem = state.items.find((item) => item.id === id);
