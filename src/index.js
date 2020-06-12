@@ -88,17 +88,15 @@ const calculateUniqueItems = (items = []) => items.length;
 
 export function CartProvider({
   children,
-  id,
+  id = [...Array(12)]
+    .map((i) => (~~(Math.random() * 36)).toString(36))
+    .join(""),
   defaultItems = [],
   onSetItems,
   onItemAdd,
   onItemUpdate,
   onItemRemove,
 }) {
-  if (!id) {
-    throw new Error("You must set an `id` when mounting the CartProvider");
-  }
-
   const [savedCart, saveCart] = useLocalStorage(
     "react-use-cart",
     JSON.stringify({

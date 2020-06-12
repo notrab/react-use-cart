@@ -78,7 +78,7 @@ function Cart() {
 
 function App() {
   return (
-    <CartProvider id="abc">
+    <CartProvider>
       <Page />
       <Cart />
     </CartProvider>
@@ -113,7 +113,7 @@ ReactDOM.render(
 
 #### Props
 
-- `id` (**Required**): The `id` for your cart
+- `id`: (_optional_) `id` for your cart to enable automatic cart retrieval via `window.localStorage`
 - `onSetItems`: Triggered only when `setItems` invoked
 - `onItemAdd`: Triggered on items added to your cart, unless the item already exists, then `onItemUpdate` will be invoked
 - `onItemUpdate`: Triggered on items updated in your cart, unless you are setting the quantity to `0`, then `onItemRemove` will be invoked
