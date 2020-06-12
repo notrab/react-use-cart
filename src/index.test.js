@@ -3,6 +3,8 @@ import { renderHook, act } from "@testing-library/react-hooks";
 
 import { CartProvider, useCart, initialState } from "./";
 
+afterEach(() => window.localStorage.clear());
+
 describe("CartProvider", () => {
   test("initial cart meta state is set", () => {
     const wrapper = ({ children }) => (
@@ -43,6 +45,54 @@ describe("addItem", () => {
     expect(result.current.totalUniqueItems).toBe(1);
     expect(result.current.isEmpty).toBe(false);
   });
+
+  test("triggers onItemAdd when cart empty", () => {
+    let called = false;
+
+    const wrapper = ({ children }) => (
+      <CartProvider id="test" onItemAdd={() => (called = true)}>
+        {children}
+      </CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    const item = { id: "test", price: 1000 };
+
+    act(() => {
+      result.current.addItem(item);
+    });
+
+    expect(called).toBe(true);
+  });
+
+  test("triggers onItemUpdate when cart has existing item", () => {
+    let called = false;
+
+    const item = { id: "test", price: 1000 };
+
+    const wrapper = ({ children }) => (
+      <CartProvider
+        id="test"
+        defaultItems={[item]}
+        onItemUpdate={() => (called = true)}
+      >
+        {children}
+      </CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    act(() => {
+      result.current.updateItem(item);
+    });
+
+    expect(called).toBe(true);
+  });
 });
 
 describe("updateItem", () => {
@@ -69,6 +119,33 @@ describe("updateItem", () => {
     expect(result.current.items).toHaveLength(1);
     expect(result.current.totalItems).toBe(2);
     expect(result.current.totalUniqueItems).toBe(1);
+    expect(result.current.isEmpty).toBe(false);
+  });
+
+  test("triggers onItemUpdate when updating existing item", () => {
+    let called = false;
+
+    const item = { id: "test", price: 1000 };
+
+    const wrapper = ({ children }) => (
+      <CartProvider
+        id="test"
+        defaultItems={[item]}
+        onItemUpdate={() => (called = true)}
+      >
+        {children}
+      </CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    act(() => {
+      result.current.addItem(item);
+    });
+
+    expect(called).toBe(true);
   });
 });
 
@@ -94,6 +171,59 @@ describe("updateItemQuantity", () => {
     expect(result.current.items).toHaveLength(1);
     expect(result.current.totalItems).toBe(3);
     expect(result.current.totalUniqueItems).toBe(1);
+    expect(result.current.isEmpty).toBe(false);
+  });
+
+  test("triggers onItemUpdate when setting quantity above 0", () => {
+    let called = false;
+
+    const item = { id: "test", price: 1000 };
+
+    const wrapper = ({ children }) => (
+      <CartProvider
+        id="test"
+        defaultItems={[item]}
+        onItemUpdate={() => (called = true)}
+      >
+        {children}
+      </CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    act(() => {
+      result.current.updateItemQuantity(item.id, 2);
+    });
+
+    expect(called).toBe(true);
+  });
+
+  test("triggers onItemRemove when setting quantity to 0", () => {
+    let called = false;
+
+    const item = { id: "test", price: 1000 };
+
+    const wrapper = ({ children }) => (
+      <CartProvider
+        id="test"
+        defaultItems={[item]}
+        onItemRemove={() => (called = true)}
+      >
+        {children}
+      </CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    act(() => {
+      result.current.updateItemQuantity(item.id, 0);
+    });
+
+    expect(called).toBe(true);
   });
 });
 
@@ -119,6 +249,33 @@ describe("removeItem", () => {
     expect(result.current.items).toEqual([]);
     expect(result.current.totalItems).toBe(0);
     expect(result.current.totalUniqueItems).toBe(0);
+    expect(result.current.isEmpty).toBe(true);
+  });
+
+  test("triggers onItemRemove when removing item", () => {
+    let called = false;
+
+    const item = { id: "test", price: 1000 };
+
+    const wrapper = ({ children }) => (
+      <CartProvider
+        id="test"
+        defaultItems={[item]}
+        onItemRemove={() => (called = true)}
+      >
+        {children}
+      </CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    act(() => {
+      result.current.updateItemQuantity(item.id, 0);
+    });
+
+    expect(called).toBe(true);
   });
 });
 
@@ -143,5 +300,6 @@ describe("emptyCart", () => {
     expect(result.current.items).toEqual([]);
     expect(result.current.totalItems).toBe(0);
     expect(result.current.totalUniqueItems).toBe(0);
+    expect(result.current.isEmpty).toBe(true);
   });
 });
