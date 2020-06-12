@@ -87,7 +87,9 @@ const calculateUniqueItems = (items) => items.length;
 
 export function CartProvider({
   children,
-  id = Math.random().toString(36).substring(7),
+  id = [...Array(12)]
+    .map((i) => (~~(Math.random() * 36)).toString(36))
+    .join(""),
   defaultItems = [],
   onSetItems,
   onItemAdd,
