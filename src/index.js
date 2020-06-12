@@ -57,7 +57,7 @@ function reducer(state, action) {
   }
 }
 
-const generateCartState = (state, items) => {
+const generateCartState = (state = initialState, items = []) => {
   const totalUniqueItems = calculateUniqueItems(items);
   const isEmpty = totalUniqueItems === 0;
 
