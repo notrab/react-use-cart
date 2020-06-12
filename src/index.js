@@ -72,19 +72,19 @@ const generateCartState = (state, items) => {
   };
 };
 
-const calculateItemTotals = (items) =>
+const calculateItemTotals = (items = []) =>
   items.map((item) => ({
     itemTotal: item.price * item.quantity,
     ...item,
   }));
 
-const calculateCartTotal = (items) =>
+const calculateCartTotal = (items = []) =>
   items.reduce((total, item) => total + item.quantity * item.price, 0);
 
-const calculateTotalItems = (items) =>
+const calculateTotalItems = (items = []) =>
   items.reduce((sum, item) => sum + item.quantity, 0);
 
-const calculateUniqueItems = (items) => items.length;
+const calculateUniqueItems = (items = []) => items.length;
 
 export function CartProvider({
   children,
