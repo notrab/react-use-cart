@@ -62,6 +62,7 @@ const generateCartState = (state, items) => {
   const isEmpty = totalUniqueItems === 0;
 
   return {
+    ...initialState,
     ...state,
     items: calculateItemTotals(items),
     totalItems: calculateTotalItems(items),
@@ -116,7 +117,7 @@ export function CartProvider({
   const setItems = (items) => {
     dispatch({
       type: SET_ITEMS,
-      payload,
+      payload: items,
     });
 
     onSetItems && onSetItems(items);
@@ -148,8 +149,10 @@ export function CartProvider({
     onItemUpdate && onItemUpdate(payload);
   };
 
-  const updateItem = (id, payload) =>
+  const updateItem = (id, payload) => {
     dispatch({ type: UPDATE_ITEM, id, payload });
+    onItemUpdate && onItemUpdate(payload);
+  };
 
   const updateItemQuantity = (id, quantity) => {
     if (quantity <= 0) {
