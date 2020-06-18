@@ -130,8 +130,10 @@ export function CartProvider({
 
     if (!currentItem) {
       const payload = { ...item, quantity };
+      dispatch({ type: ADD_ITEM, payload });
+      
       onItemAdd && onItemAdd(payload);
-      return dispatch({ type: ADD_ITEM, payload });
+      return;
     }
 
     const payload = { ...item, quantity: currentItem.quantity + quantity };
@@ -147,13 +149,16 @@ export function CartProvider({
 
   const updateItem = (id, payload) => {
     dispatch({ type: UPDATE_ITEM, id, payload });
+    
     onItemUpdate && onItemUpdate(payload);
   };
 
   const updateItemQuantity = (id, quantity) => {
     if (quantity <= 0) {
+      dispatch({ type: REMOVE_ITEM, id });
+      
       onItemRemove && onItemRemove(id);
-      return dispatch({ type: REMOVE_ITEM, id });
+      return ;
     }
 
     const currentItem = state.items.find((item) => item.id === id);
