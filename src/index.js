@@ -124,11 +124,9 @@ export function CartProvider({
   const addItem = (item, quantity = 1) => {
     if (quantity <= 0) return;
     if (!item.id) throw new Error("You must provide an `id` for items");
-
+    if (!item.price) throw new Error("You must pass a `price` for new items");
+    
     const currentItem = state.items.find((i) => i.id === item.id);
-
-    if (!currentItem & !item.price)
-      throw new Error("You must pass a `price` for new items");
 
     if (!currentItem) {
       const payload = { ...item, quantity };
