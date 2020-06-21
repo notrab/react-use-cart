@@ -98,7 +98,7 @@ export function CartProvider({
   onItemRemove,
 }) {
   const [savedCart, saveCart] = useLocalStorage(
-    "react-use-cart",
+    `react-use-cart-${id}`,
     JSON.stringify({
       id,
       ...initialState,
@@ -127,13 +127,17 @@ export function CartProvider({
 
     const currentItem = state.items.find((i) => i.id === item.id);
 
-    if (!currentItem & !item.price)
+    if (!currentItem && !item.price)
       throw new Error("You must pass a `price` for new items");
 
     if (!currentItem) {
       const payload = { ...item, quantity };
+
+      dispatch({ type: ADD_ITEM, payload });
+
       onItemAdd && onItemAdd(payload);
-      return dispatch({ type: ADD_ITEM, payload });
+
+      return;
     }
 
     const payload = { ...item, quantity: currentItem.quantity + quantity };
@@ -149,13 +153,17 @@ export function CartProvider({
 
   const updateItem = (id, payload) => {
     dispatch({ type: UPDATE_ITEM, id, payload });
+
     onItemUpdate && onItemUpdate(payload);
   };
 
   const updateItemQuantity = (id, quantity) => {
     if (quantity <= 0) {
       onItemRemove && onItemRemove(id);
-      return dispatch({ type: REMOVE_ITEM, id });
+
+      dispatch({ type: REMOVE_ITEM, id });
+
+      return;
     }
 
     const currentItem = state.items.find((item) => item.id === id);
