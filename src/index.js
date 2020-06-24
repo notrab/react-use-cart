@@ -99,7 +99,7 @@ export function CartProvider({
   storage = useLocalStorage,
 }) {
   const [savedCart, saveCart] = storage(
-    `react-use-cart-${id}`,
+    `react-use-cart`,
     JSON.stringify({
       id,
       ...initialState,

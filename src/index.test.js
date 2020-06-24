@@ -22,33 +22,6 @@ describe("CartProvider", () => {
     );
     expect(result.current.isEmpty).toBe(true);
   });
-
-  test("can have multiple instances", () => {
-    const items = [{ id: "test", price: 1000 }];
-
-    const wrapper = ({ children }) => (
-      <CartProvider id="test" defaultItems={items}>
-        {children}
-      </CartProvider>
-    );
-
-    const { result } = renderHook(() => useCart(), {
-      wrapper,
-    });
-
-    const wrapper2 = ({ children }) => (
-      <CartProvider id="test2">{children}</CartProvider>
-    );
-
-    const { result: result2 } = renderHook(() => useCart(), {
-      wrapper: wrapper2,
-    });
-
-    expect(result.current.id).toEqual("test");
-    expect(result.current.items).toHaveLength(1);
-    expect(result2.current.id).toEqual("test2");
-    expect(result2.current.items).toHaveLength(0);
-  });
 });
 
 describe("addItem", () => {
