@@ -96,8 +96,9 @@ export function CartProvider({
   onItemAdd,
   onItemUpdate,
   onItemRemove,
+  storage = useLocalStorage,
 }) {
-  const [savedCart, saveCart] = useLocalStorage(
+  const [savedCart, saveCart] = storage(
     `react-use-cart-${id}`,
     JSON.stringify({
       id,
