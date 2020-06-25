@@ -1,11 +1,55 @@
 import React from "react";
 import { renderHook, act } from "@testing-library/react-hooks";
 
-import { CartProvider, useCart, initialState } from "./";
+import { CartProvider, useCart, initialState, createCartIdentifier } from ".";
 
 afterEach(() => window.localStorage.clear());
 
+describe("createCartIdentifier", () => {
+  test("returns a 12 character string by default", () => {
+    const id = createCartIdentifier();
+
+    expect(id).toHaveLength(12);
+  });
+
+  test("returns a custom length string", () => {
+    const id = createCartIdentifier(20);
+
+    expect(id).toHaveLength(20);
+  });
+
+  test("created id is unique", () => {
+    const id = createCartIdentifier();
+    const id2 = createCartIdentifier();
+
+    expect(id).not.toEqual(id2);
+  });
+});
+
 describe("CartProvider", () => {
+  test("uses ID for cart if provided", () => {
+    const wrapper = ({ children }) => (
+      <CartProvider id="test">{children}</CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    expect(result.current.id).toEqual("test");
+  });
+
+  test("creates an ID for cart if non provided", () => {
+    const wrapper = ({ children }) => <CartProvider>{children}</CartProvider>;
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    expect(result.current.id).toBeDefined();
+    expect(result.current.id).toHaveLength(12);
+  });
+
   test("initial cart meta state is set", () => {
     const wrapper = ({ children }) => (
       <CartProvider id="test">{children}</CartProvider>

@@ -1,21 +1,21 @@
-import external from 'rollup-plugin-peer-deps-external'
-import resolve from 'rollup-plugin-node-resolve'
-import babel from 'rollup-plugin-babel'
-import commonjs from 'rollup-plugin-commonjs'
+import external from "rollup-plugin-peer-deps-external";
+import resolve from "rollup-plugin-node-resolve";
+import babel from "rollup-plugin-babel";
+import commonjs from "rollup-plugin-commonjs";
 
-import pkg from './package.json'
+import pkg from "./package.json";
 
 export default {
-  input: 'src/index.js',
+  input: "index.js",
   output: [
     {
       file: pkg.main,
-      format: 'cjs',
+      format: "cjs",
       sourcemap: true,
     },
     {
       file: pkg.module,
-      format: 'es',
+      format: "es",
       sourcemap: true,
     },
   ],
@@ -23,8 +23,8 @@ export default {
     external(),
     resolve(),
     babel({
-      exclude: 'node_modules/**',
+      exclude: "node_modules/**",
     }),
     commonjs(),
   ],
-}
+};
