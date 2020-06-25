@@ -102,7 +102,7 @@ export function CartProvider({
   const id = cartId ? cartId : createCartIdentifier();
 
   const [savedCart, saveCart] = storage(
-    id ? `react-use-cart-${id}` : `react-use-cart`,
+    cartId ? `react-use-cart-${id}` : `react-use-cart`,
     JSON.stringify({
       id,
       ...initialState,
