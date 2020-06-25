@@ -17,6 +17,9 @@ export const initialState = {
   isEmpty: true,
 };
 
+export const createCartIdentifier = (len = 12) =>
+  [...Array(len)].map(() => (~~(Math.random() * 36)).toString(36)).join("");
+
 export const useCart = () => useContext(CartContext);
 
 function reducer(state, action) {
@@ -88,9 +91,7 @@ const calculateUniqueItems = (items = []) => items.length;
 
 export function CartProvider({
   children,
-  id = [...Array(12)]
-    .map((i) => (~~(Math.random() * 36)).toString(36))
-    .join(""),
+  id: cartId,
   defaultItems = [],
   onSetItems,
   onItemAdd,
@@ -98,8 +99,10 @@ export function CartProvider({
   onItemRemove,
   storage = useLocalStorage,
 }) {
+  const id = cartId ? cartId : createCartIdentifier();
+
   const [savedCart, saveCart] = storage(
-    `react-use-cart`,
+    id ? `react-use-cart-${id}` : `react-use-cart`,
     JSON.stringify({
       id,
       ...initialState,
