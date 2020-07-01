@@ -87,6 +87,29 @@ describe("addItem", () => {
     expect(result.current.items).toHaveLength(1);
     expect(result.current.totalItems).toBe(1);
     expect(result.current.totalUniqueItems).toBe(1);
+    expect(result.current.cartTotal).toBe(1000);
+    expect(result.current.isEmpty).toBe(false);
+  });
+
+  test("allows free item", () => {
+    const wrapper = ({ children }) => (
+      <CartProvider id="test">{children}</CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    const item = { id: "test", price: 0 };
+
+    act(() => {
+      result.current.addItem(item);
+    });
+
+    expect(result.current.items).toHaveLength(1);
+    expect(result.current.totalItems).toBe(1);
+    expect(result.current.totalUniqueItems).toBe(1);
+    expect(result.current.cartTotal).toBe(0);
     expect(result.current.isEmpty).toBe(false);
   });
 
