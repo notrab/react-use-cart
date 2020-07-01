@@ -131,7 +131,7 @@ export function CartProvider({
 
     const currentItem = state.items.find((i) => i.id === item.id);
 
-    if (!currentItem && !item.price)
+    if (!currentItem && !item.hasOwnProperty("price"))
       throw new Error("You must pass a `price` for new items");
 
     if (!currentItem) {
