@@ -1,0 +1,101 @@
+name: Full Logo Tee
+slug: full-logo-tee
+description: Represent CartQL with this full logo tee!
+image: ./images/full-logo-tee-purple.png
+variants:
+  - id: purple-xs
+    name: Purple / XS
+    image: ./images/full-logo-tee-purple.png
+    price: 4200
+  - id: purple-s
+    name: Purple / S
+    image: ./images/full-logo-tee-purple.png
+    price: 4200
+  - id: purple-m
+    name: Purple / M
+    image: ./images/full-logo-tee-purple.png
+    price: 4200
+  - id: purple-l
+    name: Purple / L
+    image: ./images/full-logo-tee-purple.png
+    price: 4200
+  - id: purple-xl
+    name: Purple / XL
+    image: ./images/full-logo-tee-purple.png
+    price: 4200
+  - id: purple-xxl
+    name: Purple / XXL
+    image: ./images/full-logo-tee-purple.png
+    price: 4200
+  - id: maroon-xs
+    name: Maroon / XS
+    image: ./images/full-logo-tee-maroon.png
+    price: 4500
+  - id: maroon-s
+    name: Maroon / S
+    image: ./images/full-logo-tee-maroon.png
+    price: 4500
+  - id: maroon-m
+    name: Maroon / M
+    image: ./images/full-logo-tee-maroon.png
+    price: 4500
+  - id: maroon-l
+    name: Maroon / L
+    image: ./images/full-logo-tee-maroon.png
+    price: 4500
+  - id: maroon-xl
+    name: Maroon / XL
+    image: ./images/full-logo-tee-maroon.png
+    price: 4500
+  - id: maroon-xxl
+    name: Maroon / XXL
+    image: ./images/full-logo-tee-maroon.png
+    price: 4500
+  - id: charcoal-xs
+    name: Charcoal / XS
+    image: ./images/full-logo-tee-charcoal.png
+    price: 4500
+  - id: charcoal-s
+    name: Charcoal / S
+    image: ./images/full-logo-tee-charcoal.png
+    price: 4500
+  - id: charcoal-m
+    name: Charcoal / M
+    image: ./images/full-logo-tee-charcoal.png
+    price: 4500
+  - id: charcoal-l
+    name: Charcoal / L
+    image: ./images/full-logo-tee-charcoal.png
+    price: 4500
+  - id: charcoal-xl
+    name: Charcoal / XL
+    image: ./images/full-logo-tee-charcoal.png
+    price: 4500
+  - id: charcoal-xxl
+    name: Charcoal / XXL
+    image: ./images/full-logo-tee-charcoal.png
+    price: 4500
+  - id: navy-xs
+    name: Navy / XS
+    image: ./images/full-logo-tee-navy.png
+    price: 4500
+  - id: navy-s
+    name: Navy / S
+    image: ./images/full-logo-tee-navy.png
+    price: 4500
+  - id: navy-m
+    name: Navy / M
+    image: ./images/full-logo-tee-navy.png
+    price: 4500
+  - id: navy-l
+    name: Navy / L
+    image: ./images/full-logo-tee-navy.png
+    price: 4500
+  - id: navy-xl
+    name: Navy / XL
+    image: ./images/full-logo-tee-navy.png
+    price: 4500
+  - id: navy-xxl
+    name: Navy / XXL
+    image: ./images/full-logo-tee-navy.png
+    price: 4500

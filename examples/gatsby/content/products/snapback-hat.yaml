@@ -1,0 +1,10 @@
+name: Snapback
+slug: snapback
+description: This is a one for the fans!
+image: ./images/snapback-hat.png
+variants:
+  - id: snapback
+    name: One size fits all
+    description: This is a one for the fans!
+    image: ./images/snapback-hat.png
+    price: 2000

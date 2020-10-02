@@ -1,0 +1,77 @@
+name: Emblem Logo Tee
+slug: emblem-logo-tee
+description: Represent CartQL with this emblem only logo tee!
+image: ./images/emblem-logo-tee-charcoal.png
+variants:
+  - id: charcoal-xs
+    name: Charcoal / XS
+    image: ./images/emblem-logo-tee-charcoal.png
+    price: 4500
+  - id: charcoal-s
+    name: Charcoal / S
+    image: ./images/emblem-logo-tee-charcoal.png
+    price: 4500
+  - id: charcoal-m
+    name: Charcoal / M
+    image: ./images/emblem-logo-tee-charcoal.png
+    price: 4500
+  - id: charcoal-l
+    name: Charcoal / L
+    image: ./images/emblem-logo-tee-charcoal.png
+    price: 4500
+  - id: charcoal-xl
+    name: Charcoal / XL
+    image: ./images/emblem-logo-tee-charcoal.png
+    price: 4500
+  - id: charcoal-xxl
+    name: Charcoal / XXL
+    image: ./images/emblem-logo-tee-charcoal.png
+    price: 4500
+  - id: navy-xs
+    name: Navy / XS
+    image: ./images/emblem-logo-tee-navy.png
+    price: 4500
+  - id: navy-s
+    name: Navy / S
+    image: ./images/emblem-logo-tee-navy.png
+    price: 4500
+  - id: navy-m
+    name: Navy / M
+    image: ./images/emblem-logo-tee-navy.png
+    price: 4500
+  - id: navy-l
+    name: Navy / L
+    image: ./images/emblem-logo-tee-navy.png
+    price: 4500
+  - id: navy-xl
+    name: Navy / XL
+    image: ./images/emblem-logo-tee-navy.png
+    price: 4500
+  - id: navy-xxl
+    name: Navy / XXL
+    image: ./images/emblem-logo-tee-navy.png
+    price: 4500
+  - id: berry-xs
+    name: Berry / XS
+    image: ./images/emblem-logo-tee-berry.png
+    price: 4500
+  - id: berry-s
+    name: Berry / S
+    image: ./images/emblem-logo-tee-berry.png
+    price: 4500
+  - id: berry-m
+    name: Berry / M
+    image: ./images/emblem-logo-tee-berry.png
+    price: 4500
+  - id: berry-l
+    name: Berry / L
+    image: ./images/emblem-logo-tee-berry.png
+    price: 4500
+  - id: berry-xl
+    name: Berry / XL
+    image: ./images/emblem-logo-tee-berry.png
+    price: 4500
+  - id: berry-xxl
+    name: Berry / XXL
+    image: ./images/emblem-logo-tee-berry.png
+    price: 4500
