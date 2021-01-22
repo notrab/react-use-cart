@@ -9,14 +9,14 @@
     "jsx": "react",
     "declaration": true,
     "moduleResolution": "node",
-    "forceConsistentCasingInFileNames": true, //TODO: should be changed incrementally, was true
-    "noImplicitReturns": false, //TODO: should be changed incrementally, was true
-    "noImplicitThis": false, //TODO: should be changed incrementally , was true
-    "noImplicitAny": true, //TODO: should be changed incrementally, was true
-    "strictNullChecks": true, //TODO: should be changed incrementally, was true
-    "suppressImplicitAnyIndexErrors": false, //TODO: should be changed incrementally, was true
-    "noUnusedLocals": false, //TODO: should be changed incrementally, was true
-    "noUnusedParameters": false //TODO: should be changed incrementally, was true
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "examples", "rollup.config.js"]
