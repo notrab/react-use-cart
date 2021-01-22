@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export default function useLocalStorage(key, initialValue) {
+export default function useLocalStorage(key: string, initialValue: any) {
   const [storedValue, setStoredValue] = React.useState(() => {
     try {
       const item =
@@ -12,7 +12,7 @@ export default function useLocalStorage(key, initialValue) {
     }
   });
 
-  const setValue = (value) => {
+  const setValue = (value: any) => {
     try {
       const valueToStore =
         value instanceof Function ? value(storedValue) : value;

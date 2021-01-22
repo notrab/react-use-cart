@@ -2,12 +2,6 @@ import * as React from "react";
 
 import useLocalStorage from "./useLocalStorage";
 
-const SET_ITEMS = "SET_ITEMS";
-const ADD_ITEM = "ADD_ITEM";
-const UPDATE_ITEM = "UPDATE_ITEM";
-const REMOVE_ITEM = "REMOVE_ITEM";
-const EMPTY_CART = "EMPTY_CART";
-
 // Interfaces:
 interface Item {
   id: string;
@@ -35,11 +29,23 @@ interface CartProviderState extends InitialState {
   inCart: (id: Item["id"]) => boolean;
 }
 
+export type Actions =
+  | { type: "SET_ITEMS"; payload: Item[] }
+  | { type: "ADD_ITEM"; payload: Item }
+  | { type: "REMOVE_ITEM"; id: Item["id"] }
+  | {
+      type: "UPDATE_ITEM";
+      id: Item["id"];
+      payload: object;
+    }
+  | { type: "EMPTY_CART" };
+
 export const initialState: any = {
   items: [],
+  isEmpty: true,
   totalItems: 0,
   totalUniqueItems: 0,
-  isEmpty: true,
+  cartTotal: 0,
 };
 
 const CartContext = React.createContext<CartProviderState | undefined>(
@@ -56,19 +62,19 @@ export const useCart = () => {
   return context;
 };
 
-function reducer(state, action) {
+function reducer(state: CartProviderState, action: Actions) {
   switch (action.type) {
-    case SET_ITEMS:
+    case "SET_ITEMS":
       return generateCartState(state, action.payload);
 
-    case ADD_ITEM: {
+    case "ADD_ITEM": {
       const items = [...state.items, action.payload];
 
       return generateCartState(state, items);
     }
 
-    case UPDATE_ITEM: {
-      const items = state.items.map((item) => {
+    case "UPDATE_ITEM": {
+      const items = state.items.map((item: Item) => {
         if (item.id !== action.id) return item;
 
         return {
@@ -80,13 +86,13 @@ function reducer(state, action) {
       return generateCartState(state, items);
     }
 
-    case REMOVE_ITEM: {
-      const items = state.items.filter((i) => i.id !== action.id);
+    case "REMOVE_ITEM": {
+      const items = state.items.filter((i: Item) => i.id !== action.id);
 
       return generateCartState(state, items);
     }
 
-    case EMPTY_CART:
+    case "EMPTY_CART":
       return initialState;
 
     default:
@@ -94,7 +100,7 @@ function reducer(state, action) {
   }
 }
 
-const generateCartState = (state = initialState, items = []) => {
+const generateCartState = (state = initialState, items: Item[]) => {
   const totalUniqueItems = calculateUniqueItems(items);
   const isEmpty = totalUniqueItems === 0;
 
@@ -109,19 +115,19 @@ const generateCartState = (state = initialState, items = []) => {
   };
 };
 
-const calculateItemTotals = (items = []) =>
+const calculateItemTotals = (items: Item[]) =>
   items.map((item) => ({
-    itemTotal: item.price * item.quantity,
+    itemTotal: item.price * item.quantity!,
     ...item,
   }));
 
-const calculateCartTotal = (items = []) =>
-  items.reduce((total, item) => total + item.quantity * item.price, 0);
+const calculateCartTotal = (items: Item[]) =>
+  items.reduce((total, item) => total + item.quantity! * item.price, 0);
 
-const calculateTotalItems = (items = []) =>
-  items.reduce((sum, item) => sum + item.quantity, 0);
+const calculateTotalItems = (items: Item[]) =>
+  items.reduce((sum, item) => sum + item.quantity!, 0);
 
-const calculateUniqueItems = (items = []) => items.length;
+const calculateUniqueItems = (items: Item[]) => items.length;
 
 export const CartProvider: React.FC<{
   children?: React.ReactNode;
@@ -158,20 +164,20 @@ export const CartProvider: React.FC<{
     saveCart(JSON.stringify(state));
   }, [state, saveCart]);
 
-  const setItems = (items) => {
+  const setItems = (items: Item[]) => {
     dispatch({
-      type: SET_ITEMS,
+      type: "SET_ITEMS",
       payload: items,
     });
 
     onSetItems && onSetItems(items);
   };
 
-  const addItem = (item, quantity = 1) => {
+  const addItem = (item: Item, quantity = 1) => {
     if (quantity <= 0) return;
     if (!item.id) throw new Error("You must provide an `id` for items");
 
-    const currentItem = state.items.find((i) => i.id === item.id);
+    const currentItem = state.items.find((i: Item) => i.id === item.id);
 
     if (!currentItem && !item.hasOwnProperty("price"))
       throw new Error("You must pass a `price` for new items");
@@ -179,7 +185,7 @@ export const CartProvider: React.FC<{
     if (!currentItem) {
       const payload = { ...item, quantity };
 
-      dispatch({ type: ADD_ITEM, payload });
+      dispatch({ type: "ADD_ITEM", payload });
 
       onItemAdd && onItemAdd(payload);
 
@@ -189,7 +195,7 @@ export const CartProvider: React.FC<{
     const payload = { ...item, quantity: currentItem.quantity + quantity };
 
     dispatch({
-      type: UPDATE_ITEM,
+      type: "UPDATE_ITEM",
       id: item.id,
       payload,
     });
@@ -197,29 +203,29 @@ export const CartProvider: React.FC<{
     onItemUpdate && onItemUpdate(payload);
   };
 
-  const updateItem = (id, payload) => {
-    dispatch({ type: UPDATE_ITEM, id, payload });
+  const updateItem = (id: Item["id"], payload: object) => {
+    dispatch({ type: "UPDATE_ITEM", id, payload });
 
     onItemUpdate && onItemUpdate(payload);
   };
 
-  const updateItemQuantity = (id, quantity) => {
+  const updateItemQuantity = (id: Item["id"], quantity: number) => {
     if (quantity <= 0) {
       onItemRemove && onItemRemove(id);
 
-      dispatch({ type: REMOVE_ITEM, id });
+      dispatch({ type: "REMOVE_ITEM", id });
 
       return;
     }
 
-    const currentItem = state.items.find((item) => item.id === id);
+    const currentItem = state.items.find((item: Item) => item.id === id);
 
     if (!currentItem) throw new Error("No such item to update");
 
     const payload = { ...currentItem, quantity };
 
     dispatch({
-      type: UPDATE_ITEM,
+      type: "UPDATE_ITEM",
       id,
       payload,
     });
@@ -227,20 +233,21 @@ export const CartProvider: React.FC<{
     onItemUpdate && onItemUpdate(payload);
   };
 
-  const removeItem = (id) => {
-    dispatch({ type: REMOVE_ITEM, id });
+  const removeItem = (id: Item["id"]) => {
+    dispatch({ type: "REMOVE_ITEM", id });
 
     onItemRemove && onItemRemove(id);
   };
 
   const emptyCart = () =>
     dispatch({
-      type: EMPTY_CART,
+      type: "EMPTY_CART",
     });
 
-  const getItem = (id) => state.items.find((i) => i.id === id);
+  const getItem = (id: Item["id"]) =>
+    state.items.find((i: Item) => i.id === id);
 
-  const inCart = (id) => state.items.some((i) => i.id === id);
+  const inCart = (id: Item["id"]) => state.items.some((i: Item) => i.id === id);
 
   return (
     <CartContext.Provider
