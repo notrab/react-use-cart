@@ -8,19 +8,53 @@ const UPDATE_ITEM = "UPDATE_ITEM";
 const REMOVE_ITEM = "REMOVE_ITEM";
 const EMPTY_CART = "EMPTY_CART";
 
-const CartContext = React.createContext<any>(undefined);
+// Interfaces:
+interface Item {
+  id: string;
+  price: number;
+  quantity?: number;
+  itemTotal?: number;
+  [key: string]: any;
+}
 
-export const initialState = {
+interface InitialState {
+  items: Item[];
+  isEmpty: boolean;
+  totalItems: number;
+  totalUniqueItems: number;
+  totalCost: number;
+}
+
+interface CartProviderState extends InitialState {
+  addItem: (item: Item, quantity?: number) => void;
+  removeItem: (id: Item["id"]) => void;
+  updateItem: (id: Item["id"], item: object) => void;
+  updateItemQuantity: (id: Item["id"], quantity: number) => void;
+  clearCart: () => void;
+  getItem: (id: Item["id"]) => any | undefined;
+  inCart: (id: Item["id"]) => boolean;
+}
+
+export const initialState: any = {
   items: [],
   totalItems: 0,
   totalUniqueItems: 0,
   isEmpty: true,
 };
 
+const CartContext = React.createContext<CartProviderState | undefined>(
+  initialState
+);
+
 export const createCartIdentifier = (len = 12) =>
   [...Array(len)].map(() => (~~(Math.random() * 36)).toString(36)).join("");
 
-export const useCart = () => React.useContext(CartContext);
+export const useCart = () => {
+  // This makes sure that the cart functions are always defined before calling it.
+  const context = React.useContext(CartContext);
+  if (!context) throw new Error("Expected to be wrapped in a CartProvider");
+  return context;
+};
 
 function reducer(state, action) {
   switch (action.type) {
@@ -89,7 +123,16 @@ const calculateTotalItems = (items = []) =>
 
 const calculateUniqueItems = (items = []) => items.length;
 
-export const CartProvider: React.FC<any> = ({
+export const CartProvider: React.FC<{
+  children: React.ReactNode;
+  id: string;
+  defaultItems: Item[];
+  onSetItems: any;
+  onItemAdd: any;
+  onItemUpdate: any;
+  onItemRemove;
+  storage: any;
+}> = ({
   children,
   id: cartId,
   defaultItems = [],
