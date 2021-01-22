@@ -107,7 +107,7 @@ export function CartProvider({
       id,
       ...initialState,
       items: defaultItems,
-    })
+    }),
   );
 
   const [state, dispatch] = useReducer(reducer, JSON.parse(savedCart));
