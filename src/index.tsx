@@ -1,8 +1,6 @@
-import * as React from "react";
+import React, { createContext, useContext, useReducer, useEffect } from "react";
 
 import useLocalStorage from "./useLocalStorage";
-
-const { createContext, useContext, useReducer, useEffect } = React;
 
 const SET_ITEMS = "SET_ITEMS";
 const ADD_ITEM = "ADD_ITEM";
@@ -109,7 +107,7 @@ export const CartProvider: React.FC<any> = ({
       id,
       ...initialState,
       items: defaultItems,
-    }),
+    })
   );
 
   const [state, dispatch] = useReducer(reducer, JSON.parse(savedCart));

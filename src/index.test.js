@@ -62,7 +62,7 @@ describe("CartProvider", () => {
     expect(result.current.items).toEqual(initialState.items);
     expect(result.current.totalItems).toEqual(initialState.totalItems);
     expect(result.current.totalUniqueItems).toEqual(
-      initialState.totalUniqueItems,
+      initialState.totalUniqueItems
     );
     expect(result.current.isEmpty).toBe(true);
   });

@@ -1,7 +1,7 @@
-import * as React from "react";
+import { useState } from "react";
 
 export default function useLocalStorage(key, initialValue) {
-  const [storedValue, setStoredValue] = React.useState(() => {
+  const [storedValue, setStoredValue] = useState(() => {
     try {
       const item =
         typeof window !== "undefined" && window.localStorage.getItem(key);

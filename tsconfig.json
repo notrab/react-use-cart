@@ -9,6 +9,7 @@
     "jsx": "react",
     "declaration": true,
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": false, //TODO: should be changed incrementally, was true
     "noImplicitReturns": false, //TODO: should be changed incrementally, was true
     "noImplicitThis": false, //TODO: should be changed incrementally , was true
