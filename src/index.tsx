@@ -30,7 +30,7 @@ interface CartProviderState extends InitialState {
   removeItem: (id: Item["id"]) => void;
   updateItem: (id: Item["id"], item: object) => void;
   updateItemQuantity: (id: Item["id"], quantity: number) => void;
-  clearCart: () => void;
+  emptyCart: () => void;
   getItem: (id: Item["id"]) => any | undefined;
   inCart: (id: Item["id"]) => boolean;
 }
