@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect } from "react";
+import * as React from "react";
 
 import useLocalStorage from "./useLocalStorage";
 
@@ -8,7 +8,7 @@ const UPDATE_ITEM = "UPDATE_ITEM";
 const REMOVE_ITEM = "REMOVE_ITEM";
 const EMPTY_CART = "EMPTY_CART";
 
-const CartContext = createContext<any>(undefined);
+const CartContext = React.createContext<any>(undefined);
 
 export const initialState = {
   items: [],
@@ -20,7 +20,7 @@ export const initialState = {
 export const createCartIdentifier = (len = 12) =>
   [...Array(len)].map(() => (~~(Math.random() * 36)).toString(36)).join("");
 
-export const useCart = () => useContext(CartContext);
+export const useCart = () => React.useContext(CartContext);
 
 function reducer(state, action) {
   switch (action.type) {
@@ -110,8 +110,8 @@ export const CartProvider: React.FC<any> = ({
     })
   );
 
-  const [state, dispatch] = useReducer(reducer, JSON.parse(savedCart));
-  useEffect(() => {
+  const [state, dispatch] = React.useReducer(reducer, JSON.parse(savedCart));
+  React.useEffect(() => {
     saveCart(JSON.stringify(state));
   }, [state, saveCart]);
 
