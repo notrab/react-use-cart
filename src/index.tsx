@@ -124,14 +124,14 @@ const calculateTotalItems = (items = []) =>
 const calculateUniqueItems = (items = []) => items.length;
 
 export const CartProvider: React.FC<{
-  children: React.ReactNode;
-  id: string;
-  defaultItems: Item[];
-  onSetItems: any;
-  onItemAdd: any;
-  onItemUpdate: any;
-  onItemRemove;
-  storage: any;
+  children?: React.ReactNode;
+  id?: string;
+  defaultItems?: Item[];
+  onSetItems?: any;
+  onItemAdd?: any;
+  onItemUpdate?: any;
+  onItemRemove?;
+  storage?: any;
 }> = ({
   children,
   id: cartId,
