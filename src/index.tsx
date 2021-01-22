@@ -130,7 +130,7 @@ export const CartProvider: React.FC<{
   onSetItems?: any;
   onItemAdd?: any;
   onItemUpdate?: any;
-  onItemRemove?;
+  onItemRemove?: any;
   storage?: any;
 }> = ({
   children,
