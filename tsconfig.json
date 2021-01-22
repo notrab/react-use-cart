@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "module": "esnext",
+    "target": "es5",
+    "lib": ["es6", "dom", "es2016", "es2017"],
+    "sourceMap": true,
+    "allowJs": false,
+    "jsx": "react",
+    "declaration": true,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": false, //TODO: should be changed incrementally, was true
+    "noImplicitReturns": false, //TODO: should be changed incrementally, was true
+    "noImplicitThis": false, //TODO: should be changed incrementally , was true
+    "noImplicitAny": false, //TODO: should be changed incrementally, was true
+    "strictNullChecks": false, //TODO: should be changed incrementally, was true
+    "suppressImplicitAnyIndexErrors": false, //TODO: should be changed incrementally, was true
+    "noUnusedLocals": false, //TODO: should be changed incrementally, was true
+    "noUnusedParameters": false //TODO: should be changed incrementally, was true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "examples", "rollup.config.js"]
+}

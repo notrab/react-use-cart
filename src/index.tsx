@@ -1,6 +1,8 @@
-import React, { createContext, useContext, useReducer, useEffect } from "react";
+import * as React from "react";
 
 import useLocalStorage from "./useLocalStorage";
+
+const { createContext, useContext, useReducer, useEffect } = React;
 
 const SET_ITEMS = "SET_ITEMS";
 const ADD_ITEM = "ADD_ITEM";
@@ -8,7 +10,7 @@ const UPDATE_ITEM = "UPDATE_ITEM";
 const REMOVE_ITEM = "REMOVE_ITEM";
 const EMPTY_CART = "EMPTY_CART";
 
-const CartContext = createContext();
+const CartContext = createContext(null);
 
 export const initialState = {
   items: [],
