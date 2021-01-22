@@ -26,7 +26,7 @@ export default {
     babel({
       exclude: "node_modules/**",
     }),
-    typescript({ objectHashIgnoreUnknownHack: true }),
+    typescript(),
     commonjs(),
   ],
 };

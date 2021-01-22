@@ -10,7 +10,7 @@ const UPDATE_ITEM = "UPDATE_ITEM";
 const REMOVE_ITEM = "REMOVE_ITEM";
 const EMPTY_CART = "EMPTY_CART";
 
-const CartContext = createContext(null);
+const CartContext = createContext<any>(undefined);
 
 export const initialState = {
   items: [],
@@ -91,7 +91,7 @@ const calculateTotalItems = (items = []) =>
 
 const calculateUniqueItems = (items = []) => items.length;
 
-export function CartProvider({
+export const CartProvider: React.FC<any> = ({
   children,
   id: cartId,
   defaultItems = [],
@@ -100,7 +100,7 @@ export function CartProvider({
   onItemUpdate,
   onItemRemove,
   storage = useLocalStorage,
-}) {
+}) => {
   const id = cartId ? cartId : createCartIdentifier();
 
   const [savedCart, saveCart] = storage(
@@ -113,7 +113,6 @@ export function CartProvider({
   );
 
   const [state, dispatch] = useReducer(reducer, JSON.parse(savedCart));
-
   useEffect(() => {
     saveCart(JSON.stringify(state));
   }, [state, saveCart]);
@@ -219,4 +218,4 @@ export function CartProvider({
       {children}
     </CartContext.Provider>
   );
-}
+};
