@@ -22,7 +22,7 @@ interface InitialState {
   isEmpty: boolean;
   totalItems: number;
   totalUniqueItems: number;
-  totalCost: number;
+  cartTotal: number;
 }
 
 interface CartProviderState extends InitialState {
