@@ -140,7 +140,7 @@ export const CartProvider: React.FC<{
   storage?: (
     key: string,
     initialValue: string
-  ) => [string, (value: any) => void];
+  ) => [string, (value: Function | string) => void];
 }> = ({
   children,
   id: cartId,

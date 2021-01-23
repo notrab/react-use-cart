@@ -3,7 +3,7 @@ import * as React from "react";
 export default function useLocalStorage(
   key: string,
   initialValue: string
-): [string, (value: any) => void] {
+): [string, (value: Function | string) => void] {
   const [storedValue, setStoredValue] = React.useState(() => {
     try {
       const item =
@@ -15,7 +15,7 @@ export default function useLocalStorage(
     }
   });
 
-  const setValue = (value: any) => {
+  const setValue = (value: Function | string) => {
     try {
       const valueToStore =
         value instanceof Function ? value(storedValue) : value;
