@@ -133,11 +133,14 @@ export const CartProvider: React.FC<{
   children?: React.ReactNode;
   id?: string;
   defaultItems?: Item[];
-  onSetItems?: any;
-  onItemAdd?: any;
-  onItemUpdate?: any;
-  onItemRemove?: any;
-  storage?: any;
+  onSetItems?: (items: Item[]) => void;
+  onItemAdd?: (payload: Item) => void;
+  onItemUpdate?: (payload: object) => void;
+  onItemRemove?: (id: Item["id"]) => void;
+  storage?: (
+    key: string,
+    initialValue: string
+  ) => [string, (value: any) => void];
 }> = ({
   children,
   id: cartId,
