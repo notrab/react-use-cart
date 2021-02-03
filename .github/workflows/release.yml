@@ -1,8 +1,9 @@
-name: Build and Release
+name: Release
 on:
   push:
     branches:
-      - master
+      - main
+      - beta
 jobs:
   release:
     name: Release
