@@ -35,6 +35,7 @@
 - 🥞 Works with Next, Gatsby, React
 - ♻️ Trigger your own side effects with cart handlers (on item add, update, remove)
 - 🛠 Built with TypeScript
+- 🌮 Used by [Dines](https://dines.co.uk/?ref=react-use-cart)
 
 ## Quick Start
 
