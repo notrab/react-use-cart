@@ -3,7 +3,7 @@
   "version": "0.0.0-semantic-release",
   "description": "React hook library for managing cart state.",
   "author": "Jamie Barton <jamie@notrab.dev> (https://twitter.com/notrab)",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "main": "dist/react-use-cart.cjs.js",
   "types": "dist/index.d.js",
   "module": "dist/react-use-cart.es.js",
