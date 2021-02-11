@@ -15,6 +15,12 @@
     <a href="https://github.com/notrab/react-use-cart/blob/main/package.json">
     <img src="https://img.shields.io/npm/l/react-use-cart.svg" alt="License" />
   </a>
+  <a href="https://github.com/notrab/react-use-cart/network/members">
+    <img src="https://img.shields.io/github/forks/notrab/react-use-cart" alt="Forks on GitHub" />
+  </a>
+  <a href="https://github.com/notrab/react-use-cart/stargazers">
+    <img src="https://img.shields.io/github/stars/notrab/react-use-cart" alt="Forks on GitHub" />
+  </a>
 </p>
 
 ## Quick Start
