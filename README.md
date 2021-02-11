@@ -1,8 +1,25 @@
-# react-use-cart
+<h1 align="center">
+  react-use-cart
+</h1>
+<p align="center">
+🛒 A lightweight shopping cart hook for React.
+</p>
 
-🛒 A lightweight cart React hook library. [Demo](https://codesandbox.io/s/react-use-cart-3c7vm)
+<p align="center">
+  <a href="https://npmjs.org/package/react-use-cart">
+    <img src="https://img.shields.io/npm/v/react-use-cart.svg" alt="Version" />
+  </a>
+  <a href="https://npmjs.org/package/react-use-cart">
+    <img src="https://img.shields.io/npm/dw/react-use-cart.svg" alt="Downloads/week" />
+  </a>
+    <a href="https://github.com/notrab/react-use-cart/blob/main/package.json">
+    <img src="https://img.shields.io/npm/l/react-use-cart.svg" alt="License" />
+  </a>
+</p>
 
 ## Quick Start
+
+[Demo](https://codesandbox.io/s/react-use-cart-3c7vm)
 
 ```js
 import { CartProvider, useCart } from "react-use-cart";
@@ -96,7 +113,7 @@ yarn add react-use-cart
 
 You will need to wrap your application with the `CartProvider` component so that the `useCart` hook can access the cart state.
 
-Carts are persisted across visits using `localStorage`.
+Carts are persisted across visits using `localStorage`, unless you specify your own `storage` adapter.
 
 #### Usage
 
