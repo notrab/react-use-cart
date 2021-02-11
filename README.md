@@ -2,7 +2,7 @@
   react-use-cart
 </h1>
 <p align="center">
-🛒 A lightweight shopping cart hook for React.
+🛒 A lightweight shopping cart hook for React, Next.js, and Gatsby
 </p>
 
 <p align="center">
@@ -22,6 +22,15 @@
     <img src="https://img.shields.io/github/stars/notrab/react-use-cart" alt="Forks on GitHub" />
   </a>
 </p>
+
+## Why?
+
+- 💳 Not tied to any payment gateway, or checkout - create your own!
+- 🔥 Persistent carts with local storage, or your own adapter
+- ⭐️ Supports multiples carts per page
+- 🛒 Flexible cart item schema
+- 🥞 Works with Next, Gatsby, React
+- ♻️ Trigger your own side effects with cart handlers (on item add, update, remove)
 
 ## Quick Start
 
@@ -112,7 +121,7 @@ function App() {
 ## Install
 
 ```bash
-yarn add react-use-cart
+npm install react-use-cart # yarn add react-use-cart
 ```
 
 ## `CartProvider`
