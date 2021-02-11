@@ -21,16 +21,20 @@
   <a href="https://github.com/notrab/react-use-cart/stargazers">
     <img src="https://img.shields.io/github/stars/notrab/react-use-cart" alt="Forks on GitHub" />
   </a>
+  <img src="https://badgen.net/bundlephobia/minzip/react-use-cart" alt="minified + gzip size" />
 </p>
 
 ## Why?
 
+- ![Bundle size](https://badgen.net/bundlephobia/minzip/react-use-cart)
+- **No dependencies**
 - 💳 Not tied to any payment gateway, or checkout - create your own!
 - 🔥 Persistent carts with local storage, or your own adapter
 - ⭐️ Supports multiples carts per page
 - 🛒 Flexible cart item schema
 - 🥞 Works with Next, Gatsby, React
 - ♻️ Trigger your own side effects with cart handlers (on item add, update, remove)
+- 🛠 Built with TypeScript
 
 ## Quick Start
 
