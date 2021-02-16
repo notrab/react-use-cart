@@ -337,6 +337,50 @@ describe("updateItemQuantity", () => {
 
     expect(called).toBe(true);
   });
+
+  test("recalculates itemTotal when incrementing item quantity", () => {
+    const item = { id: "test", price: 1000 };
+
+    const wrapper = ({ children }) => (
+      <CartProvider id="test">{children}</CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    act(() => {
+      result.current.addItem(item);
+    });
+
+    act(() => {
+      result.current.updateItemQuantity(item.id, 2);
+    });
+
+    expect(result.current.items[0].itemTotal).toBe(2000);
+  });
+
+  test("recalculates itemTotal when decrementing item quantity", () => {
+    const item = { id: "test", price: 1000, quantity: 2 };
+
+    const wrapper = ({ children }) => (
+      <CartProvider id="test">{children}</CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    act(() => {
+      result.current.addItem(item);
+    });
+
+    act(() => {
+      result.current.updateItemQuantity(item.id, 1);
+    });
+
+    expect(result.current.items[0].itemTotal).toBe(1000);
+  });
 });
 
 describe("removeItem", () => {
