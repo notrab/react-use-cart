@@ -457,7 +457,7 @@ describe("updateCart", () => {
     expect(result.current.metadata).toEqual(metadata);
   });
 
-  test("updates cart metadata", () => {
+  test("merge new metadata with existing", () => {
     const initialMetadata = {
       coupon: "abc123",
     };
