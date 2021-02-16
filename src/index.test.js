@@ -434,30 +434,6 @@ describe("emptyCart", () => {
     expect(result.current.isEmpty).toBe(true);
   });
 });
-describe("emptyCart", () => {
-  test("updates cart meta state", () => {
-    const items = [{ id: "test", price: 1000 }];
-
-    const wrapper = ({ children }) => (
-      <CartProvider id="test" defaultItems={items}>
-        {children}
-      </CartProvider>
-    );
-
-    const { result } = renderHook(() => useCart(), {
-      wrapper,
-    });
-
-    act(() => {
-      result.current.emptyCart();
-    });
-
-    expect(result.current.items).toEqual([]);
-    expect(result.current.totalItems).toBe(0);
-    expect(result.current.totalUniqueItems).toBe(0);
-    expect(result.current.isEmpty).toBe(true);
-  });
-});
 
 describe("updateCart", () => {
   test("updates cart metadata", () => {
