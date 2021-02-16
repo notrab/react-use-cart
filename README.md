@@ -351,7 +351,7 @@ const { isEmpty } = useCart();
 
 ### `getItem(itemId)`
 
-Get a specific cart item by `id`.
+Get a specific cart item by `id`. Returns the item object.
 
 #### Args
 
