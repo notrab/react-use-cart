@@ -304,6 +304,20 @@ const { emptyCart } = useCart();
 emptyCart();
 ```
 
+### `updateCart({})`
+
+The `emptyCart()` will update the `metadata` object on the cart. You must pass it a object.
+
+#### Usage
+
+```js
+import { useCart } from "react-use-cart";
+
+const { updateCart } = useCart();
+
+updateCart({ notes: "Leave in shed" });
+```
+
 ### `items`
 
 This will return the current cart items.
@@ -398,4 +412,16 @@ This method returns the total value of all items in the cart.
 import { useCart } from "react-use-cart";
 
 const { cartTotal } = useCart();
+```
+
+### `metdata`
+
+This method returns the metdata set with `updateCart`. This is useful for storing additional cart, or checkout values.
+
+#### Usage
+
+```js
+import { useCart } from "react-use-cart";
+
+const { metadata } = useCart();
 ```
