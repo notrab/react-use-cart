@@ -106,7 +106,10 @@ function reducer(state: CartProviderState, action: Actions) {
     case "UPDATE_CART":
       return {
         ...state,
-        metadata: action.payload,
+        metadata: {
+          ...state.metadata,
+          ...action.payload,
+        },
       };
 
     default:

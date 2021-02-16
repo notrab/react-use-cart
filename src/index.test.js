@@ -456,4 +456,33 @@ describe("updateCart", () => {
 
     expect(result.current.metadata).toEqual(metadata);
   });
+
+  test("updates cart metadata", () => {
+    const initialMetadata = {
+      coupon: "abc123",
+    };
+
+    const wrapper = ({ children }) => (
+      <CartProvider id="test" metadata={initialMetadata}>
+        {children}
+      </CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    const metadata = {
+      notes: "Leave on door step",
+    };
+
+    act(() => {
+      result.current.updateCart(metadata);
+    });
+
+    expect(result.current.metadata).toEqual({
+      ...initialMetadata,
+      ...metadata,
+    });
+  });
 });
