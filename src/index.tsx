@@ -117,8 +117,8 @@ const generateCartState = (state = initialState, items: Item[]) => {
 
 const calculateItemTotals = (items: Item[]) =>
   items.map((item) => ({
-    itemTotal: item.price * item.quantity!,
     ...item,
+    itemTotal: item.price * item.quantity!,
   }));
 
 const calculateCartTotal = (items: Item[]) =>
