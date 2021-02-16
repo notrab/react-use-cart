@@ -17,7 +17,7 @@ interface InitialState {
   totalItems: number;
   totalUniqueItems: number;
   cartTotal: number;
-  metadata: Metadata;
+  metadata?: Metadata;
 }
 
 interface Metadata {
@@ -44,7 +44,7 @@ export type Actions =
       payload: object;
     }
   | { type: "EMPTY_CART" }
-  | { type: "UPDATE_CART"; payload: Metadata };
+  | { type: "UPDATE_CART_META"; payload: Metadata };
 
 export const initialState: any = {
   items: [],
@@ -103,7 +103,7 @@ function reducer(state: CartProviderState, action: Actions) {
     case "EMPTY_CART":
       return initialState;
 
-    case "UPDATE_CART":
+    case "UPDATE_CART_META":
       return {
         ...state,
         metadata: {
@@ -272,9 +272,9 @@ export const CartProvider: React.FC<{
 
   const inCart = (id: Item["id"]) => state.items.some((i: Item) => i.id === id);
 
-  const updateCart = (metadata: Metadata) =>
+  const updateCartMeta = (metadata: Metadata) =>
     dispatch({
-      type: "UPDATE_CART",
+      type: "UPDATE_CART_META",
       payload: metadata,
     });
 
@@ -290,7 +290,7 @@ export const CartProvider: React.FC<{
         updateItemQuantity,
         removeItem,
         emptyCart,
-        updateCart,
+        updateCartMeta,
       }}
     >
       {children}

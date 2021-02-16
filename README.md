@@ -307,7 +307,7 @@ const { emptyCart } = useCart();
 emptyCart();
 ```
 
-### `updateCart({})`
+### `updateCartMeta(object)`
 
 The `emptyCart()` will update the `metadata` object on the cart. You must pass it a object.
 
@@ -320,14 +320,14 @@ The `emptyCart()` will update the `metadata` object on the cart. You must pass i
 ```js
 import { useCart } from "react-use-cart";
 
-const { updateCart } = useCart();
+const { updateCartMeta } = useCart();
 
-updateCart({ notes: "Leave in shed" });
+updateCartMeta({ notes: "Leave in shed" });
 ```
 
-### `items`
+### `items = []`
 
-This will return the current cart items.
+This will return the current cart items in an array.
 
 #### Usage
 
@@ -337,9 +337,9 @@ import { useCart } from "react-use-cart";
 const { items } = useCart();
 ```
 
-### `isEmpty`
+### `isEmpty = false`
 
-A quick and easy way to check if the cart is empty.
+A quick and easy way to check if the cart is empty. Returned as a boolean.
 
 #### Usage
 
@@ -369,7 +369,7 @@ const myItem = getItem("cjld2cjxh0000qzrmn831i7rn");
 
 ### `inCart(itemId)`
 
-Quickly check if an item is in the cart.
+Quickly check if an item is in the cart. Returned as a boolean.
 
 #### Args
 
@@ -385,9 +385,9 @@ const { inCart } = useCart();
 inCart("cjld2cjxh0000qzrmn831i7rn") ? "In cart" : "Not in cart";
 ```
 
-### `totalItems`
+### `totalItems = 0`
 
-This method returns the totaly quantity of items in the cart.
+This returns the totaly quantity of items in the cart as an integer.
 
 #### Usage
 
@@ -397,9 +397,9 @@ import { useCart } from "react-use-cart";
 const { totalItems } = useCart();
 ```
 
-### `totalUniqueItems`
+### `totalUniqueItems = 0`
 
-This method returns the total unique items in the cart.
+This returns the total unique items in the cart as an integer.
 
 #### Usage
 
@@ -409,9 +409,9 @@ import { useCart } from "react-use-cart";
 const { totalUniqueItems } = useCart();
 ```
 
-### `cartTotal`
+### `cartTotal = 0`
 
-This method returns the total value of all items in the cart.
+This returns the total value of all items in the cart.
 
 #### Usage
 
@@ -421,9 +421,9 @@ import { useCart } from "react-use-cart";
 const { cartTotal } = useCart();
 ```
 
-### `metadata`
+### `metadata = {}`
 
-This method returns the metadata set with `updateCart`. This is useful for storing additional cart, or checkout values.
+This returns the metadata set with `updateCartMeta`. This is useful for storing additional cart, or checkout values.
 
 #### Usage
 
