@@ -17,6 +17,11 @@ interface InitialState {
   totalItems: number;
   totalUniqueItems: number;
   cartTotal: number;
+  metadata: Metadata;
+}
+
+interface Metadata {
+  [key: string]: any;
 }
 
 interface CartProviderState extends InitialState {
@@ -38,7 +43,8 @@ export type Actions =
       id: Item["id"];
       payload: object;
     }
-  | { type: "EMPTY_CART" };
+  | { type: "EMPTY_CART" }
+  | { type: "UPDATE_CART"; payload: Metadata };
 
 export const initialState: any = {
   items: [],
@@ -46,6 +52,7 @@ export const initialState: any = {
   totalItems: 0,
   totalUniqueItems: 0,
   cartTotal: 0,
+  metadata: {},
 };
 
 const CartContext = React.createContext<CartProviderState | undefined>(
@@ -56,9 +63,10 @@ export const createCartIdentifier = (len = 12) =>
   [...Array(len)].map(() => (~~(Math.random() * 36)).toString(36)).join("");
 
 export const useCart = () => {
-  // This makes sure that the cart functions are always defined before calling it.
   const context = React.useContext(CartContext);
+
   if (!context) throw new Error("Expected to be wrapped in a CartProvider");
+
   return context;
 };
 
@@ -94,6 +102,12 @@ function reducer(state: CartProviderState, action: Actions) {
 
     case "EMPTY_CART":
       return initialState;
+
+    case "UPDATE_CART":
+      return {
+        ...state,
+        metadata: action.payload,
+      };
 
     default:
       throw new Error("No action specified");
@@ -141,6 +155,7 @@ export const CartProvider: React.FC<{
     key: string,
     initialValue: string
   ) => [string, (value: Function | string) => void];
+  metadata?: Metadata;
 }> = ({
   children,
   id: cartId,
@@ -150,6 +165,7 @@ export const CartProvider: React.FC<{
   onItemUpdate,
   onItemRemove,
   storage = useLocalStorage,
+  metadata,
 }) => {
   const id = cartId ? cartId : createCartIdentifier();
 
@@ -159,6 +175,7 @@ export const CartProvider: React.FC<{
       id,
       ...initialState,
       items: defaultItems,
+      metadata,
     })
   );
 
@@ -252,6 +269,12 @@ export const CartProvider: React.FC<{
 
   const inCart = (id: Item["id"]) => state.items.some((i: Item) => i.id === id);
 
+  const updateCart = (metadata: Metadata) =>
+    dispatch({
+      type: "UPDATE_CART",
+      payload: metadata,
+    });
+
   return (
     <CartContext.Provider
       value={{
@@ -264,6 +287,7 @@ export const CartProvider: React.FC<{
         updateItemQuantity,
         removeItem,
         emptyCart,
+        updateCart,
       }}
     >
       {children}
