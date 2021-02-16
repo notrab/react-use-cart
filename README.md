@@ -311,6 +311,10 @@ emptyCart();
 
 The `emptyCart()` will update the `metadata` object on the cart. You must pass it a object.
 
+#### Args
+
+- `object`: A object with key/value pairs. The key being a string.
+
 #### Usage
 
 ```js
