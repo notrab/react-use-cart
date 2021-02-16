@@ -156,6 +156,7 @@ ReactDOM.render(
 - `onItemUpdate`: Triggered on items updated in your cart, unless you are setting the quantity to `0`, then `onItemRemove` will be invoked
 - `onItemRemove`: Triggered on items removed from your cart
 - `storage`: Must return `[getter, setter]`
+- `metadata`: A custom metadata object for the cart. Useful for global cart state.
 
 ## `useCart`
 
