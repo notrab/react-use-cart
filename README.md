@@ -150,13 +150,17 @@ ReactDOM.render(
 
 #### Props
 
-- `id`: (_optional_) `id` for your cart to enable automatic cart retrieval via `window.localStorage`. If you pass a `id` then you can use multiple instances of `CartProvider`.
-- `onSetItems`: Triggered only when `setItems` invoked
-- `onItemAdd`: Triggered on items added to your cart, unless the item already exists, then `onItemUpdate` will be invoked
-- `onItemUpdate`: Triggered on items updated in your cart, unless you are setting the quantity to `0`, then `onItemRemove` will be invoked
-- `onItemRemove`: Triggered on items removed from your cart
-- `storage`: Must return `[getter, setter]`
-- `metadata`: A custom metadata object for the cart. Useful for global cart state.
+| Prop         | Required | Description                                                                                                                                                |
+| ------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`         | _No_     | `id` for your cart to enable automatic cart retrieval via `window.localStorage`. If you pass a `id` then you can use multiple instances of `CartProvider`. |
+| `onSetItems` | No       | Triggered only when invoked.                                                                                                                               |
+| `onItemAdd`  | No       |
+
+Triggered on items added to your cart, unless the item already exists, then `onItemUpdate` will be invoked.
+`onItemUpdate` | _No_ | Triggered on items updated in your cart, unless you are setting the quantity to `0`, then `onItemRemove` will be invoked.
+`onItemRemove` | _No_ | Triggered on items removed from your cart.
+`storage` | _No_ | Must return `[getter, setter]`.
+`metadata` | _No_ | Custom global state on the cart. Stored inside of `metadata`.
 
 ## `useCart`
 
