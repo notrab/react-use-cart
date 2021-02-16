@@ -309,7 +309,7 @@ emptyCart();
 
 ### `updateCartMeta(object)`
 
-The `emptyCart()` will update the `metadata` object on the cart. You must pass it a object.
+The `updateCartMeta()` will update the `metadata` object on the cart. You must pass it a object.
 
 #### Args
 
