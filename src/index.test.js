@@ -66,6 +66,25 @@ describe("CartProvider", () => {
     );
     expect(result.current.isEmpty).toBe(true);
   });
+
+  test("sets cart metadata", () => {
+    const metadata = {
+      coupon: "abc123",
+      notes: "Leave on door step",
+    };
+
+    const wrapper = ({ children }) => (
+      <CartProvider id="test" metadata={metadata}>
+        {children}
+      </CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    expect(result.current.metadata).toEqual(metadata);
+  });
 });
 
 describe("addItem", () => {
@@ -457,5 +476,57 @@ describe("emptyCart", () => {
     expect(result.current.totalItems).toBe(0);
     expect(result.current.totalUniqueItems).toBe(0);
     expect(result.current.isEmpty).toBe(true);
+  });
+});
+
+describe("updateCartMetadata", () => {
+  test("updates cart metadata", () => {
+    const wrapper = ({ children }) => (
+      <CartProvider id="test">{children}</CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    const metadata = {
+      coupon: "abc123",
+      notes: "Leave on door step",
+    };
+
+    act(() => {
+      result.current.updateCartMetadata(metadata);
+    });
+
+    expect(result.current.metadata).toEqual(metadata);
+  });
+
+  test("merge new metadata with existing", () => {
+    const initialMetadata = {
+      coupon: "abc123",
+    };
+
+    const wrapper = ({ children }) => (
+      <CartProvider id="test" metadata={initialMetadata}>
+        {children}
+      </CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    const metadata = {
+      notes: "Leave on door step",
+    };
+
+    act(() => {
+      result.current.updateCartMetadata(metadata);
+    });
+
+    expect(result.current.metadata).toEqual({
+      ...initialMetadata,
+      ...metadata,
+    });
   });
 });

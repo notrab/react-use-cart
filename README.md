@@ -150,12 +150,15 @@ ReactDOM.render(
 
 #### Props
 
-- `id`: (_optional_) `id` for your cart to enable automatic cart retrieval via `window.localStorage`. If you pass a `id` then you can use multiple instances of `CartProvider`.
-- `onSetItems`: Triggered only when `setItems` invoked
-- `onItemAdd`: Triggered on items added to your cart, unless the item already exists, then `onItemUpdate` will be invoked
-- `onItemUpdate`: Triggered on items updated in your cart, unless you are setting the quantity to `0`, then `onItemRemove` will be invoked
-- `onItemRemove`: Triggered on items removed from your cart
-- `storage`: Must return `[getter, setter]`
+| Prop           | Required | Description                                                                                                                                                |
+| -------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`           | _No_     | `id` for your cart to enable automatic cart retrieval via `window.localStorage`. If you pass a `id` then you can use multiple instances of `CartProvider`. |
+| `onSetItems`   | _No_     | Triggered only when `setItems` invoked.                                                                                                                    |
+| `onItemAdd`    | _No_     | Triggered on items added to your cart, unless the item already exists, then `onItemUpdate` will be invoked.                                                |
+| `onItemUpdate` | _No_     | Triggered on items updated in your cart, unless you are setting the quantity to `0`, then `onItemRemove` will be invoked.                                  |
+| `onItemRemove` | _No_     | Triggered on items removed from your cart.                                                                                                                 |
+| `storage`      | _No_     | Must return `[getter, setter]`.                                                                                                                            |
+| `metadata`     | _No_     | Custom global state on the cart. Stored inside of `metadata`.                                                                                              |
 
 ## `useCart`
 
@@ -304,9 +307,27 @@ const { emptyCart } = useCart();
 emptyCart();
 ```
 
-### `items`
+### `updateCartMetadata(object)`
 
-This will return the current cart items.
+The `updateCartMetadata()` will update the `metadata` object on the cart. You must pass it a object.
+
+#### Args
+
+- `object`: A object with key/value pairs. The key being a string.
+
+#### Usage
+
+```js
+import { useCart } from "react-use-cart";
+
+const { updateCartMetadata } = useCart();
+
+updateCartMetadata({ notes: "Leave in shed" });
+```
+
+### `items = []`
+
+This will return the current cart items in an array.
 
 #### Usage
 
@@ -316,9 +337,9 @@ import { useCart } from "react-use-cart";
 const { items } = useCart();
 ```
 
-### `isEmpty`
+### `isEmpty = false`
 
-A quick and easy way to check if the cart is empty.
+A quick and easy way to check if the cart is empty. Returned as a boolean.
 
 #### Usage
 
@@ -330,7 +351,7 @@ const { isEmpty } = useCart();
 
 ### `getItem(itemId)`
 
-Get a specific cart item by `id`.
+Get a specific cart item by `id`. Returns the item object.
 
 #### Args
 
@@ -348,7 +369,7 @@ const myItem = getItem("cjld2cjxh0000qzrmn831i7rn");
 
 ### `inCart(itemId)`
 
-Quickly check if an item is in the cart.
+Quickly check if an item is in the cart. Returned as a boolean.
 
 #### Args
 
@@ -364,9 +385,9 @@ const { inCart } = useCart();
 inCart("cjld2cjxh0000qzrmn831i7rn") ? "In cart" : "Not in cart";
 ```
 
-### `totalItems`
+### `totalItems = 0`
 
-This method returns the totaly quantity of items in the cart.
+This returns the totaly quantity of items in the cart as an integer.
 
 #### Usage
 
@@ -376,9 +397,9 @@ import { useCart } from "react-use-cart";
 const { totalItems } = useCart();
 ```
 
-### `totalUniqueItems`
+### `totalUniqueItems = 0`
 
-This method returns the total unique items in the cart.
+This returns the total unique items in the cart as an integer.
 
 #### Usage
 
@@ -388,9 +409,9 @@ import { useCart } from "react-use-cart";
 const { totalUniqueItems } = useCart();
 ```
 
-### `cartTotal`
+### `cartTotal = 0`
 
-This method returns the total value of all items in the cart.
+This returns the total value of all items in the cart.
 
 #### Usage
 
@@ -398,4 +419,16 @@ This method returns the total value of all items in the cart.
 import { useCart } from "react-use-cart";
 
 const { cartTotal } = useCart();
+```
+
+### `metadata = {}`
+
+This returns the metadata set with `updateCartMetadata`. This is useful for storing additional cart, or checkout values.
+
+#### Usage
+
+```js
+import { useCart } from "react-use-cart";
+
+const { metadata } = useCart();
 ```
