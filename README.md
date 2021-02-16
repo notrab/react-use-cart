@@ -421,9 +421,9 @@ import { useCart } from "react-use-cart";
 const { cartTotal } = useCart();
 ```
 
-### `metdata`
+### `metadata`
 
-This method returns the metdata set with `updateCart`. This is useful for storing additional cart, or checkout values.
+This method returns the metadata set with `updateCart`. This is useful for storing additional cart, or checkout values.
 
 #### Usage
 
