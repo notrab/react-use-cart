@@ -435,7 +435,7 @@ describe("emptyCart", () => {
   });
 });
 
-describe("updateCartMeta", () => {
+describe("updateCartMetadata", () => {
   test("updates cart metadata", () => {
     const wrapper = ({ children }) => (
       <CartProvider id="test">{children}</CartProvider>
@@ -451,7 +451,7 @@ describe("updateCartMeta", () => {
     };
 
     act(() => {
-      result.current.updateCartMeta(metadata);
+      result.current.updateCartMetadata(metadata);
     });
 
     expect(result.current.metadata).toEqual(metadata);
@@ -477,7 +477,7 @@ describe("updateCartMeta", () => {
     };
 
     act(() => {
-      result.current.updateCartMeta(metadata);
+      result.current.updateCartMetadata(metadata);
     });
 
     expect(result.current.metadata).toEqual({

@@ -307,9 +307,9 @@ const { emptyCart } = useCart();
 emptyCart();
 ```
 
-### `updateCartMeta(object)`
+### `updateCartMetadata(object)`
 
-The `updateCartMeta()` will update the `metadata` object on the cart. You must pass it a object.
+The `updateCartMetadata()` will update the `metadata` object on the cart. You must pass it a object.
 
 #### Args
 
@@ -320,9 +320,9 @@ The `updateCartMeta()` will update the `metadata` object on the cart. You must p
 ```js
 import { useCart } from "react-use-cart";
 
-const { updateCartMeta } = useCart();
+const { updateCartMetadata } = useCart();
 
-updateCartMeta({ notes: "Leave in shed" });
+updateCartMetadata({ notes: "Leave in shed" });
 ```
 
 ### `items = []`
@@ -423,7 +423,7 @@ const { cartTotal } = useCart();
 
 ### `metadata = {}`
 
-This returns the metadata set with `updateCartMeta`. This is useful for storing additional cart, or checkout values.
+This returns the metadata set with `updateCartMetadata`. This is useful for storing additional cart, or checkout values.
 
 #### Usage
 

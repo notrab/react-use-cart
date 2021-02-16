@@ -2,7 +2,6 @@ import * as React from "react";
 
 import useLocalStorage from "./useLocalStorage";
 
-// Interfaces:
 interface Item {
   id: string;
   price: number;
@@ -272,7 +271,7 @@ export const CartProvider: React.FC<{
 
   const inCart = (id: Item["id"]) => state.items.some((i: Item) => i.id === id);
 
-  const updateCartMeta = (metadata: Metadata) =>
+  const updateCartMetadata = (metadata: Metadata) =>
     dispatch({
       type: "UPDATE_CART_META",
       payload: metadata,
@@ -290,7 +289,7 @@ export const CartProvider: React.FC<{
         updateItemQuantity,
         removeItem,
         emptyCart,
-        updateCartMeta,
+        updateCartMetadata,
       }}
     >
       {children}
