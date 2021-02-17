@@ -196,8 +196,8 @@ export const CartProvider: React.FC<{
   };
 
   const addItem = (item: Item, quantity = 1) => {
-    if (quantity <= 0) return;
     if (!item.id) throw new Error("You must provide an `id` for items");
+    if (quantity <= 0) return;
 
     const currentItem = state.items.find((i: Item) => i.id === item.id);
 
@@ -226,6 +226,10 @@ export const CartProvider: React.FC<{
   };
 
   const updateItem = (id: Item["id"], payload: object) => {
+    if (!id || !payload) {
+      return;
+    }
+
     dispatch({ type: "UPDATE_ITEM", id, payload });
 
     onItemUpdate && onItemUpdate(payload);
@@ -256,6 +260,8 @@ export const CartProvider: React.FC<{
   };
 
   const removeItem = (id: Item["id"]) => {
+    if (!id) return;
+
     dispatch({ type: "REMOVE_ITEM", id });
 
     onItemRemove && onItemRemove(id);
@@ -271,11 +277,14 @@ export const CartProvider: React.FC<{
 
   const inCart = (id: Item["id"]) => state.items.some((i: Item) => i.id === id);
 
-  const updateCartMetadata = (metadata: Metadata) =>
+  const updateCartMetadata = (metadata: Metadata) => {
+    if (!metadata) return;
+
     dispatch({
       type: "UPDATE_CART_META",
       payload: metadata,
     });
+  };
 
   return (
     <CartContext.Provider
