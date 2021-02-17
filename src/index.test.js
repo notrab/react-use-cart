@@ -36,14 +36,13 @@ describe("CartProvider", () => {
       wrapper,
     });
 
+    expect(result.current.id).toBeDefined();
     expect(result.current.id).toEqual("test");
   });
 
   test("creates an ID for cart if non provided", () => {
-    const wrapper = ({ children }) => <CartProvider>{children}</CartProvider>;
-
     const { result } = renderHook(() => useCart(), {
-      wrapper,
+      wrapper: CartProvider,
     });
 
     expect(result.current.id).toBeDefined();
@@ -51,12 +50,8 @@ describe("CartProvider", () => {
   });
 
   test("initial cart meta state is set", () => {
-    const wrapper = ({ children }) => (
-      <CartProvider id="test">{children}</CartProvider>
-    );
-
     const { result } = renderHook(() => useCart(), {
-      wrapper,
+      wrapper: CartProvider,
     });
 
     expect(result.current.items).toEqual(initialState.items);
@@ -74,9 +69,7 @@ describe("CartProvider", () => {
     };
 
     const wrapper = ({ children }) => (
-      <CartProvider id="test" metadata={metadata}>
-        {children}
-      </CartProvider>
+      <CartProvider metadata={metadata}>{children}</CartProvider>
     );
 
     const { result } = renderHook(() => useCart(), {
@@ -89,19 +82,13 @@ describe("CartProvider", () => {
 
 describe("addItem", () => {
   test("adds item to the cart", () => {
-    const wrapper = ({ children }) => (
-      <CartProvider id="test">{children}</CartProvider>
-    );
-
     const { result } = renderHook(() => useCart(), {
-      wrapper,
+      wrapper: CartProvider,
     });
 
     const item = { id: "test", price: 1000 };
 
-    act(() => {
-      result.current.addItem(item);
-    });
+    act(() => result.current.addItem(item));
 
     expect(result.current.items).toHaveLength(1);
     expect(result.current.totalItems).toBe(1);
@@ -109,24 +96,15 @@ describe("addItem", () => {
   });
 
   test("increments existing item quantity in the cart", () => {
-    const wrapper = ({ children }) => (
-      <CartProvider id="test">{children}</CartProvider>
-    );
-
     const { result } = renderHook(() => useCart(), {
-      wrapper,
+      wrapper: CartProvider,
     });
 
     const item = { id: "test", price: 1000 };
     const item2 = { id: "test", price: 1000 };
 
-    act(() => {
-      result.current.addItem(item);
-    });
-
-    act(() => {
-      result.current.addItem(item2);
-    });
+    act(() => result.current.addItem(item));
+    act(() => result.current.addItem(item2));
 
     expect(result.current.items).toHaveLength(1);
     expect(result.current.totalItems).toBe(2);
@@ -134,19 +112,13 @@ describe("addItem", () => {
   });
 
   test("updates cart meta state", () => {
-    const wrapper = ({ children }) => (
-      <CartProvider id="test">{children}</CartProvider>
-    );
-
     const { result } = renderHook(() => useCart(), {
-      wrapper,
+      wrapper: CartProvider,
     });
 
     const item = { id: "test", price: 1000 };
 
-    act(() => {
-      result.current.addItem(item);
-    });
+    act(() => result.current.addItem(item));
 
     expect(result.current.items).toHaveLength(1);
     expect(result.current.totalItems).toBe(1);
@@ -156,19 +128,13 @@ describe("addItem", () => {
   });
 
   test("allows free item", () => {
-    const wrapper = ({ children }) => (
-      <CartProvider id="test">{children}</CartProvider>
-    );
-
     const { result } = renderHook(() => useCart(), {
-      wrapper,
+      wrapper: CartProvider,
     });
 
     const item = { id: "test", price: 0 };
 
-    act(() => {
-      result.current.addItem(item);
-    });
+    act(() => result.current.addItem(item));
 
     expect(result.current.items).toHaveLength(1);
     expect(result.current.totalItems).toBe(1);
@@ -181,9 +147,7 @@ describe("addItem", () => {
     let called = false;
 
     const wrapper = ({ children }) => (
-      <CartProvider id="test" onItemAdd={() => (called = true)}>
-        {children}
-      </CartProvider>
+      <CartProvider onItemAdd={() => (called = true)}>{children}</CartProvider>
     );
 
     const { result } = renderHook(() => useCart(), {
@@ -192,9 +156,7 @@ describe("addItem", () => {
 
     const item = { id: "test", price: 1000 };
 
-    act(() => {
-      result.current.addItem(item);
-    });
+    act(() => result.current.addItem(item));
 
     expect(called).toBe(true);
   });
@@ -205,11 +167,7 @@ describe("addItem", () => {
     const item = { id: "test", price: 1000 };
 
     const wrapper = ({ children }) => (
-      <CartProvider
-        id="test"
-        defaultItems={[item]}
-        onItemUpdate={() => (called = true)}
-      >
+      <CartProvider defaultItems={[item]} onItemUpdate={() => (called = true)}>
         {children}
       </CartProvider>
     );
@@ -218,9 +176,7 @@ describe("addItem", () => {
       wrapper,
     });
 
-    act(() => {
-      result.current.updateItem(item);
-    });
+    act(() => result.current.updateItem(item.id, { price: item.price }));
 
     expect(called).toBe(true);
   });
@@ -232,20 +188,18 @@ describe("updateItem", () => {
     const [item] = items;
 
     const wrapper = ({ children }) => (
-      <CartProvider id="test" defaultItems={items}>
-        {children}
-      </CartProvider>
+      <CartProvider defaultItems={items}>{children}</CartProvider>
     );
 
     const { result } = renderHook(() => useCart(), {
       wrapper,
     });
 
-    act(() => {
+    act(() =>
       result.current.updateItem(item.id, {
         quantity: 2,
-      });
-    });
+      })
+    );
 
     expect(result.current.items).toHaveLength(1);
     expect(result.current.totalItems).toBe(2);
@@ -259,11 +213,7 @@ describe("updateItem", () => {
     const item = { id: "test", price: 1000 };
 
     const wrapper = ({ children }) => (
-      <CartProvider
-        id="test"
-        defaultItems={[item]}
-        onItemUpdate={() => (called = true)}
-      >
+      <CartProvider defaultItems={[item]} onItemUpdate={() => (called = true)}>
         {children}
       </CartProvider>
     );
@@ -272,9 +222,7 @@ describe("updateItem", () => {
       wrapper,
     });
 
-    act(() => {
-      result.current.addItem(item);
-    });
+    act(() => result.current.addItem(item));
 
     expect(called).toBe(true);
   });
@@ -286,18 +234,14 @@ describe("updateItemQuantity", () => {
     const [item] = items;
 
     const wrapper = ({ children }) => (
-      <CartProvider id="test" defaultItems={items}>
-        {children}
-      </CartProvider>
+      <CartProvider defaultItems={items}>{children}</CartProvider>
     );
 
     const { result } = renderHook(() => useCart(), {
       wrapper,
     });
 
-    act(() => {
-      result.current.updateItemQuantity(item.id, 3);
-    });
+    act(() => result.current.updateItemQuantity(item.id, 3));
 
     expect(result.current.items).toHaveLength(1);
     expect(result.current.totalItems).toBe(3);
@@ -311,11 +255,7 @@ describe("updateItemQuantity", () => {
     const item = { id: "test", price: 1000 };
 
     const wrapper = ({ children }) => (
-      <CartProvider
-        id="test"
-        defaultItems={[item]}
-        onItemUpdate={() => (called = true)}
-      >
+      <CartProvider defaultItems={[item]} onItemUpdate={() => (called = true)}>
         {children}
       </CartProvider>
     );
@@ -324,10 +264,9 @@ describe("updateItemQuantity", () => {
       wrapper,
     });
 
-    act(() => {
-      result.current.updateItemQuantity(item.id, 2);
-    });
+    act(() => result.current.updateItemQuantity(item.id, 2));
 
+    expect(result.current.items).toHaveLength(1);
     expect(called).toBe(true);
   });
 
@@ -337,11 +276,7 @@ describe("updateItemQuantity", () => {
     const item = { id: "test", price: 1000 };
 
     const wrapper = ({ children }) => (
-      <CartProvider
-        id="test"
-        defaultItems={[item]}
-        onItemRemove={() => (called = true)}
-      >
+      <CartProvider defaultItems={[item]} onItemRemove={() => (called = true)}>
         {children}
       </CartProvider>
     );
@@ -350,55 +285,42 @@ describe("updateItemQuantity", () => {
       wrapper,
     });
 
-    act(() => {
-      result.current.updateItemQuantity(item.id, 0);
-    });
+    act(() => result.current.updateItemQuantity(item.id, 0));
 
+    expect(result.current.items).toHaveLength(0);
     expect(called).toBe(true);
   });
 
   test("recalculates itemTotal when incrementing item quantity", () => {
     const item = { id: "test", price: 1000 };
 
-    const wrapper = ({ children }) => (
-      <CartProvider id="test">{children}</CartProvider>
-    );
-
     const { result } = renderHook(() => useCart(), {
-      wrapper,
+      wrapper: CartProvider,
     });
 
-    act(() => {
-      result.current.addItem(item);
-    });
+    act(() => result.current.addItem(item));
+    act(() => result.current.updateItemQuantity(item.id, 2));
 
-    act(() => {
-      result.current.updateItemQuantity(item.id, 2);
-    });
-
-    expect(result.current.items[0].itemTotal).toBe(2000);
+    expect(result.current.items).toHaveLength(1);
+    expect(result.current.items).toContainEqual(
+      expect.objectContaining({ itemTotal: 2000, quantity: 2 })
+    );
   });
 
   test("recalculates itemTotal when decrementing item quantity", () => {
     const item = { id: "test", price: 1000, quantity: 2 };
 
-    const wrapper = ({ children }) => (
-      <CartProvider id="test">{children}</CartProvider>
-    );
-
     const { result } = renderHook(() => useCart(), {
-      wrapper,
+      wrapper: CartProvider,
     });
 
-    act(() => {
-      result.current.addItem(item);
-    });
+    act(() => result.current.addItem(item));
+    act(() => result.current.updateItemQuantity(item.id, 1));
 
-    act(() => {
-      result.current.updateItemQuantity(item.id, 1);
-    });
-
-    expect(result.current.items[0].itemTotal).toBe(1000);
+    expect(result.current.items).toHaveLength(1);
+    expect(result.current.items).toContainEqual(
+      expect.objectContaining({ itemTotal: 1000, quantity: 1 })
+    );
   });
 });
 
@@ -408,18 +330,14 @@ describe("removeItem", () => {
     const [item] = items;
 
     const wrapper = ({ children }) => (
-      <CartProvider id="test" defaultItems={items}>
-        {children}
-      </CartProvider>
+      <CartProvider defaultItems={items}>{children}</CartProvider>
     );
 
     const { result } = renderHook(() => useCart(), {
       wrapper,
     });
 
-    act(() => {
-      result.current.removeItem(item.id);
-    });
+    act(() => result.current.removeItem(item.id));
 
     expect(result.current.items).toEqual([]);
     expect(result.current.totalItems).toBe(0);
@@ -433,11 +351,7 @@ describe("removeItem", () => {
     const item = { id: "test", price: 1000 };
 
     const wrapper = ({ children }) => (
-      <CartProvider
-        id="test"
-        defaultItems={[item]}
-        onItemRemove={() => (called = true)}
-      >
+      <CartProvider defaultItems={[item]} onItemRemove={() => (called = true)}>
         {children}
       </CartProvider>
     );
@@ -446,9 +360,7 @@ describe("removeItem", () => {
       wrapper,
     });
 
-    act(() => {
-      result.current.updateItemQuantity(item.id, 0);
-    });
+    act(() => result.current.updateItemQuantity(item.id, 0));
 
     expect(called).toBe(true);
   });
@@ -459,18 +371,14 @@ describe("emptyCart", () => {
     const items = [{ id: "test", price: 1000 }];
 
     const wrapper = ({ children }) => (
-      <CartProvider id="test" defaultItems={items}>
-        {children}
-      </CartProvider>
+      <CartProvider defaultItems={items}>{children}</CartProvider>
     );
 
     const { result } = renderHook(() => useCart(), {
       wrapper,
     });
 
-    act(() => {
-      result.current.emptyCart();
-    });
+    act(() => result.current.emptyCart());
 
     expect(result.current.items).toEqual([]);
     expect(result.current.totalItems).toBe(0);
@@ -481,12 +389,8 @@ describe("emptyCart", () => {
 
 describe("updateCartMetadata", () => {
   test("updates cart metadata", () => {
-    const wrapper = ({ children }) => (
-      <CartProvider id="test">{children}</CartProvider>
-    );
-
     const { result } = renderHook(() => useCart(), {
-      wrapper,
+      wrapper: CartProvider,
     });
 
     const metadata = {
@@ -494,9 +398,7 @@ describe("updateCartMetadata", () => {
       notes: "Leave on door step",
     };
 
-    act(() => {
-      result.current.updateCartMetadata(metadata);
-    });
+    act(() => result.current.updateCartMetadata(metadata));
 
     expect(result.current.metadata).toEqual(metadata);
   });
@@ -507,9 +409,7 @@ describe("updateCartMetadata", () => {
     };
 
     const wrapper = ({ children }) => (
-      <CartProvider id="test" metadata={initialMetadata}>
-        {children}
-      </CartProvider>
+      <CartProvider metadata={initialMetadata}>{children}</CartProvider>
     );
 
     const { result } = renderHook(() => useCart(), {
@@ -520,9 +420,7 @@ describe("updateCartMetadata", () => {
       notes: "Leave on door step",
     };
 
-    act(() => {
-      result.current.updateCartMetadata(metadata);
-    });
+    act(() => result.current.updateCartMetadata(metadata));
 
     expect(result.current.metadata).toEqual({
       ...initialMetadata,
