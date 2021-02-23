@@ -140,7 +140,7 @@ const generateCartState = (state = initialState, items: Item[]) => {
     items: calculateItemTotals(items),
     totalItems: calculateTotalItems(items),
     totalUniqueItems,
-    cartTotal: calculateCartTotal(items),
+    cartTotals: calculateCartTotals(items),
     isEmpty,
   };
 };
@@ -156,7 +156,7 @@ const calculateItemTotals = (items: Item[]) =>
     ),
   }));
 
-const calculateCartTotal = (items: Item[]) =>
+const calculateCartTotals = (items: Item[]) =>
   items.reduce((total, item) => total + item.quantity! * item.price, 0);
 
 const calculateTotalItems = (items: Item[]) =>
