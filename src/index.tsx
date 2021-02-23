@@ -2,11 +2,25 @@ import * as React from "react";
 
 import useLocalStorage from "./useLocalStorage";
 
+interface ItemPrice {
+  amount: number;
+  currency: string;
+}
+
+interface ItemTotal {
+  currency: string;
+  total: number;
+}
+
+interface CartTotal {
+  currency: string;
+  total: number;
+}
 interface Item {
   id: string;
-  price: number;
+  prices: ItemPrice[];
   quantity?: number;
-  itemTotal?: number;
+  itemTotals?: ItemTotal[];
   [key: string]: any;
 }
 
@@ -15,7 +29,7 @@ interface InitialState {
   isEmpty: boolean;
   totalItems: number;
   totalUniqueItems: number;
-  cartTotal: number;
+  cartTotals: CartTotal[];
   metadata?: Metadata;
 }
 
@@ -50,7 +64,7 @@ export const initialState: any = {
   isEmpty: true,
   totalItems: 0,
   totalUniqueItems: 0,
-  cartTotal: 0,
+  cartTotals: [],
   metadata: {},
 };
 
@@ -201,8 +215,8 @@ export const CartProvider: React.FC<{
 
     const currentItem = state.items.find((i: Item) => i.id === item.id);
 
-    if (!currentItem && !item.hasOwnProperty("price"))
-      throw new Error("You must pass a `price` for new items");
+    if (!currentItem && !item.hasOwnProperty("prices"))
+      throw new Error("You must pass `prices` for new items");
 
     if (!currentItem) {
       const payload = { ...item, quantity };
