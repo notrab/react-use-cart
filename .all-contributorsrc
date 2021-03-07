@@ -3,6 +3,7 @@
     "README.md"
   ],
   "imageSize": 100,
+  "badgeTemplate": "<img src="https://img.shields.io/badge/all_contributors-1-orange.svg" alt="Contributors" />",
   "commit": false,
   "contributors": [
     {
@@ -19,6 +20,12 @@
       "name": "Jonathan Steele",
       "avatar_url": "https://avatars.githubusercontent.com/u/3578709?v=4",
       "profile": "http://jonathan.steele.pro",
+    },
+    {
+      "login": "craigtweedy",
+      "name": "Craig Tweedy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/612558?v=4",
+      "profile": "https://github.com/craigtweedy",
       "contributions": [
         "code"
       ]
