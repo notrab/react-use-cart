@@ -13,6 +13,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ynnoj",
+      "name": "Jonathan Steele",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3578709?v=4",
+      "profile": "http://jonathan.steele.pro",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
