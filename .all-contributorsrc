@@ -37,6 +37,15 @@
         "ideas",
         "bug"
       ]
+    },
+    {
+      "login": "spences10",
+      "name": "Scott Spence",
+      "avatar_url": "https://avatars.githubusercontent.com/u/234708?v=4",
+      "profile": "https://scottspence.com",
+      "contributions": [
+        "example"
+      ]
     }
   ],
   "contributorsPerLine": 7,
