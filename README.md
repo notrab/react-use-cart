@@ -447,6 +447,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/getTobiasNielsen"><img src="https://avatars.githubusercontent.com/u/54803528?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tobias Nielsen</b></sub></a><br /><a href="https://github.com/notrab/react-use-cart/commits?author=getTobiasNielsen" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/craigtweedy"><img src="https://avatars.githubusercontent.com/u/612558?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Craig Tweedy</b></sub></a><br /><a href="https://github.com/notrab/react-use-cart/commits?author=craigtweedy" title="Code">💻</a></td>
+    <td align="center"><a href="http://jonathan.steele.pro"><img src="https://avatars.githubusercontent.com/u/3578709?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonathan Steele</b></sub></a><br /><a href="https://github.com/notrab/react-use-cart/commits?author=ynnoj" title="Code">💻</a></td>
   </tr>
 </table>
 
