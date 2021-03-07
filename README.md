@@ -1,7 +1,4 @@
 <h1 align="center">
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
   react-use-cart
 </h1>
 <p align="center">
@@ -25,6 +22,9 @@
     <img src="https://img.shields.io/github/stars/notrab/react-use-cart" alt="Forks on GitHub" />
   </a>
   <img src="https://badgen.net/bundlephobia/minzip/react-use-cart" alt="minified + gzip size" />
+  <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+  <img src="https://img.shields.io/badge/all_contributors-1-orange.svg" alt="Contributors" />
+  <!-- ALL-CONTRIBUTORS-BADGE:END -->
 </p>
 
 ## Why?
