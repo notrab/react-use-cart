@@ -23,7 +23,7 @@
   </a>
   <img src="https://badgen.net/bundlephobia/minzip/react-use-cart" alt="minified + gzip size" />
   <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-  <img src="https://img.shields.io/badge/all_contributors-1-orange.svg" alt="Contributors" />
+  <img src="https://img.shields.io/badge/all_contributors-4-orange.svg" alt="Contributors" />
   <!-- ALL-CONTRIBUTORS-BADGE:END -->
 </p>
 
