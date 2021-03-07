@@ -12,7 +12,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/54803528?v=4",
       "profile": "https://github.com/getTobiasNielsen",
       "contributions": [
-        "code"
+        "code",
+        "ideas"
       ]
     },
     {
@@ -20,6 +21,11 @@
       "name": "Jonathan Steele",
       "avatar_url": "https://avatars.githubusercontent.com/u/3578709?v=4",
       "profile": "http://jonathan.steele.pro",
+      "contributions": [
+        "code",
+        "ideas",
+        "bug"
+      ]
     },
     {
       "login": "craigtweedy",
@@ -27,7 +33,9 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/612558?v=4",
       "profile": "https://github.com/craigtweedy",
       "contributions": [
-        "code"
+        "code",
+        "ideas",
+        "bug"
       ]
     }
   ],
