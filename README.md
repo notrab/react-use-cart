@@ -23,8 +23,8 @@
   </a>
   <img src="https://badgen.net/bundlephobia/minzip/react-use-cart" alt="minified + gzip size" />
   <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-  <img src="https://img.shields.io/badge/all_contributors-1-orange.svg" alt="Contributors" />
-  <!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 </p>
 
 ## Why?
@@ -446,6 +446,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://github.com/getTobiasNielsen"><img src="https://avatars.githubusercontent.com/u/54803528?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tobias Nielsen</b></sub></a><br /><a href="https://github.com/notrab/react-use-cart/commits?author=getTobiasNielsen" title="Code">💻</a></td>
+    <td align="center"><a href="http://jonathan.steele.pro"><img src="https://avatars.githubusercontent.com/u/3578709?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonathan Steele</b></sub></a><br /><a href="https://github.com/notrab/react-use-cart/commits?author=ynnoj" title="Code">💻</a></td>
   </tr>
 </table>
 
