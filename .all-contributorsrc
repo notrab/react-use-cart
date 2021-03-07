@@ -3,6 +3,7 @@
     "README.md"
   ],
   "imageSize": 100,
+  "badgeTemplate": "<img src="https://img.shields.io/badge/all_contributors-1-orange.svg" alt="Contributors" />",
   "commit": false,
   "contributors": [
     {
@@ -11,7 +12,30 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/54803528?v=4",
       "profile": "https://github.com/getTobiasNielsen",
       "contributions": [
-        "code"
+        "code",
+        "ideas"
+      ]
+    },
+    {
+      "login": "ynnoj",
+      "name": "Jonathan Steele",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3578709?v=4",
+      "profile": "http://jonathan.steele.pro",
+      "contributions": [
+        "code",
+        "ideas",
+        "bug"
+      ]
+    },
+    {
+      "login": "craigtweedy",
+      "name": "Craig Tweedy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/612558?v=4",
+      "profile": "https://github.com/craigtweedy",
+      "contributions": [
+        "code",
+        "ideas",
+        "bug"
       ]
     },
     {
