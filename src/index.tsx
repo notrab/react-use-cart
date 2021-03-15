@@ -4,6 +4,7 @@ import useLocalStorage from "./useLocalStorage";
 
 interface Item {
   id: string;
+  discount_price: number;
   price: number;
   quantity?: number;
   itemTotal?: number;
@@ -134,11 +135,11 @@ const generateCartState = (state = initialState, items: Item[]) => {
 const calculateItemTotals = (items: Item[]) =>
   items.map((item) => ({
     ...item,
-    itemTotal: item.price * item.quantity!,
+    itemTotal: item.discount_price * item.quantity!,
   }));
 
 const calculateCartTotal = (items: Item[]) =>
-  items.reduce((total, item) => total + item.quantity! * item.price, 0);
+  items.reduce((total, item) => total + item.quantity! * item.discount_price, 0);
 
 const calculateTotalItems = (items: Item[]) =>
   items.reduce((sum, item) => sum + item.quantity!, 0);
@@ -201,8 +202,8 @@ export const CartProvider: React.FC<{
 
     const currentItem = state.items.find((i: Item) => i.id === item.id);
 
-    if (!currentItem && !item.hasOwnProperty("price"))
-      throw new Error("You must pass a `price` for new items");
+    if (!currentItem && !item.hasOwnProperty("discount_price"))
+      throw new Error("You must pass a `discount_price` for new items");
 
     if (!currentItem) {
       const payload = { ...item, quantity };

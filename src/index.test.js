@@ -86,7 +86,7 @@ describe("addItem", () => {
       wrapper: CartProvider,
     });
 
-    const item = { id: "test", price: 1000 };
+    const item = { id: "test", discount_price: 1000 };
 
     act(() => result.current.addItem(item));
 
@@ -100,8 +100,8 @@ describe("addItem", () => {
       wrapper: CartProvider,
     });
 
-    const item = { id: "test", price: 1000 };
-    const item2 = { id: "test", price: 1000 };
+    const item = { id: "test", discount_price: 1000 };
+    const item2 = { id: "test", discount_price: 1000 };
 
     act(() => result.current.addItem(item));
     act(() => result.current.addItem(item2));
@@ -116,7 +116,7 @@ describe("addItem", () => {
       wrapper: CartProvider,
     });
 
-    const item = { id: "test", price: 1000 };
+    const item = { id: "test", discount_price: 1000 };
 
     act(() => result.current.addItem(item));
 
@@ -132,7 +132,7 @@ describe("addItem", () => {
       wrapper: CartProvider,
     });
 
-    const item = { id: "test", price: 0 };
+    const item = { id: "test", discount_price: 0 };
 
     act(() => result.current.addItem(item));
 
@@ -154,7 +154,7 @@ describe("addItem", () => {
       wrapper,
     });
 
-    const item = { id: "test", price: 1000 };
+    const item = { id: "test", discount_price: 1000 };
 
     act(() => result.current.addItem(item));
 
@@ -164,7 +164,7 @@ describe("addItem", () => {
   test("triggers onItemUpdate when cart has existing item", () => {
     let called = false;
 
-    const item = { id: "test", price: 1000 };
+    const item = { id: "test", discount_price: 1000 };
 
     const wrapper = ({ children }) => (
       <CartProvider defaultItems={[item]} onItemUpdate={() => (called = true)}>
@@ -176,7 +176,9 @@ describe("addItem", () => {
       wrapper,
     });
 
-    act(() => result.current.updateItem(item.id, { price: item.price }));
+    act(() =>
+      result.current.updateItem(item.id, { price: item.discount_price })
+    );
 
     expect(called).toBe(true);
   });
@@ -184,7 +186,7 @@ describe("addItem", () => {
 
 describe("updateItem", () => {
   test("updates cart meta state", () => {
-    const items = [{ id: "test", price: 1000 }];
+    const items = [{ id: "test", discount_price: 1000 }];
     const [item] = items;
 
     const wrapper = ({ children }) => (
@@ -210,7 +212,7 @@ describe("updateItem", () => {
   test("triggers onItemUpdate when updating existing item", () => {
     let called = false;
 
-    const item = { id: "test", price: 1000 };
+    const item = { id: "test", discount_price: 1000 };
 
     const wrapper = ({ children }) => (
       <CartProvider defaultItems={[item]} onItemUpdate={() => (called = true)}>
@@ -230,7 +232,7 @@ describe("updateItem", () => {
 
 describe("updateItemQuantity", () => {
   test("updates cart meta state", () => {
-    const items = [{ id: "test", price: 1000 }];
+    const items = [{ id: "test", discount_price: 1000 }];
     const [item] = items;
 
     const wrapper = ({ children }) => (
@@ -252,7 +254,7 @@ describe("updateItemQuantity", () => {
   test("triggers onItemUpdate when setting quantity above 0", () => {
     let called = false;
 
-    const item = { id: "test", price: 1000 };
+    const item = { id: "test", discount_price: 1000 };
 
     const wrapper = ({ children }) => (
       <CartProvider defaultItems={[item]} onItemUpdate={() => (called = true)}>
@@ -273,7 +275,7 @@ describe("updateItemQuantity", () => {
   test("triggers onItemRemove when setting quantity to 0", () => {
     let called = false;
 
-    const item = { id: "test", price: 1000 };
+    const item = { id: "test", discount_price: 1000 };
 
     const wrapper = ({ children }) => (
       <CartProvider defaultItems={[item]} onItemRemove={() => (called = true)}>
@@ -292,7 +294,7 @@ describe("updateItemQuantity", () => {
   });
 
   test("recalculates itemTotal when incrementing item quantity", () => {
-    const item = { id: "test", price: 1000 };
+    const item = { id: "test", discount_price: 1000 };
 
     const { result } = renderHook(() => useCart(), {
       wrapper: CartProvider,
@@ -308,7 +310,7 @@ describe("updateItemQuantity", () => {
   });
 
   test("recalculates itemTotal when decrementing item quantity", () => {
-    const item = { id: "test", price: 1000, quantity: 2 };
+    const item = { id: "test", discount_price: 1000, quantity: 2 };
 
     const { result } = renderHook(() => useCart(), {
       wrapper: CartProvider,
@@ -326,7 +328,7 @@ describe("updateItemQuantity", () => {
 
 describe("removeItem", () => {
   test("updates cart meta state", () => {
-    const items = [{ id: "test", price: 1000 }];
+    const items = [{ id: "test", discount_price: 1000 }];
     const [item] = items;
 
     const wrapper = ({ children }) => (
@@ -348,7 +350,7 @@ describe("removeItem", () => {
   test("triggers onItemRemove when removing item", () => {
     let called = false;
 
-    const item = { id: "test", price: 1000 };
+    const item = { id: "test", discount_price: 1000 };
 
     const wrapper = ({ children }) => (
       <CartProvider defaultItems={[item]} onItemRemove={() => (called = true)}>
@@ -368,7 +370,7 @@ describe("removeItem", () => {
 
 describe("emptyCart", () => {
   test("updates cart meta state", () => {
-    const items = [{ id: "test", price: 1000 }];
+    const items = [{ id: "test", discount_price: 1000 }];
 
     const wrapper = ({ children }) => (
       <CartProvider defaultItems={items}>{children}</CartProvider>
