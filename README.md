@@ -1,35 +1,12 @@
 <h1 align="center">
-  react-use-cart
+  @africasokoni/react-use-cart
 </h1>
 <p align="center">
 🛒 A lightweight shopping cart hook for React, Next.js, and Gatsby
 </p>
 
-<p align="center">
-  <a href="https://npmjs.org/package/react-use-cart">
-    <img src="https://img.shields.io/npm/v/react-use-cart.svg" alt="Version" />
-  </a>
-  <a href="https://npmjs.org/package/react-use-cart">
-    <img src="https://img.shields.io/npm/dw/react-use-cart.svg" alt="Downloads/week" />
-  </a>
-    <a href="https://github.com/notrab/react-use-cart/blob/main/package.json">
-    <img src="https://img.shields.io/npm/l/react-use-cart.svg" alt="License" />
-  </a>
-  <a href="https://github.com/notrab/react-use-cart/network/members">
-    <img src="https://img.shields.io/github/forks/notrab/react-use-cart" alt="Forks on GitHub" />
-  </a>
-  <a href="https://github.com/notrab/react-use-cart/stargazers">
-    <img src="https://img.shields.io/github/stars/notrab/react-use-cart" alt="Forks on GitHub" />
-  </a>
-  <img src="https://badgen.net/bundlephobia/minzip/react-use-cart" alt="minified + gzip size" />
-  <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-  <img src="https://img.shields.io/badge/all_contributors-4-orange.svg" alt="Contributors" />
-  <!-- ALL-CONTRIBUTORS-BADGE:END -->
-</p>
-
 ## Why?
 
-- ![Bundle size](https://badgen.net/bundlephobia/minzip/react-use-cart)
 - **No dependencies**
 - 💳 Not tied to any payment gateway, or checkout - create your own!
 - 🔥 Persistent carts with local storage, or your own adapter
@@ -42,10 +19,8 @@
 
 ## Quick Start
 
-[Demo](https://codesandbox.io/s/react-use-cart-3c7vm)
-
 ```js
-import { CartProvider, useCart } from "react-use-cart";
+import { CartProvider, useCart } from "@africasokoni/react-use-cart";
 
 function Page() {
   const { addItem } = useCart();
@@ -129,7 +104,7 @@ function App() {
 ## Install
 
 ```bash
-npm install react-use-cart # yarn add react-use-cart
+npm install @africasokoni/react-use-cart # yarn add @africasokoni/react-use-cart
 ```
 
 ## `CartProvider`
@@ -143,7 +118,7 @@ Carts are persisted across visits using `localStorage`, unless you specify your 
 ```js
 import React from "react";
 import ReactDOM from "react-dom";
-import { CartProvider } from "react-use-cart";
+import { CartProvider } from "@africasokoni/react-use-cart";
 
 ReactDOM.render(
   <CartProvider>{/* render app/cart here */}</CartProvider>,
@@ -178,7 +153,7 @@ The `setItems` method should be used to set all items in the cart. This will ove
 #### Usage
 
 ```js
-import { useCart } from "react-use-cart";
+import { useCart } from "@africasokoni/react-use-cart";
 
 const { setItems } = useCart();
 
@@ -192,6 +167,7 @@ const products = [
     width: "B - Standard",
     sku: "W1080LN9",
     price: 15000,
+    discount_price: 10000
   },
   {
     id: "cjld2cjxh0000qzrmn831i7rn",
@@ -202,6 +178,7 @@ const products = [
     width: "B - Standard",
     sku: "W1080LN9",
     price: 15000,
+    discount_price: 10000
   },
 ];
 
@@ -214,13 +191,13 @@ The `addItem` method should be used to add items to the cart.
 
 #### Args
 
-- `item` (**Required**): An object that represents your cart item. You must provide an `id` and `price` value for new items that you add to cart.
+- `item` (**Required**): An object that represents your cart item. You must provide an `id` and `discount_price` value for new items that you add to cart.
 - `quantity` (_optional_, **default**: `1`): The amount of items you want to add.
 
 #### Usage
 
 ```js
-import { useCart } from "react-use-cart";
+import { useCart } from "@africasokoni/react-use-cart";
 
 const { addItem } = useCart();
 
@@ -233,6 +210,7 @@ const product = {
   width: "B - Standard",
   sku: "W1080LN9",
   price: 15000,
+  discount_price: 10000,
 };
 
 addItem(product, 2);
@@ -250,7 +228,7 @@ The `updateItem` method should be used to update items in the cart.
 #### Usage
 
 ```js
-import { useCart } from "react-use-cart";
+import { useCart } from "@africasokoni/react-use-cart";
 
 const { updateItem } = useCart();
 
@@ -271,7 +249,7 @@ The `updateItemQuantity` method should be used to update an items `quantity` val
 #### Usage
 
 ```js
-import { useCart } from "react-use-cart";
+import { useCart } from "@africasokoni/react-use-cart";
 
 const { updateItemQuantity } = useCart();
 
@@ -289,7 +267,7 @@ The `removeItem` method should be used to remove an item from the cart.
 #### Usage
 
 ```js
-import { useCart } from "react-use-cart";
+import { useCart } from "@africasokoni/react-use-cart";
 
 const { removeItem } = useCart();
 
@@ -303,7 +281,7 @@ The `emptyCart()` method should be used to remove all cart items, and resetting 
 #### Usage
 
 ```js
-import { useCart } from "react-use-cart";
+import { useCart } from "@africasokoni/react-use-cart";
 
 const { emptyCart } = useCart();
 
@@ -321,7 +299,7 @@ The `updateCartMetadata()` will update the `metadata` object on the cart. You mu
 #### Usage
 
 ```js
-import { useCart } from "react-use-cart";
+import { useCart } from "@africasokoni/react-use-cart";
 
 const { updateCartMetadata } = useCart();
 
@@ -335,7 +313,7 @@ This will return the current cart items in an array.
 #### Usage
 
 ```js
-import { useCart } from "react-use-cart";
+import { useCart } from "@africasokoni/react-use-cart";
 
 const { items } = useCart();
 ```
@@ -347,7 +325,7 @@ A quick and easy way to check if the cart is empty. Returned as a boolean.
 #### Usage
 
 ```js
-import { useCart } from "react-use-cart";
+import { useCart } from "@africasokoni/react-use-cart";
 
 const { isEmpty } = useCart();
 ```
@@ -363,7 +341,7 @@ Get a specific cart item by `id`. Returns the item object.
 #### Usage
 
 ```js
-import { useCart } from "react-use-cart";
+import { useCart } from "@africasokoni/react-use-cart";
 
 const { getItem } = useCart();
 
@@ -381,7 +359,7 @@ Quickly check if an item is in the cart. Returned as a boolean.
 #### Usage
 
 ```js
-import { useCart } from "react-use-cart";
+import { useCart } from "@africasokoni/react-use-cart";
 
 const { inCart } = useCart();
 
@@ -395,7 +373,7 @@ This returns the totaly quantity of items in the cart as an integer.
 #### Usage
 
 ```js
-import { useCart } from "react-use-cart";
+import { useCart } from "@africasokoni/react-use-cart";
 
 const { totalItems } = useCart();
 ```
@@ -407,7 +385,7 @@ This returns the total unique items in the cart as an integer.
 #### Usage
 
 ```js
-import { useCart } from "react-use-cart";
+import { useCart } from "@africasokoni/react-use-cart";
 
 const { totalUniqueItems } = useCart();
 ```
@@ -419,7 +397,7 @@ This returns the total value of all items in the cart.
 #### Usage
 
 ```js
-import { useCart } from "react-use-cart";
+import { useCart } from "@africasokoni/react-use-cart";
 
 const { cartTotal } = useCart();
 ```
@@ -431,7 +409,7 @@ This returns the metadata set with `updateCartMetadata`. This is useful for stor
 #### Usage
 
 ```js
-import { useCart } from "react-use-cart";
+import { useCart } from "@africasokoni/react-use-cart";
 
 const { metadata } = useCart();
 ```
