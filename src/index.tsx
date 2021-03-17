@@ -55,7 +55,7 @@ export const initialState: any = {
   metadata: {},
 };
 
-const CartContext = React.createContext<CartProviderState | undefined>(
+export const CartContext = React.createContext<CartProviderState | undefined>(
   initialState
 );
 
@@ -139,7 +139,10 @@ const calculateItemTotals = (items: Item[]) =>
   }));
 
 const calculateCartTotal = (items: Item[]) =>
-  items.reduce((total, item) => total + item.quantity! * item.discount_price, 0);
+  items.reduce(
+    (total, item) => total + item.quantity! * item.discount_price,
+    0
+  );
 
 const calculateTotalItems = (items: Item[]) =>
   items.reduce((sum, item) => sum + item.quantity!, 0);
