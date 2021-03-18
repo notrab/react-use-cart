@@ -1,6 +1,6 @@
 {
   "name": "@africasokoni/react-use-cart",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "React hook library for managing cart state.",
   "author": "Jamie Barton <jamie@notrab.dev> (https://twitter.com/notrab)",
   "license": "Apache-2.0",
