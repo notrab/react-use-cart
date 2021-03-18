@@ -28,7 +28,8 @@ interface CartProviderState extends InitialState {
   addItem: (
     item: Item,
     quantity?: number,
-    callback?: (item: Item, quantity?: number) => void
+    onAddCallback?: (item: Item, quantity?: number) => void,
+    onUpdateCallback?: (item: Item, quantity?: number) => void
   ) => void;
   removeItem: (id: Item["id"], callback?: (id: Item["id"]) => void) => void;
   updateItem: (
@@ -218,7 +219,8 @@ export const CartProvider: React.FC<{
   const addItem = (
     item: Item,
     quantity = 1,
-    callback: (item: Item, quantity: number) => void
+    onAddCallback: (item: Item, quantity: number) => void,
+    onUpdateCallback: (item: Item, quantity: number) => void
   ) => {
     if (!item.id) throw new Error("You must provide an `id` for items");
     if (quantity <= 0) return;
@@ -234,7 +236,7 @@ export const CartProvider: React.FC<{
       dispatch({ type: "ADD_ITEM", payload });
 
       onItemAdd && onItemAdd(payload);
-      callback && callback(item, quantity);
+      onAddCallback && onAddCallback(item, quantity);
 
       return;
     }
@@ -248,6 +250,7 @@ export const CartProvider: React.FC<{
     });
 
     onItemUpdate && onItemUpdate(payload);
+    onUpdateCallback && onUpdateCallback(item, currentItem.quantity + quantity);
   };
 
   const updateItem = (
