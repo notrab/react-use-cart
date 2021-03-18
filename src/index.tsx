@@ -25,12 +25,27 @@ interface Metadata {
 }
 
 interface CartProviderState extends InitialState {
-  addItem: (item: Item, quantity?: number) => void;
-  removeItem: (id: Item["id"]) => void;
-  updateItem: (id: Item["id"], payload: object) => void;
-  updateItemQuantity: (id: Item["id"], quantity: number) => void;
-  emptyCart: () => void;
-  getItem: (id: Item["id"]) => any | undefined;
+  addItem: (
+    item: Item,
+    quantity?: number,
+    callback?: (item: Item, quantity?: number) => void
+  ) => void;
+  removeItem: (id: Item["id"], callback?: (id: Item["id"]) => void) => void;
+  updateItem: (
+    id: Item["id"],
+    payload: object,
+    callback?: (id: Item["id"], payload: object) => void
+  ) => void;
+  updateItemQuantity: (
+    id: Item["id"],
+    quantity: number,
+    callback?: (id: Item["id"], quantity: number) => void
+  ) => void;
+  emptyCart: (callback?: () => void) => void;
+  getItem: (
+    id: Item["id"],
+    callback?: (id: Item["id"]) => void
+  ) => any | undefined;
   inCart: (id: Item["id"]) => boolean;
 }
 
