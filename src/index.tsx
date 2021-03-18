@@ -190,16 +190,21 @@ export const CartProvider: React.FC<{
     saveCart(JSON.stringify(state));
   }, [state, saveCart]);
 
-  const setItems = (items: Item[]) => {
+  const setItems = (items: Item[], callback: (items: Item[]) => void) => {
     dispatch({
       type: "SET_ITEMS",
       payload: items,
     });
 
     onSetItems && onSetItems(items);
+    callback && callback(items);
   };
 
-  const addItem = (item: Item, quantity = 1) => {
+  const addItem = (
+    item: Item,
+    quantity = 1,
+    callback: (item: Item, quantity: number) => void
+  ) => {
     if (!item.id) throw new Error("You must provide an `id` for items");
     if (quantity <= 0) return;
 
@@ -214,6 +219,7 @@ export const CartProvider: React.FC<{
       dispatch({ type: "ADD_ITEM", payload });
 
       onItemAdd && onItemAdd(payload);
+      callback && callback(item, quantity);
 
       return;
     }
@@ -229,7 +235,11 @@ export const CartProvider: React.FC<{
     onItemUpdate && onItemUpdate(payload);
   };
 
-  const updateItem = (id: Item["id"], payload: object) => {
+  const updateItem = (
+    id: Item["id"],
+    payload: object,
+    callback: (id: Item["id"], payload: object) => void
+  ) => {
     if (!id || !payload) {
       return;
     }
@@ -237,9 +247,14 @@ export const CartProvider: React.FC<{
     dispatch({ type: "UPDATE_ITEM", id, payload });
 
     onItemUpdate && onItemUpdate(payload);
+    callback && callback(id, payload);
   };
 
-  const updateItemQuantity = (id: Item["id"], quantity: number) => {
+  const updateItemQuantity = (
+    id: Item["id"],
+    quantity: number,
+    callback: (id: Item["id"], quantity: number) => void
+  ) => {
     if (quantity <= 0) {
       onItemRemove && onItemRemove(id);
 
@@ -261,33 +276,43 @@ export const CartProvider: React.FC<{
     });
 
     onItemUpdate && onItemUpdate(payload);
+    callback && callback(id, quantity);
   };
 
-  const removeItem = (id: Item["id"]) => {
+  const removeItem = (id: Item["id"], callback: (id: Item["id"]) => void) => {
     if (!id) return;
 
     dispatch({ type: "REMOVE_ITEM", id });
 
     onItemRemove && onItemRemove(id);
+    callback && callback(id);
   };
 
-  const emptyCart = () =>
+  const emptyCart = (callback: () => void) => {
     dispatch({
       type: "EMPTY_CART",
     });
+
+    callback && callback();
+  };
 
   const getItem = (id: Item["id"]) =>
     state.items.find((i: Item) => i.id === id);
 
   const inCart = (id: Item["id"]) => state.items.some((i: Item) => i.id === id);
 
-  const updateCartMetadata = (metadata: Metadata) => {
+  const updateCartMetadata = (
+    metadata: Metadata,
+    callback: (metadata: Metadata) => void
+  ) => {
     if (!metadata) return;
 
     dispatch({
       type: "UPDATE_CART_META",
       payload: metadata,
     });
+
+    callback && callback(metadata);
   };
 
   return (
