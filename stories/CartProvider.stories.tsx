@@ -1,14 +1,14 @@
-import React from 'react';
-import { Meta, Story } from '@storybook/react';
-import { CartProvider } from '../src';
+import React from "react";
+import { Meta, Story } from "@storybook/react";
+import { CartProvider } from "../src";
 
 const meta: Meta = {
-  title: 'Welcome',
+  title: "Welcome",
   component: CartProvider,
   argTypes: {
     children: {
       control: {
-        type: 'text',
+        type: "text",
       },
     },
   },
@@ -19,7 +19,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story = args => <CartProvider {...args} />;
+const Template: Story = (args) => <CartProvider {...args} />;
 
 export const Default = Template.bind({});
 

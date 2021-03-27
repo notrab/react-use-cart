@@ -1,7 +1,7 @@
-import 'react-app-polyfill/ie11';
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { CartProvider, useCart } from '../.';
+import "react-app-polyfill/ie11";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { CartProvider, useCart } from "../.";
 
 const App = () => {
   return (
@@ -11,4 +11,4 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));

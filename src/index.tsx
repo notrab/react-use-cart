@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import useLocalStorage from './useLocalStorage';
+import useLocalStorage from "./useLocalStorage";
 
 interface Item {
   id: string;
@@ -10,24 +10,13 @@ interface Item {
   [key: string]: any;
 }
 
-interface ShippingItem {
-  id: string;
-  price: number;
-  [key: string]: any;
-}
-
 interface InitialState {
   id: string;
   items: Item[];
-  shipping: ShippingItem[];
   isEmpty: boolean;
   totalItems: number;
   totalUniqueItems: number;
   cartTotal: number;
-  subTotal: number;
-  shippingTotal: number;
-  taxTotal: number;
-  grandTotal: number;
   metadata?: Metadata;
 }
 
@@ -37,27 +26,26 @@ interface Metadata {
 
 interface CartProviderState extends InitialState {
   addItem: (item: Item, quantity?: number) => void;
-  addShipping: (item: ShippingItem) => void;
-  removeItem: (id: Item['id']) => void;
-  updateItem: (id: Item['id'], payload: object) => void;
-  updateItemQuantity: (id: Item['id'], quantity: number) => void;
+  removeItem: (id: Item["id"]) => void;
+  updateItem: (id: Item["id"], payload: object) => void;
+  updateItemQuantity: (id: Item["id"], quantity: number) => void;
   emptyCart: () => void;
-  getItem: (id: Item['id']) => any | undefined;
-  inCart: (id: Item['id']) => boolean;
+  getItem: (id: Item["id"]) => any | undefined;
+  inCart: (id: Item["id"]) => boolean;
   updateCartMetadata: (metadata: Metadata) => void;
 }
 
 export type Actions =
-  | { type: 'SET_ITEMS'; payload: Item[] }
-  | { type: 'ADD_ITEM'; payload: Item }
-  | { type: 'REMOVE_ITEM'; id: Item['id'] }
+  | { type: "SET_ITEMS"; payload: Item[] }
+  | { type: "ADD_ITEM"; payload: Item }
+  | { type: "REMOVE_ITEM"; id: Item["id"] }
   | {
-      type: 'UPDATE_ITEM';
-      id: Item['id'];
+      type: "UPDATE_ITEM";
+      id: Item["id"];
       payload: object;
     }
-  | { type: 'EMPTY_CART' }
-  | { type: 'UPDATE_CART_META'; payload: Metadata };
+  | { type: "EMPTY_CART" }
+  | { type: "UPDATE_CART_META"; payload: Metadata };
 
 export const initialState: any = {
   items: [],
@@ -65,10 +53,6 @@ export const initialState: any = {
   totalItems: 0,
   totalUniqueItems: 0,
   cartTotal: 0,
-  subTotal: 0,
-  shippingTotal: 0,
-  taxTotal: 0,
-  grandTotal: 0,
   metadata: {},
 };
 
@@ -77,28 +61,28 @@ const CartContext = React.createContext<CartProviderState | undefined>(
 );
 
 export const createCartIdentifier = (len = 12) =>
-  [...Array(len)].map(() => (~~(Math.random() * 36)).toString(36)).join('');
+  [...Array(len)].map(() => (~~(Math.random() * 36)).toString(36)).join("");
 
 export const useCart = () => {
   const context = React.useContext(CartContext);
 
-  if (!context) throw new Error('Expected to be wrapped in a CartProvider');
+  if (!context) throw new Error("Expected to be wrapped in a CartProvider");
 
   return context;
 };
 
 function reducer(state: CartProviderState, action: Actions) {
   switch (action.type) {
-    case 'SET_ITEMS':
+    case "SET_ITEMS":
       return generateCartState(state, action.payload);
 
-    case 'ADD_ITEM': {
+    case "ADD_ITEM": {
       const items = [...state.items, action.payload];
 
       return generateCartState(state, items);
     }
 
-    case 'UPDATE_ITEM': {
+    case "UPDATE_ITEM": {
       const items = state.items.map((item: Item) => {
         if (item.id !== action.id) return item;
 
@@ -111,16 +95,16 @@ function reducer(state: CartProviderState, action: Actions) {
       return generateCartState(state, items);
     }
 
-    case 'REMOVE_ITEM': {
+    case "REMOVE_ITEM": {
       const items = state.items.filter((i: Item) => i.id !== action.id);
 
       return generateCartState(state, items);
     }
 
-    case 'EMPTY_CART':
+    case "EMPTY_CART":
       return initialState;
 
-    case 'UPDATE_CART_META':
+    case "UPDATE_CART_META":
       return {
         ...state,
         metadata: {
@@ -130,17 +114,13 @@ function reducer(state: CartProviderState, action: Actions) {
       };
 
     default:
-      throw new Error('No action specified');
+      throw new Error("No action specified");
   }
 }
 
 const generateCartState = (state = initialState, items: Item[]) => {
   const totalUniqueItems = calculateUniqueItems(items);
   const isEmpty = totalUniqueItems === 0;
-
-  const SkuItems = items.filter(({ type }) => type === 'SKU');
-  const shippingItems = items.filter(({ type }) => type === 'SHIPPING');
-  const taxItems = items.filter(({ type }) => type === 'TAX');
 
   return {
     ...initialState,
@@ -149,16 +129,12 @@ const generateCartState = (state = initialState, items: Item[]) => {
     totalItems: calculateTotalItems(items),
     totalUniqueItems,
     cartTotal: calculateTotal(items),
-    subTotal: calculateTotal(SkuItems),
-    shippingTotal: calculateTotal(shippingItems),
-    taxTotal: calculateTotal(taxItems),
-    grandTotal: calculateTotal(items),
     isEmpty,
   };
 };
 
 const calculateItemTotals = (items: Item[]) =>
-  items.map(item => ({
+  items.map((item) => ({
     ...item,
     itemTotal: item.price * item.quantity!,
   }));
@@ -178,7 +154,7 @@ export const CartProvider: React.FC<{
   onSetItems?: (items: Item[]) => void;
   onItemAdd?: (payload: Item) => void;
   onItemUpdate?: (payload: object) => void;
-  onItemRemove?: (id: Item['id']) => void;
+  onItemRemove?: (id: Item["id"]) => void;
   storage?: (
     key: string,
     initialValue: string
@@ -214,7 +190,7 @@ export const CartProvider: React.FC<{
 
   const setItems = (items: Item[]) => {
     dispatch({
-      type: 'SET_ITEMS',
+      type: "SET_ITEMS",
       payload: items,
     });
 
@@ -222,18 +198,18 @@ export const CartProvider: React.FC<{
   };
 
   const addItem = (item: Item, quantity = 1) => {
-    if (!item.id) throw new Error('You must provide an `id` for items');
+    if (!item.id) throw new Error("You must provide an `id` for items");
     if (quantity <= 0) return;
 
     const currentItem = state.items.find((i: Item) => i.id === item.id);
 
-    if (!currentItem && !item.hasOwnProperty('price'))
-      throw new Error('You must pass a `price` for new items');
+    if (!currentItem && !item.hasOwnProperty("price"))
+      throw new Error("You must pass a `price` for new items");
 
     if (!currentItem) {
-      const payload = { ...item, quantity, type: item.type || 'SKU' };
+      const payload = { ...item, quantity };
 
-      dispatch({ type: 'ADD_ITEM', payload });
+      dispatch({ type: "ADD_ITEM", payload });
 
       onItemAdd && onItemAdd(payload);
 
@@ -243,7 +219,7 @@ export const CartProvider: React.FC<{
     const payload = { ...item, quantity: currentItem.quantity + quantity };
 
     dispatch({
-      type: 'UPDATE_ITEM',
+      type: "UPDATE_ITEM",
       id: item.id,
       payload,
     });
@@ -251,33 +227,33 @@ export const CartProvider: React.FC<{
     onItemUpdate && onItemUpdate(payload);
   };
 
-  const updateItem = (id: Item['id'], payload: object) => {
+  const updateItem = (id: Item["id"], payload: object) => {
     if (!id || !payload) {
       return;
     }
 
-    dispatch({ type: 'UPDATE_ITEM', id, payload });
+    dispatch({ type: "UPDATE_ITEM", id, payload });
 
     onItemUpdate && onItemUpdate(payload);
   };
 
-  const updateItemQuantity = (id: Item['id'], quantity: number) => {
+  const updateItemQuantity = (id: Item["id"], quantity: number) => {
     if (quantity <= 0) {
       onItemRemove && onItemRemove(id);
 
-      dispatch({ type: 'REMOVE_ITEM', id });
+      dispatch({ type: "REMOVE_ITEM", id });
 
       return;
     }
 
     const currentItem = state.items.find((item: Item) => item.id === id);
 
-    if (!currentItem) throw new Error('No such item to update');
+    if (!currentItem) throw new Error("No such item to update");
 
     const payload = { ...currentItem, quantity };
 
     dispatch({
-      type: 'UPDATE_ITEM',
+      type: "UPDATE_ITEM",
       id,
       payload,
     });
@@ -285,29 +261,29 @@ export const CartProvider: React.FC<{
     onItemUpdate && onItemUpdate(payload);
   };
 
-  const removeItem = (id: Item['id']) => {
+  const removeItem = (id: Item["id"]) => {
     if (!id) return;
 
-    dispatch({ type: 'REMOVE_ITEM', id });
+    dispatch({ type: "REMOVE_ITEM", id });
 
     onItemRemove && onItemRemove(id);
   };
 
   const emptyCart = () =>
     dispatch({
-      type: 'EMPTY_CART',
+      type: "EMPTY_CART",
     });
 
-  const getItem = (id: Item['id']) =>
+  const getItem = (id: Item["id"]) =>
     state.items.find((i: Item) => i.id === id);
 
-  const inCart = (id: Item['id']) => state.items.some((i: Item) => i.id === id);
+  const inCart = (id: Item["id"]) => state.items.some((i: Item) => i.id === id);
 
   const updateCartMetadata = (metadata: Metadata) => {
     if (!metadata) return;
 
     dispatch({
-      type: 'UPDATE_CART_META',
+      type: "UPDATE_CART_META",
       payload: metadata,
     });
   };
