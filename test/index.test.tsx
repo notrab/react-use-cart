@@ -69,10 +69,7 @@ describe("CartProvider", () => {
       initialState.totalUniqueItems
     );
     expect(result.current.isEmpty).toBe(initialState.isEmpty);
-    expect(result.current.subTotal).toEqual(initialState.subTotal);
-    expect(result.current.shippingTotal).toEqual(initialState.shippingTotal);
-    expect(result.current.taxTotal).toEqual(initialState.taxTotal);
-    expect(result.current.grandTotal).toEqual(initialState.grandTotal);
+    expect(result.current.cartTotal).toEqual(initialState.cartTotal);
   });
 
   test("sets cart metadata", () => {
@@ -194,7 +191,7 @@ describe("addItem", () => {
     expect(called).toBe(true);
   });
 
-  test("add SKU item type implicitly", () => {
+  test("add item with price", () => {
     const { result } = renderHook(() => useCart(), {
       wrapper: CartProvider,
     });
@@ -203,61 +200,7 @@ describe("addItem", () => {
 
     act(() => result.current.addItem(item));
 
-    expect(result.current.subTotal).toBe(1000);
-    expect(result.current.taxTotal).toBe(0);
-    expect(result.current.shippingTotal).toBe(0);
-    expect(result.current.grandTotal).toBe(1000);
-  });
-
-  test("add SKU item type explicitly", () => {
-    const { result } = renderHook(() => useCart(), {
-      wrapper: CartProvider,
-    });
-
-    const item = { id: "test", price: 1000, type: "SKU" };
-
-    act(() => result.current.addItem(item));
-
-    expect(result.current.subTotal).toBe(1000);
-    expect(result.current.taxTotal).toBe(0);
-    expect(result.current.shippingTotal).toBe(0);
-    expect(result.current.grandTotal).toBe(1000);
-  });
-
-  test("adds SKU and TAX item types", () => {
-    const { result } = renderHook(() => useCart(), {
-      wrapper: CartProvider,
-    });
-
-    const skuItem = { id: "skuItem", price: 1000, type: "SKU" };
-    const taxItem = { id: "taxItem", price: 200, type: "TAX" };
-
-    act(() => result.current.addItem(skuItem));
-    act(() => result.current.addItem(taxItem));
-
-    expect(result.current.subTotal).toBe(1000);
-    expect(result.current.taxTotal).toBe(200);
-    expect(result.current.shippingTotal).toBe(0);
-    expect(result.current.grandTotal).toBe(1200);
-  });
-
-  test("adds SKU, TAX and SHIPPING item types", () => {
-    const { result } = renderHook(() => useCart(), {
-      wrapper: CartProvider,
-    });
-
-    const skuItem = { id: "skuItem", price: 1000, type: "SKU" };
-    const taxItem = { id: "taxItem", price: 200, type: "TAX" };
-    const shippingItem = { id: "shippingItem", price: 100, type: "SHIPPING" };
-
-    act(() => result.current.addItem(skuItem));
-    act(() => result.current.addItem(taxItem));
-    act(() => result.current.addItem(shippingItem));
-
-    expect(result.current.subTotal).toBe(1000);
-    expect(result.current.taxTotal).toBe(200);
-    expect(result.current.shippingTotal).toBe(100);
-    expect(result.current.grandTotal).toBe(1300);
+    expect(result.current.cartTotal).toBe(1000);
   });
 });
 
