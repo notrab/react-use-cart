@@ -205,7 +205,7 @@ const products = [
   },
 ];
 
-setItems(products, 2);
+setItems(products);
 ```
 
 ### `addItem(item, quantity)`
