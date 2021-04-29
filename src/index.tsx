@@ -12,6 +12,7 @@ interface Item {
 }
 
 interface InitialState {
+  id: string;
   items: Item[];
   isEmpty: boolean;
   totalItems: number;
@@ -48,6 +49,7 @@ interface CartProviderState extends InitialState {
     callback?: (id: Item["id"]) => void
   ) => any | undefined;
   inCart: (id: Item["id"]) => boolean;
+  updateCartMetadata: (metadata: Metadata) => void;
 }
 
 export type Actions =
@@ -149,7 +151,7 @@ const generateCartState = (state = initialState, items: Item[]) => {
 };
 
 const calculateItemTotals = (items: Item[]) =>
-  items.map((item) => ({
+  items.map(item => ({
     ...item,
     itemTotal: item.discount_price * item.quantity!,
   }));

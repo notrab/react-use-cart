@@ -1,7 +1,16 @@
-import React from "react";
+import React, { FC, HTMLAttributes, ReactChild } from "react";
 import { renderHook, act } from "@testing-library/react-hooks";
 
-import { CartProvider, useCart, initialState, createCartIdentifier } from ".";
+import {
+  CartProvider,
+  useCart,
+  initialState,
+  createCartIdentifier,
+} from "../src";
+
+export interface Props extends HTMLAttributes<HTMLDivElement> {
+  children?: ReactChild;
+}
 
 afterEach(() => window.localStorage.clear());
 
@@ -28,7 +37,7 @@ describe("createCartIdentifier", () => {
 
 describe("CartProvider", () => {
   test("uses ID for cart if provided", () => {
-    const wrapper = ({ children }) => (
+    const wrapper: FC<Props> = ({ children }) => (
       <CartProvider id="test">{children}</CartProvider>
     );
 
@@ -59,7 +68,8 @@ describe("CartProvider", () => {
     expect(result.current.totalUniqueItems).toEqual(
       initialState.totalUniqueItems
     );
-    expect(result.current.isEmpty).toBe(true);
+    expect(result.current.isEmpty).toBe(initialState.isEmpty);
+    expect(result.current.cartTotal).toEqual(initialState.cartTotal);
   });
 
   test("sets cart metadata", () => {
@@ -68,7 +78,7 @@ describe("CartProvider", () => {
       notes: "Leave on door step",
     };
 
-    const wrapper = ({ children }) => (
+    const wrapper: FC<Props> = ({ children }) => (
       <CartProvider metadata={metadata}>{children}</CartProvider>
     );
 
@@ -146,7 +156,7 @@ describe("addItem", () => {
   test("triggers onItemAdd when cart empty", () => {
     let called = false;
 
-    const wrapper = ({ children }) => (
+    const wrapper: FC<Props> = ({ children }) => (
       <CartProvider onItemAdd={() => (called = true)}>{children}</CartProvider>
     );
 
@@ -166,7 +176,7 @@ describe("addItem", () => {
 
     const item = { id: "test", discount_price: 1000 };
 
-    const wrapper = ({ children }) => (
+    const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={[item]} onItemUpdate={() => (called = true)}>
         {children}
       </CartProvider>
@@ -182,6 +192,18 @@ describe("addItem", () => {
 
     expect(called).toBe(true);
   });
+
+  test("add item with price", () => {
+    const { result } = renderHook(() => useCart(), {
+      wrapper: CartProvider,
+    });
+
+    const item = { id: "test", price: 1000 };
+
+    act(() => result.current.addItem(item));
+
+    expect(result.current.cartTotal).toBe(1000);
+  });
 });
 
 describe("updateItem", () => {
@@ -189,7 +211,7 @@ describe("updateItem", () => {
     const items = [{ id: "test", discount_price: 1000 }];
     const [item] = items;
 
-    const wrapper = ({ children }) => (
+    const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={items}>{children}</CartProvider>
     );
 
@@ -214,7 +236,7 @@ describe("updateItem", () => {
 
     const item = { id: "test", discount_price: 1000 };
 
-    const wrapper = ({ children }) => (
+    const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={[item]} onItemUpdate={() => (called = true)}>
         {children}
       </CartProvider>
@@ -235,7 +257,7 @@ describe("updateItemQuantity", () => {
     const items = [{ id: "test", discount_price: 1000 }];
     const [item] = items;
 
-    const wrapper = ({ children }) => (
+    const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={items}>{children}</CartProvider>
     );
 
@@ -256,7 +278,7 @@ describe("updateItemQuantity", () => {
 
     const item = { id: "test", discount_price: 1000 };
 
-    const wrapper = ({ children }) => (
+    const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={[item]} onItemUpdate={() => (called = true)}>
         {children}
       </CartProvider>
@@ -277,7 +299,7 @@ describe("updateItemQuantity", () => {
 
     const item = { id: "test", discount_price: 1000 };
 
-    const wrapper = ({ children }) => (
+    const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={[item]} onItemRemove={() => (called = true)}>
         {children}
       </CartProvider>
@@ -331,7 +353,7 @@ describe("removeItem", () => {
     const items = [{ id: "test", discount_price: 1000 }];
     const [item] = items;
 
-    const wrapper = ({ children }) => (
+    const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={items}>{children}</CartProvider>
     );
 
@@ -352,7 +374,7 @@ describe("removeItem", () => {
 
     const item = { id: "test", discount_price: 1000 };
 
-    const wrapper = ({ children }) => (
+    const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={[item]} onItemRemove={() => (called = true)}>
         {children}
       </CartProvider>
@@ -372,7 +394,7 @@ describe("emptyCart", () => {
   test("updates cart meta state", () => {
     const items = [{ id: "test", discount_price: 1000 }];
 
-    const wrapper = ({ children }) => (
+    const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={items}>{children}</CartProvider>
     );
 
@@ -410,7 +432,7 @@ describe("updateCartMetadata", () => {
       coupon: "abc123",
     };
 
-    const wrapper = ({ children }) => (
+    const wrapper: FC<Props> = ({ children }) => (
       <CartProvider metadata={initialMetadata}>{children}</CartProvider>
     );
 

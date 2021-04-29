@@ -1,6 +1,4 @@
-dist
-node_modules
-
+*.log
 .DS_Store
 .env
 
@@ -9,3 +7,6 @@ yarn-debug.log*
 yarn-error.log*
 yarn.lock
 .idea
+node_modules
+.cache
+dist
