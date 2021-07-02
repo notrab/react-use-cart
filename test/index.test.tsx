@@ -452,7 +452,7 @@ describe("updateCartMetadata", () => {
 });
 describe("setItems", () => {
   test("set cart items state", () => {
-    const items = [{ id: "test", price: 1000, quantity: 2 }, { id: "test2", price: 2000, quantity: 1}];
+    const items = [{ id: "test", price: 1000 }, { id: "test2", price: 2000 }];
     
     const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={[]}>{children}</CartProvider>
@@ -465,7 +465,7 @@ describe("setItems", () => {
       result.current.setItems(items)
     );
     expect(result.current.items).toHaveLength(2);
-    expect(result.current.totalItems).toBe(3);
+    expect(result.current.totalItems).toBe(2);
     expect(result.current.totalUniqueItems).toBe(2);
     expect(result.current.isEmpty).toBe(false);
   })
