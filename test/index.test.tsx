@@ -450,7 +450,7 @@ describe("updateCartMetadata", () => {
     });
   });
 });
-describe.only("setItems", () => {
+describe("setItems", () => {
   test("set cart items state", () => {
     const items = [{ id: "test", price: 1000, quantity: 2 }, { id: "test2", price: 2000, quantity: 1}];
     
