@@ -28,6 +28,7 @@ interface CartProviderState extends InitialState {
   addItem: (item: Item, quantity?: number) => void;
   removeItem: (id: Item["id"]) => void;
   updateItem: (id: Item["id"], payload: object) => void;
+  setItems: (items: Item[]) => void;
   updateItemQuantity: (id: Item["id"], quantity: number) => void;
   emptyCart: () => void;
   getItem: (id: Item["id"]) => any | undefined;
