@@ -28,6 +28,7 @@ interface CartProviderState extends InitialState {
   addItem: (item: Item, quantity?: number) => void;
   removeItem: (id: Item["id"]) => void;
   updateItem: (id: Item["id"], payload: object) => void;
+  setItems: (items: Item[]) => void;
   updateItemQuantity: (id: Item["id"], quantity: number) => void;
   emptyCart: () => void;
   getItem: (id: Item["id"]) => any | undefined;
@@ -191,7 +192,10 @@ export const CartProvider: React.FC<{
   const setItems = (items: Item[]) => {
     dispatch({
       type: "SET_ITEMS",
-      payload: items,
+      payload: items.map(item => ({
+        ...item,
+        quantity: item.quantity || 1
+      })),
     });
 
     onSetItems && onSetItems(items);
