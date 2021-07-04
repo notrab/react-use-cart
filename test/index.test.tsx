@@ -468,5 +468,9 @@ describe("setItems", () => {
     expect(result.current.totalItems).toBe(2);
     expect(result.current.totalUniqueItems).toBe(2);
     expect(result.current.isEmpty).toBe(false);
+    expect(result.current.items).toContainEqual(
+      expect.objectContaining({ id: "test2", price: 2000, quantity: 1 })
+    );
+  })
   })
 })
