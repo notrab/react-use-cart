@@ -488,5 +488,21 @@ describe("setItems", () => {
     expect(result.current.totalItems).toBe(3);
     expect(result.current.totalUniqueItems).toBe(2);
   })
+  test("trigger onSetItems when triggered", () => {
+     let called = false;
+
+    const wrapper: FC<Props> = ({ children }) => (
+      <CartProvider onSetItems={() => (called = true)}>{children}</CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    const items = [{ id: "test", price: 1000 }];
+
+    act(() => result.current.setItems(items));
+
+    expect(called).toBe(true);
   })
 })
