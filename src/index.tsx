@@ -192,12 +192,10 @@ export const CartProvider: React.FC<{
   const setItems = (items: Item[]) => {
     dispatch({
       type: "SET_ITEMS",
-      payload: items.map(item => {
-        return {
-          ...item,
-          quantity: item.quantity || 1
-        }
-      }),
+      payload: items.map(item => ({
+        ...item,
+        quantity: item.quantity || 1
+      })),
     });
 
     onSetItems && onSetItems(items);
