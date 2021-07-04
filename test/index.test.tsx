@@ -489,9 +489,9 @@ describe("setItems", () => {
     expect(result.current.totalUniqueItems).toBe(2);
   })
   test("current items is replaced when setItems has been called with a new set of items", () => {
-    const item = [{ id: "test", price: 1000 }];
+    const itemToBeReplaced = { id: "test", price: 1000 };
     const wrapper: FC<Props> = ({ children }) => (
-      <CartProvider defaultItems={item}>{children}</CartProvider>
+      <CartProvider defaultItems={[itemToBeReplaced]}>{children}</CartProvider>
     );
     const { result } = renderHook(() => useCart(), {
       wrapper,
@@ -502,7 +502,7 @@ describe("setItems", () => {
     );
     expect(result.current.items).toHaveLength(2);
     expect(result.current.items).not.toContainEqual(
-    expect.objectContaining({ id: "test", price: 1000 })
+    expect.objectContaining(itemToBeReplaced)
     );
   })
   test("trigger onSetItems when setItems is called", () => {
