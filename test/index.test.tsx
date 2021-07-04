@@ -488,7 +488,7 @@ describe("setItems", () => {
     expect(result.current.totalItems).toBe(3);
     expect(result.current.totalUniqueItems).toBe(2);
   })
-  test("trigger onSetItems when triggered", () => {
+  test("trigger onSetItems when setItems is called", () => {
      let called = false;
 
     const wrapper: FC<Props> = ({ children }) => (
