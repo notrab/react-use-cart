@@ -1,5 +1,5 @@
 {
-  "name": "react-use-cart",
+  "name": "@africasokoni/react-use-cart",
   "version": "0.0.0-semantic-release",
   "description": "React hook library for managing cart state.",
   "author": "Jamie Barton <jamie@notrab.dev> (https://twitter.com/notrab)",
@@ -63,5 +63,8 @@
     "tsdx": "0.14.1",
     "tslib": "2.1.0",
     "typescript": "4.2.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
