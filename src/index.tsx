@@ -5,7 +5,7 @@ import useLocalStorage from "./useLocalStorage";
 interface Item {
   id: string;
   discount_price: number;
-  price: number;
+  price?: number;
   quantity?: number;
   itemTotal?: number;
   [key: string]: any;
@@ -48,6 +48,7 @@ interface CartProviderState extends InitialState {
     id: Item["id"],
     callback?: (id: Item["id"]) => void
   ) => any | undefined;
+  setItems: (items: Item[], callback?: (items: Item[]) => void) => void;
   inCart: (id: Item["id"]) => boolean;
   updateCartMetadata: (metadata: Metadata) => void;
 }
@@ -211,7 +212,10 @@ export const CartProvider: React.FC<{
   const setItems = (items: Item[], callback: (items: Item[]) => void) => {
     dispatch({
       type: "SET_ITEMS",
-      payload: items,
+      payload: items.map(item => ({
+        ...item,
+        quantity: item.quantity || 1,
+      })),
     });
 
     onSetItems && onSetItems(items);

@@ -141,14 +141,14 @@ ReactDOM.render(
 | `onItemRemove` | _No_     | Triggered on items removed from your cart.                                                                                                                 |
 | `storage`      | _No_     | Must return `[getter, setter]`.                                                                                                                            |
 | `metadata`     | _No_     | Custom global state on the cart. Stored inside of `metadata`.                                                                                              |
-
 ## `useCart`
 
 The `useCart` hook exposes all the getter/setters for your cart state.
 
 ### `setItems(items)`
 
-The `setItems` method should be used to set all items in the cart. This will overwrite any existing cart items.
+The `setItems` method should be used to set all items in the cart. This will overwrite any existing cart items. A `quantity` default of 1 will be set for an item implicitly if no `quantity` is specified.
+
 
 #### Args
 

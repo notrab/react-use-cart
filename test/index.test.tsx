@@ -198,7 +198,7 @@ describe("addItem", () => {
       wrapper: CartProvider,
     });
 
-    const item = { id: "test", price: 1000 };
+    const item = { id: "test", discount_price: 1000 };
 
     act(() => result.current.addItem(item));
 
@@ -450,5 +450,85 @@ describe("updateCartMetadata", () => {
       ...initialMetadata,
       ...metadata,
     });
+  });
+});
+describe("setItems", () => {
+  test("set cart items state", () => {
+    const items = [
+      { id: "test", discount_price: 1000 },
+      { id: "test2", discount_price: 2000 },
+    ];
+
+    const wrapper: FC<Props> = ({ children }) => (
+      <CartProvider defaultItems={[]}>{children}</CartProvider>
+    );
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    act(() => result.current.setItems(items));
+    expect(result.current.items).toHaveLength(2);
+    expect(result.current.totalItems).toBe(2);
+    expect(result.current.totalUniqueItems).toBe(2);
+    expect(result.current.isEmpty).toBe(false);
+    expect(result.current.items).toContainEqual(
+      expect.objectContaining({
+        id: "test2",
+        discount_price: 2000,
+        quantity: 1,
+      })
+    );
+  });
+  test("add custom quantities with setItems", () => {
+    const items = [
+      { id: "test", discount_price: 1000, quantity: 2 },
+      { id: "test2", discount_price: 2000, quantity: 1 },
+    ];
+    const wrapper: FC<Props> = ({ children }) => (
+      <CartProvider defaultItems={[]}>{children}</CartProvider>
+    );
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    act(() => result.current.setItems(items));
+    expect(result.current.items).toHaveLength(2);
+    expect(result.current.totalItems).toBe(3);
+    expect(result.current.totalUniqueItems).toBe(2);
+  });
+  test("current items is replaced when setItems has been called with a new set of items", () => {
+    const itemToBeReplaced = { id: "test", discount_price: 1000 };
+    const wrapper: FC<Props> = ({ children }) => (
+      <CartProvider defaultItems={[itemToBeReplaced]}>{children}</CartProvider>
+    );
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+    const items = [
+      { id: "test2", discount_price: 2000 },
+      { id: "test3", discount_price: 3000 },
+    ];
+    act(() => result.current.setItems(items));
+    expect(result.current.items).toHaveLength(2);
+    expect(result.current.items).not.toContainEqual(
+      expect.objectContaining(itemToBeReplaced)
+    );
+  });
+  test("trigger onSetItems when setItems is called", () => {
+    let called = false;
+
+    const wrapper: FC<Props> = ({ children }) => (
+      <CartProvider onSetItems={() => (called = true)}>{children}</CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), {
+      wrapper,
+    });
+
+    const items = [{ id: "test", discount_price: 1000 }];
+
+    act(() => result.current.setItems(items));
+
+    expect(called).toBe(true);
   });
 });
