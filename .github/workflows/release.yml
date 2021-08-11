@@ -2,7 +2,7 @@ name: Release
 on:
   push:
     branches:
-      - main
+      - fix-release-workflow
       - beta
 jobs:
   release:
@@ -11,16 +11,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 12
+
       - name: Install dependencies
         run: npm ci
+
       - name: Build package
         run: npm run build
+
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.NPM_GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release

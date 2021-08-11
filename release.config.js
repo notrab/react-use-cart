@@ -1,3 +1,3 @@
 module.exports = {
-  branches: ["main", { name: "beta", prerelease: true }],
+  branches: ["fix-release-workflow", { name: "beta", prerelease: true }],
 };
