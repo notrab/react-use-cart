@@ -2,7 +2,7 @@ import * as React from "react";
 
 import useLocalStorage from "./useLocalStorage";
 
-interface Item {
+export interface Item {
   id: string;
   price: number;
   quantity?: number;
@@ -20,7 +20,7 @@ interface InitialState {
   metadata?: Metadata;
 }
 
-interface Metadata {
+export interface Metadata {
   [key: string]: any;
 }
 
