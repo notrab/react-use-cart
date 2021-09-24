@@ -33,6 +33,8 @@ interface CartProviderState extends InitialState {
   emptyCart: () => void;
   getItem: (id: Item["id"]) => any | undefined;
   inCart: (id: Item["id"]) => boolean;
+  clearCartMetadata: () => void;
+  setCartMetadata: (metadata: Metadata) => void;
   updateCartMetadata: (metadata: Metadata) => void;
 }
 
@@ -46,6 +48,8 @@ export type Actions =
       payload: object;
     }
   | { type: "EMPTY_CART" }
+  | { type: "CLEAR_CART_META"}
+  | { type: "SET_CART_META"; payload: Metadata}
   | { type: "UPDATE_CART_META"; payload: Metadata };
 
 export const initialState: any = {
@@ -104,6 +108,20 @@ function reducer(state: CartProviderState, action: Actions) {
 
     case "EMPTY_CART":
       return initialState;
+
+    case "CLEAR_CART_META":
+      return {
+        ...state,
+        metadata: {}
+      };
+
+    case "SET_CART_META":
+      return {
+        ...state,
+        metadata: {
+          ...action.payload
+        }
+      };
 
     case "UPDATE_CART_META":
       return {
@@ -283,6 +301,21 @@ export const CartProvider: React.FC<{
 
   const inCart = (id: Item["id"]) => state.items.some((i: Item) => i.id === id);
 
+  const clearCartMetadata = () => {
+    dispatch({
+      type: "CLEAR_CART_META",
+    });
+  };
+
+  const setCartMetadata = (metadata: Metadata) => {
+    if (!metadata) return;
+
+    dispatch({
+      type: "SET_CART_META",
+      payload: metadata,
+    });
+  };
+
   const updateCartMetadata = (metadata: Metadata) => {
     if (!metadata) return;
 
@@ -304,6 +337,8 @@ export const CartProvider: React.FC<{
         updateItemQuantity,
         removeItem,
         emptyCart,
+        clearCartMetadata,
+        setCartMetadata,
         updateCartMetadata,
       }}
     >

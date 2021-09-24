@@ -314,9 +314,41 @@ const { emptyCart } = useCart();
 emptyCart();
 ```
 
+### `clearCartMetadata()`
+
+The `clearCartMetadata()` will reset the `metadata` to an empty object.
+
+#### Usage
+
+```js
+import { useCart } from "react-use-cart";
+
+const { clearCartMetadata } = useCart();
+
+clearCartMetadata();
+```
+
+### `setCartMetadata(object)`
+
+The `setCartMetadata()` will replace the `metadata` object on the cart. You must pass it an object.
+
+#### Args
+
+- `object`: A object with key/value pairs. The key being a string.
+
+#### Usage
+
+```js
+import { useCart } from "react-use-cart";
+
+const { setCartMetadata } = useCart();
+
+setCartMetadata({ notes: "This is the only metadata" });
+```
+
 ### `updateCartMetadata(object)`
 
-The `updateCartMetadata()` will update the `metadata` object on the cart. You must pass it a object.
+The `updateCartMetadata()` will update the `metadata` object on the cart. You must pass it an object. This will merge the passed object with the existing metadata.
 
 #### Args
 
