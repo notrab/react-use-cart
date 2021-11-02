@@ -1,12 +1,11 @@
-import React, { FC, HTMLAttributes, ReactChild } from "react";
-import { renderHook, act } from "@testing-library/react-hooks";
-
 import {
   CartProvider,
-  useCart,
-  initialState,
   createCartIdentifier,
+  initialState,
+  useCart,
 } from "../src";
+import React, { FC, HTMLAttributes, ReactChild } from "react";
+import { act, renderHook } from "@testing-library/react-hooks";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   children?: ReactChild;
@@ -411,13 +410,13 @@ describe("emptyCart", () => {
 
 describe("updateCartMetadata", () => {
   test("clears cart metadata", () => {
-    const {result} = renderHook(() => useCart(), {
-        wrapper: CartProvider,
+    const { result } = renderHook(() => useCart(), {
+      wrapper: CartProvider,
     });
 
     const metadata = {
-        coupon: "abc123",
-        notes: "Leave on door step",
+      coupon: "abc123",
+      notes: "Leave on door step",
     };
 
     act(() => result.current.updateCartMetadata(metadata));
@@ -430,13 +429,13 @@ describe("updateCartMetadata", () => {
   });
 
   test("sets cart metadata", () => {
-    const {result} = renderHook(() => useCart(), {
-        wrapper: CartProvider,
+    const { result } = renderHook(() => useCart(), {
+      wrapper: CartProvider,
     });
 
     const metadata = {
-        coupon: "abc123",
-        notes: "Leave on door step",
+      coupon: "abc123",
+      notes: "Leave on door step",
     };
 
     act(() => result.current.updateCartMetadata(metadata));
@@ -444,8 +443,8 @@ describe("updateCartMetadata", () => {
     expect(result.current.metadata).toEqual(metadata);
 
     const replaceMetadata = {
-        delivery: "same-day"
-    }
+      delivery: "same-day",
+    };
 
     act(() => result.current.setCartMetadata(replaceMetadata));
 
@@ -494,7 +493,10 @@ describe("updateCartMetadata", () => {
 });
 describe("setItems", () => {
   test("set cart items state", () => {
-    const items = [{ id: "test", price: 1000 }, { id: "test2", price: 2000 }];
+    const items = [
+      { id: "test", price: 1000 },
+      { id: "test2", price: 2000 },
+    ];
 
     const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={[]}>{children}</CartProvider>
@@ -503,9 +505,7 @@ describe("setItems", () => {
       wrapper,
     });
 
-    act(() =>
-      result.current.setItems(items)
-    );
+    act(() => result.current.setItems(items));
     expect(result.current.items).toHaveLength(2);
     expect(result.current.totalItems).toBe(2);
     expect(result.current.totalUniqueItems).toBe(2);
@@ -513,9 +513,12 @@ describe("setItems", () => {
     expect(result.current.items).toContainEqual(
       expect.objectContaining({ id: "test2", price: 2000, quantity: 1 })
     );
-  })
+  });
   test("add custom quantities with setItems", () => {
-    const items = [{ id: "test", price: 1000, quantity: 2 }, { id: "test2", price: 2000, quantity: 1 }];
+    const items = [
+      { id: "test", price: 1000, quantity: 2 },
+      { id: "test2", price: 2000, quantity: 1 },
+    ];
     const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={[]}>{children}</CartProvider>
     );
@@ -523,13 +526,11 @@ describe("setItems", () => {
       wrapper,
     });
 
-    act(() =>
-      result.current.setItems(items)
-    );
+    act(() => result.current.setItems(items));
     expect(result.current.items).toHaveLength(2);
     expect(result.current.totalItems).toBe(3);
     expect(result.current.totalUniqueItems).toBe(2);
-  })
+  });
   test("current items is replaced when setItems has been called with a new set of items", () => {
     const itemToBeReplaced = { id: "test", price: 1000 };
     const wrapper: FC<Props> = ({ children }) => (
@@ -538,17 +539,18 @@ describe("setItems", () => {
     const { result } = renderHook(() => useCart(), {
       wrapper,
     });
-    const items = [{ id: "test2", price: 2000}, { id: "test3", price: 3000}];
-    act(() =>
-      result.current.setItems(items)
-    );
+    const items = [
+      { id: "test2", price: 2000 },
+      { id: "test3", price: 3000 },
+    ];
+    act(() => result.current.setItems(items));
     expect(result.current.items).toHaveLength(2);
     expect(result.current.items).not.toContainEqual(
-    expect.objectContaining(itemToBeReplaced)
+      expect.objectContaining(itemToBeReplaced)
     );
-  })
+  });
   test("trigger onSetItems when setItems is called", () => {
-     let called = false;
+    let called = false;
 
     const wrapper: FC<Props> = ({ children }) => (
       <CartProvider onSetItems={() => (called = true)}>{children}</CartProvider>
@@ -563,5 +565,5 @@ describe("setItems", () => {
     act(() => result.current.setItems(items));
 
     expect(called).toBe(true);
-  })
-})
+  });
+});
