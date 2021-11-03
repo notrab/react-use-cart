@@ -48,8 +48,8 @@ export type Actions =
       payload: object;
     }
   | { type: "EMPTY_CART" }
-  | { type: "CLEAR_CART_META"}
-  | { type: "SET_CART_META"; payload: Metadata}
+  | { type: "CLEAR_CART_META" }
+  | { type: "SET_CART_META"; payload: Metadata }
   | { type: "UPDATE_CART_META"; payload: Metadata };
 
 export const initialState: any = {
@@ -112,15 +112,15 @@ function reducer(state: CartProviderState, action: Actions) {
     case "CLEAR_CART_META":
       return {
         ...state,
-        metadata: {}
+        metadata: {},
       };
 
     case "SET_CART_META":
       return {
         ...state,
         metadata: {
-          ...action.payload
-        }
+          ...action.payload,
+        },
       };
 
     case "UPDATE_CART_META":
@@ -212,7 +212,7 @@ export const CartProvider: React.FC<{
       type: "SET_ITEMS",
       payload: items.map(item => ({
         ...item,
-        quantity: item.quantity || 1
+        quantity: item.quantity || 1,
       })),
     });
 
