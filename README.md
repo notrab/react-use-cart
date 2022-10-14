@@ -28,22 +28,34 @@ function Page() {
 
   const products = [
     {
-      id: 1,
+      id: '12345',
       name: "Malm",
-      price: 9900,
-      quantity: 1
+      discount_price: 9900,
+      quantity: 1,
+      itemSku: {
+        id: '12345-sku',
+        discount_price: 9900,
+      }
     },
     {
       id: 2,
       name: "Nordli",
       price: 16500,
-      quantity: 5
+      quantity: 5, 
+      itemSku: {
+        id: '123456-sku',
+        discount_price: 16500,
+      }
     },
     {
       id: 3,
       name: "Kullen",
-      price: 4500,
-      quantity: 1
+      discount_price: 4500,
+      quantity: 1, 
+      itemSku: {
+        id: '1234567-sku', 
+        discount_price: 4500,
+      }
     },
   ];
 
@@ -165,24 +177,32 @@ const products = [
   {
     id: "ckb64v21u000001ksgw2s42ku",
     name: "Fresh Foam 1080v9",
-    brand: "New Balance",
-    color: "Neon Emerald with Dark Neptune",
-    size: "US 10",
-    width: "B - Standard",
-    sku: "W1080LN9",
-    price: 15000,
-    discount_price: 10000
+    sku: [
+      {
+        id: "693d51a9-d5f7-48a3-8278-deb9b264782f1", 
+        discount_price: 1000.0,
+      }
+    ],
+    discount_price: 10000, 
+    itemSku: {
+      id: "693d51a9-d5f7-48a3-8278-deb9b264782f",
+      discount_price: 1000.0
+    }
   },
   {
     id: "cjld2cjxh0000qzrmn831i7rn",
-    name: "Fresh Foam 1080v9",
-    brand: "New Balance",
-    color: "Neon Emerald with Dark Neptune",
-    size: "US 9",
-    width: "B - Standard",
-    sku: "W1080LN9",
-    price: 15000,
-    discount_price: 10000
+    name: "Fresh Foam 1080v90",
+    discount_price: 10000,
+    sku: [
+      {
+        id: "693d51a9-d5f7-48a3-8278-deb9b264782f",
+        discount_price: 1000.0,
+      }
+    ],
+    itemSku: {
+      id: "693d51a9-d5f7-48a3-8278-deb9b264782f",
+      discount_price: 1000.0,
+    }
   },
 ];
 
@@ -207,14 +227,18 @@ const { addItem } = useCart();
 
 const product = {
   id: "cjld2cjxh0000qzrmn831i7rn",
-  name: "Fresh Foam 1080v9",
-  brand: "New Balance",
-  color: "Neon Emerald with Dark Neptune",
-  size: "US 9",
-  width: "B - Standard",
-  sku: "W1080LN9",
-  price: 15000,
+  name: "Fresh Foam 1080v9", 
   discount_price: 10000,
+    sku: [
+      {
+        id: "693d51a9-d5f7-48a3-8278-deb9b264782f", 
+        discount_price: 1000.0,
+      }
+    ],
+    itemSku: {
+      id: "693d51a9-d5f7-48a3-8278-deb9b264782f", 
+      discount_price: 1000.0,
+    }
 };
 
 addItem(product, 2);
