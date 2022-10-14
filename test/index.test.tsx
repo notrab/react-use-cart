@@ -1,12 +1,11 @@
-import React, { FC, HTMLAttributes, ReactChild } from "react";
-import { renderHook, act } from "@testing-library/react-hooks";
-
 import {
   CartProvider,
-  useCart,
-  initialState,
   createCartIdentifier,
+  initialState,
+  useCart,
 } from "../src";
+import React, { FC, HTMLAttributes, ReactChild } from "react";
+import { act, renderHook } from "@testing-library/react-hooks";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   children?: ReactChild;
@@ -412,6 +411,48 @@ describe("emptyCart", () => {
 });
 
 describe("updateCartMetadata", () => {
+  test("clears cart metadata", () => {
+    const { result } = renderHook(() => useCart(), {
+      wrapper: CartProvider,
+    });
+
+    const metadata = {
+      coupon: "abc123",
+      notes: "Leave on door step",
+    };
+
+    act(() => result.current.updateCartMetadata(metadata));
+
+    expect(result.current.metadata).toEqual(metadata);
+
+    act(() => result.current.clearCartMetadata());
+
+    expect(result.current.metadata).toEqual({});
+  });
+
+  test("sets cart metadata", () => {
+    const { result } = renderHook(() => useCart(), {
+      wrapper: CartProvider,
+    });
+
+    const metadata = {
+      coupon: "abc123",
+      notes: "Leave on door step",
+    };
+
+    act(() => result.current.updateCartMetadata(metadata));
+
+    expect(result.current.metadata).toEqual(metadata);
+
+    const replaceMetadata = {
+      delivery: "same-day",
+    };
+
+    act(() => result.current.setCartMetadata(replaceMetadata));
+
+    expect(result.current.metadata).toEqual(replaceMetadata);
+  });
+
   test("updates cart metadata", () => {
     const { result } = renderHook(() => useCart(), {
       wrapper: CartProvider,
