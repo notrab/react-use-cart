@@ -2,12 +2,20 @@ import * as React from "react";
 
 import useLocalStorage from "./useLocalStorage";
 
+interface ItemSku {
+  id: string;
+  discount_price: number;
+  price: number;
+  stock: number;
+}
+
 interface Item {
   id: string;
   discount_price: number;
   price?: number;
   quantity?: number;
   itemTotal?: number;
+  selectedSku: ItemSku;
   [key: string]: any;
 }
 
