@@ -1,18 +1,24 @@
-import React, { FC, HTMLAttributes, ReactChild } from "react";
-import { renderHook, act } from "@testing-library/react-hooks";
-
 import {
   CartProvider,
-  useCart,
-  initialState,
   createCartIdentifier,
+  initialState,
+  useCart,
 } from "../src";
+import React, { FC, HTMLAttributes, ReactChild } from "react";
+import { act, renderHook } from "@testing-library/react-hooks";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   children?: ReactChild;
 }
 
 afterEach(() => window.localStorage.clear());
+
+const sku = {
+  id: "1234",
+  price: 2000,
+  discount_price: 1000,
+  stock: 10,
+};
 
 describe("createCartIdentifier", () => {
   test("returns a 12 character string by default", () => {
@@ -96,7 +102,7 @@ describe("addItem", () => {
       wrapper: CartProvider,
     });
 
-    const item = { id: "test", discount_price: 1000 };
+    const item = { id: "test", discount_price: 1000, selectedSku: sku };
 
     act(() => result.current.addItem(item));
 
@@ -110,8 +116,8 @@ describe("addItem", () => {
       wrapper: CartProvider,
     });
 
-    const item = { id: "test", discount_price: 1000 };
-    const item2 = { id: "test", discount_price: 1000 };
+    const item = { id: "test", discount_price: 1000, selectedSku: sku };
+    const item2 = { id: "test", discount_price: 1000, selectedSku: sku };
 
     act(() => result.current.addItem(item));
     act(() => result.current.addItem(item2));
@@ -126,7 +132,7 @@ describe("addItem", () => {
       wrapper: CartProvider,
     });
 
-    const item = { id: "test", discount_price: 1000 };
+    const item = { id: "test", discount_price: 1000, selectedSku: sku };
 
     act(() => result.current.addItem(item));
 
@@ -142,7 +148,7 @@ describe("addItem", () => {
       wrapper: CartProvider,
     });
 
-    const item = { id: "test", discount_price: 0 };
+    const item = { id: "test", discount_price: 0, selectedSku: sku };
 
     act(() => result.current.addItem(item));
 
@@ -164,7 +170,7 @@ describe("addItem", () => {
       wrapper,
     });
 
-    const item = { id: "test", discount_price: 1000 };
+    const item = { id: "test", discount_price: 1000, selectedSku: sku };
 
     act(() => result.current.addItem(item));
 
@@ -174,7 +180,7 @@ describe("addItem", () => {
   test("triggers onItemUpdate when cart has existing item", () => {
     let called = false;
 
-    const item = { id: "test", discount_price: 1000 };
+    const item = { id: "test", discount_price: 1000, selectedSku: sku };
 
     const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={[item]} onItemUpdate={() => (called = true)}>
@@ -198,7 +204,7 @@ describe("addItem", () => {
       wrapper: CartProvider,
     });
 
-    const item = { id: "test", discount_price: 1000 };
+    const item = { id: "test", discount_price: 1000, selectedSku: sku };
 
     act(() => result.current.addItem(item));
 
@@ -208,7 +214,7 @@ describe("addItem", () => {
 
 describe("updateItem", () => {
   test("updates cart meta state", () => {
-    const items = [{ id: "test", discount_price: 1000 }];
+    const items = [{ id: "test", discount_price: 1000, selectedSku: sku }];
     const [item] = items;
 
     const wrapper: FC<Props> = ({ children }) => (
@@ -234,7 +240,7 @@ describe("updateItem", () => {
   test("triggers onItemUpdate when updating existing item", () => {
     let called = false;
 
-    const item = { id: "test", discount_price: 1000 };
+    const item = { id: "test", discount_price: 1000, selectedSku: sku };
 
     const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={[item]} onItemUpdate={() => (called = true)}>
@@ -254,7 +260,7 @@ describe("updateItem", () => {
 
 describe("updateItemQuantity", () => {
   test("updates cart meta state", () => {
-    const items = [{ id: "test", discount_price: 1000 }];
+    const items = [{ id: "test", discount_price: 1000, selectedSku: sku }];
     const [item] = items;
 
     const wrapper: FC<Props> = ({ children }) => (
@@ -276,7 +282,7 @@ describe("updateItemQuantity", () => {
   test("triggers onItemUpdate when setting quantity above 0", () => {
     let called = false;
 
-    const item = { id: "test", discount_price: 1000 };
+    const item = { id: "test", discount_price: 1000, selectedSku: sku };
 
     const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={[item]} onItemUpdate={() => (called = true)}>
@@ -297,7 +303,7 @@ describe("updateItemQuantity", () => {
   test("triggers onItemRemove when setting quantity to 0", () => {
     let called = false;
 
-    const item = { id: "test", discount_price: 1000 };
+    const item = { id: "test", discount_price: 1000, selectedSku: sku };
 
     const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={[item]} onItemRemove={() => (called = true)}>
@@ -316,7 +322,7 @@ describe("updateItemQuantity", () => {
   });
 
   test("recalculates itemTotal when incrementing item quantity", () => {
-    const item = { id: "test", discount_price: 1000 };
+    const item = { id: "test", discount_price: 1000, selectedSku: sku };
 
     const { result } = renderHook(() => useCart(), {
       wrapper: CartProvider,
@@ -332,7 +338,12 @@ describe("updateItemQuantity", () => {
   });
 
   test("recalculates itemTotal when decrementing item quantity", () => {
-    const item = { id: "test", discount_price: 1000, quantity: 2 };
+    const item = {
+      id: "test",
+      discount_price: 1000,
+      quantity: 2,
+      selectedSku: sku,
+    };
 
     const { result } = renderHook(() => useCart(), {
       wrapper: CartProvider,
@@ -350,7 +361,7 @@ describe("updateItemQuantity", () => {
 
 describe("removeItem", () => {
   test("updates cart meta state", () => {
-    const items = [{ id: "test", discount_price: 1000 }];
+    const items = [{ id: "test", discount_price: 1000, selectedSku: sku }];
     const [item] = items;
 
     const wrapper: FC<Props> = ({ children }) => (
@@ -372,7 +383,7 @@ describe("removeItem", () => {
   test("triggers onItemRemove when removing item", () => {
     let called = false;
 
-    const item = { id: "test", discount_price: 1000 };
+    const item = { id: "test", discount_price: 1000, selectedSku: sku };
 
     const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={[item]} onItemRemove={() => (called = true)}>
@@ -392,7 +403,7 @@ describe("removeItem", () => {
 
 describe("emptyCart", () => {
   test("updates cart meta state", () => {
-    const items = [{ id: "test", discount_price: 1000 }];
+    const items = [{ id: "test", discount_price: 1000, selectedSku: sku }];
 
     const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={items}>{children}</CartProvider>
@@ -412,6 +423,48 @@ describe("emptyCart", () => {
 });
 
 describe("updateCartMetadata", () => {
+  test("clears cart metadata", () => {
+    const { result } = renderHook(() => useCart(), {
+      wrapper: CartProvider,
+    });
+
+    const metadata = {
+      coupon: "abc123",
+      notes: "Leave on door step",
+    };
+
+    act(() => result.current.updateCartMetadata(metadata));
+
+    expect(result.current.metadata).toEqual(metadata);
+
+    act(() => result.current.clearCartMetadata());
+
+    expect(result.current.metadata).toEqual({});
+  });
+
+  test("sets cart metadata", () => {
+    const { result } = renderHook(() => useCart(), {
+      wrapper: CartProvider,
+    });
+
+    const metadata = {
+      coupon: "abc123",
+      notes: "Leave on door step",
+    };
+
+    act(() => result.current.updateCartMetadata(metadata));
+
+    expect(result.current.metadata).toEqual(metadata);
+
+    const replaceMetadata = {
+      delivery: "same-day",
+    };
+
+    act(() => result.current.setCartMetadata(replaceMetadata));
+
+    expect(result.current.metadata).toEqual(replaceMetadata);
+  });
+
   test("updates cart metadata", () => {
     const { result } = renderHook(() => useCart(), {
       wrapper: CartProvider,
@@ -455,8 +508,8 @@ describe("updateCartMetadata", () => {
 describe("setItems", () => {
   test("set cart items state", () => {
     const items = [
-      { id: "test", discount_price: 1000 },
-      { id: "test2", discount_price: 2000 },
+      { id: "test", discount_price: 1000, selectedSku: sku },
+      { id: "test2", discount_price: 2000, selectedSku: sku },
     ];
 
     const wrapper: FC<Props> = ({ children }) => (
@@ -481,8 +534,8 @@ describe("setItems", () => {
   });
   test("add custom quantities with setItems", () => {
     const items = [
-      { id: "test", discount_price: 1000, quantity: 2 },
-      { id: "test2", discount_price: 2000, quantity: 1 },
+      { id: "test", discount_price: 1000, quantity: 2, selectedSku: sku },
+      { id: "test2", discount_price: 2000, quantity: 1, selectedSku: sku },
     ];
     const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={[]}>{children}</CartProvider>
@@ -497,7 +550,11 @@ describe("setItems", () => {
     expect(result.current.totalUniqueItems).toBe(2);
   });
   test("current items is replaced when setItems has been called with a new set of items", () => {
-    const itemToBeReplaced = { id: "test", discount_price: 1000 };
+    const itemToBeReplaced = {
+      id: "test",
+      discount_price: 1000,
+      selectedSku: sku,
+    };
     const wrapper: FC<Props> = ({ children }) => (
       <CartProvider defaultItems={[itemToBeReplaced]}>{children}</CartProvider>
     );
@@ -505,8 +562,8 @@ describe("setItems", () => {
       wrapper,
     });
     const items = [
-      { id: "test2", discount_price: 2000 },
-      { id: "test3", discount_price: 3000 },
+      { id: "test2", discount_price: 2000, selectedSku: sku },
+      { id: "test3", discount_price: 3000, selectedSku: sku },
     ];
     act(() => result.current.setItems(items));
     expect(result.current.items).toHaveLength(2);
@@ -525,7 +582,7 @@ describe("setItems", () => {
       wrapper,
     });
 
-    const items = [{ id: "test", discount_price: 1000 }];
+    const items = [{ id: "test", discount_price: 1000, selectedSku: sku }];
 
     act(() => result.current.setItems(items));
 
