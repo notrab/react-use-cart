@@ -5,17 +5,17 @@ import useLocalStorage from "./useLocalStorage";
 interface ItemSku {
   id: string;
   discount_price: number;
-  price: number;
-  stock: number;
+  price?: number;
+  metadata?: Metadata;
 }
 
 export interface Item {
   id: string;
   discount_price: number;
+  itemSku: ItemSku;
   price?: number;
   quantity?: number;
   itemTotal?: number;
-  selectedSku: ItemSku;
   [key: string]: any;
 }
 
@@ -180,12 +180,12 @@ const generateCartState = (state = initialState, items: Item[]) => {
 const calculateItemTotals = (items: Item[]) =>
   items.map(item => ({
     ...item,
-    itemTotal: item.discount_price * item.quantity!,
+    itemTotal: item.itemSku.discount_price * item.quantity!,
   }));
 
 const calculateCartTotal = (items: Item[]) =>
   items.reduce(
-    (total, item) => total + item.quantity! * item.discount_price,
+    (total, item) => total + item.quantity! * item.itemSku.discount_price,
     0
   );
 
