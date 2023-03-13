@@ -406,6 +406,21 @@ describe("emptyCart", () => {
     expect(result.current.totalUniqueItems).toBe(0);
     expect(result.current.isEmpty).toBe(true);
   });
+
+  test("triggers onEmptyCart when empty cart", () => {
+    let called = false;
+
+    const wrapper: FC<Props> = ({ children }) => (
+      <CartProvider onEmptyCart={() => (called = true)}>
+        {children}
+      </CartProvider>
+    );
+
+    const { result } = renderHook(() => useCart(), { wrapper });
+
+    act(() => result.current.emptyCart());
+    expect(called).toBe(true);
+  });
 });
 
 describe("updateCartMetadata", () => {
