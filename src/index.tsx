@@ -10,7 +10,7 @@ export interface Item {
   [key: string]: any;
 }
 
-interface InitialState {
+export interface InitialState {
   id: string;
   items: Item[];
   isEmpty: boolean;
@@ -24,7 +24,7 @@ export interface Metadata {
   [key: string]: any;
 }
 
-interface CartProviderState extends InitialState {
+export interface CartProviderState extends InitialState {
   addItem: (item: Item, quantity?: number) => void;
   removeItem: (id: Item["id"]) => void;
   updateItem: (id: Item["id"], payload: object) => void;
