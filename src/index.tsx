@@ -174,6 +174,7 @@ export const CartProvider: React.FC<{
   onItemAdd?: (payload: Item) => void;
   onItemUpdate?: (payload: object) => void;
   onItemRemove?: (id: Item["id"]) => void;
+  onEmptyCart?: () => void;
   storage?: (
     key: string,
     initialValue: string
@@ -187,6 +188,7 @@ export const CartProvider: React.FC<{
   onItemAdd,
   onItemUpdate,
   onItemRemove,
+  onEmptyCart,
   storage = useLocalStorage,
   metadata,
 }) => {
@@ -291,10 +293,11 @@ export const CartProvider: React.FC<{
     onItemRemove && onItemRemove(id);
   };
 
-  const emptyCart = () =>
-    dispatch({
-      type: "EMPTY_CART",
-    });
+  const emptyCart = () => {
+    dispatch({ type: "EMPTY_CART" });
+
+    onEmptyCart && onEmptyCart();
+  }
 
   const getItem = (id: Item["id"]) =>
     state.items.find((i: Item) => i.id === id);
