@@ -1,9 +1,16 @@
 name: Release
+
 on:
   push:
     branches:
       - main
       - beta
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 jobs:
   release:
     name: Release
