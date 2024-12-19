@@ -3,8 +3,8 @@ import * as React from "react";
 import useLocalStorage from "./useLocalStorage";
 
 export interface Item {
-  id: string;
-  price: number;
+  id: string | number;
+  price?: number;
   quantity?: number;
   itemTotal?: number;
   [key: string]: any;
@@ -155,11 +155,11 @@ const generateCartState = (state = initialState, items: Item[]) => {
 const calculateItemTotals = (items: Item[]) =>
   items.map(item => ({
     ...item,
-    itemTotal: item.price * item.quantity!,
+    itemTotal: item.price! * item.quantity!,
   }));
 
 const calculateTotal = (items: Item[]) =>
-  items.reduce((total, item) => total + item.quantity! * item.price, 0);
+  items.reduce((total, item) => total + item.quantity! * item.price!, 0);
 
 const calculateTotalItems = (items: Item[]) =>
   items.reduce((sum, item) => sum + item.quantity!, 0);
@@ -221,26 +221,40 @@ export const CartProvider: React.FC<{
     onSetItems && onSetItems(items);
   };
 
-  const addItem = (item: Item, quantity = 1) => {
+  const addItem = (item: Item) => {
     if (!item.id) throw new Error("You must provide an `id` for items");
-    if (quantity <= 0) return;
+    if (!item.price) {
+      item.price = 0;
+    }
+    if (!item.quantity) {
+      item.quantity = 1;
+    }
+
+    if (item.price < 0 || item.quantity < 1) return;
 
     const currentItem = state.items.find((i: Item) => i.id === item.id);
 
-    if (!currentItem && !item.hasOwnProperty("price"))
-      throw new Error("You must pass a `price` for new items");
-
+    // if item doesn't in cart, add it
     if (!currentItem) {
-      const payload = { ...item, quantity };
+      const payload = {
+        ...item,
+      };
 
-      dispatch({ type: "ADD_ITEM", payload });
+      dispatch({
+        type: "ADD_ITEM",
+        payload,
+      });
 
       onItemAdd && onItemAdd(payload);
 
       return;
     }
 
-    const payload = { ...item, quantity: currentItem.quantity + quantity };
+    // if item existed in the cart
+    const payload = {
+      ...item,
+      quantity: currentItem.quantity + item.quantity,
+    };
 
     dispatch({
       type: "UPDATE_ITEM",
@@ -297,7 +311,7 @@ export const CartProvider: React.FC<{
     dispatch({ type: "EMPTY_CART" });
 
     onEmptyCart && onEmptyCart();
-  }
+  };
 
   const getItem = (id: Item["id"]) =>
     state.items.find((i: Item) => i.id === id);
